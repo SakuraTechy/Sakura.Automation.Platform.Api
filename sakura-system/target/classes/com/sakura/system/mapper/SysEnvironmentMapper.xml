@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.system.mapper.SysEnvironmentMapper">
+
+    <sql id="sysEnvironmentOrderBy">
+        order by a.create_time
+    </sql>
+
+    <sql id="sysEnvironmentJoins">
+    </sql>
+
+    <sql id="selectEnvironmentVo">
+        SELECT
+        @i := @i + 1 'index',
+        a.*
+        FROM
+        (
+        SELECT
+        a.id,
+        a.environment_name,
+        a.common_config,
+        a.version_config,
+        a.domain_config,
+        a.account_config,
+        a.server_config,
+        a.database_config,
+        a.create_by_name,
+        a.create_by,
+        a.create_time,
+        a.create_dept,
+        a.update_by,
+        a.update_time,
+        a.update_ip,
+        a.status,
+        a.remark,
+        a.del_flag,
+        a.version,
+        p.id as projectId,
+        p.project_name,
+        p.description,
+        p.latest_version
+        FROM sys_environment a
+        LEFT JOIN sys_project_environment pe ON a.id = pe.environment_id
+        LEFT JOIN sys_project p ON pe.project_id = p.id
+        WHERE
+        a.del_flag = '0'
+        GROUP BY
+        a.id
+        ORDER BY
+        a.create_time
+        ) a,
+        ( SELECT @i := 0 ) r
+    </sql>
+
+    <select id="findList" parameterType="string" resultMap="sysEnvironmentResult">
+        <include refid="selectEnvironmentVo"/>
+        where a.del_flag = #{DEL_FLAG_NORMAL}
+        <if test="environmentName != null and environmentName != ''">
+            AND a.environment_name like concat('%', #{environmentName}, '%')
+        </if>
+        <include refid="sysEnvironmentOrderBy"/>
+    </select>
+
+    <select id="get" parameterType="string" resultMap="sysEnvironmentResult">
+        <include refid="selectEnvironmentVo"/>
+        where a.id = #{id}
+        <include refid="sysEnvironmentOrderBy"/>
+    </select>
+
+    <resultMap id="sysEnvironmentResult" type="sysEnvironment">
+        <id property="id" column="id"/>
+        <result property="environmentName" column="environment_name"/>
+        <result property="commonConfig" column="common_config"/>
+        <result property="versionConfig" column="version_config"/>
+        <result property="domainConfig" column="domain_config"/>
+        <result property="accountConfig" column="account_config"/>
+        <result property="serverConfig" column="server_config"/>
+        <result property="dataBaseConfig" column="database_config"/>
+        <result property="createByName" column="create_by_name"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createDept" column="create_dept"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateIp" column="update_ip"/>
+        <result property="status" column="status"/>
+        <result property="remark" column="remark"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="version" column="version"/>
+        <association property="sysProjectList" javaType="java.util.List" resultMap="sysProjectResult"/>
+    </resultMap>
+
+    <resultMap id="sysProjectResult" type="sysProject">
+        <id property="id" column="projectId"/>
+        <result property="projectName" column="project_name"/>
+        <result property="description" column="description"/>
+        <result property="latestVersion" column="latest_version"/>
+    </resultMap>
+
+    <insert id="insert">
+        INSERT INTO sys_environment(
+            id,
+            environment_name,
+            common_config,
+            version_config,
+            domain_config,
+            account_config,
+            server_config,
+            database_config,
+            create_by_name,
+            create_by,
+            create_time,
+            create_dept,
+            update_by,
+            update_time,
+            update_ip,
+            status,
+            remark,
+            del_flag,
+            version
+            )
+        VALUES (
+            #{id},
+            #{environmentName},
+            #{commonConfig},
+            #{versionConfig},
+            #{domainConfig},
+            #{accountConfig},
+            #{serverConfig},
+            #{dataBaseConfig},
+            #{createByName},
+            #{createBy},
+            #{createTime},
+            #{createDept},
+            #{updateBy},
+            #{updateTime},
+            #{updateIp},
+            #{status},
+            #{remark},
+            #{delFlag},
+            #{version}
+            )
+    </insert>
+
+    <update id="update">
+        update sys_environment
+        <set>
+            environment_name = #{environmentName},
+            <if test="commonConfig != null and commonConfig != '' and commonConfig != 'null'">common_config = #{commonConfig},</if>
+            <if test="versionConfig != 'null'">version_config = #{versionConfig},</if>
+            <if test="domainConfig != 'null'">domain_config = #{domainConfig},</if>
+            <if test="accountConfig != 'null'">account_config = #{accountConfig},</if>
+            <if test="serverConfig != 'null'">server_config = #{serverConfig},</if>
+            <if test="dataBaseConfig != 'null'">database_config = #{dataBaseConfig},</if>
+            update_by = #{updateBy},
+            update_time = #{updateTime},
+            update_ip = #{updateIp},
+            status = #{status},
+            remark = #{remark},
+            del_flag = #{delFlag},
+            version = version + 1
+        </set>
+        where id = #{id}
+    </update>
+
+<!--    <update id="update">-->
+<!--        UPDATE sys_environment-->
+<!--        SET environment_name = #{environmentName},-->
+<!--            common_config    = #{commonConfig},-->
+<!--            version_config  = #{versionConfig},-->
+<!--            domain_config  = #{domainConfig},-->
+<!--            account_config  = #{accountConfig},-->
+<!--            server_config  = #{serverConfig},-->
+<!--            database_config    = #{dataBaseConfig},-->
+<!--            update_by        = #{updateBy},-->
+<!--            update_time      = #{updateTime},-->
+<!--            update_ip        = #{updateIp},-->
+<!--            status           = #{status},-->
+<!--            remark           = #{remark},-->
+<!--            del_flag         = #{delFlag},-->
+<!--            version          = version + 1-->
+<!--        WHERE id = #{id}-->
+<!--    </update>-->
+
+    <update id="deleteSysEnvironmentByIds">
+        UPDATE sys_environment SET
+        del_flag = '1'
+        WHERE id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <delete id="deleteProjectEnvironment" parameterType="sysEnvironment">
+        DELETE FROM sys_project_environment
+            WHERE environment_id = #{id}
+    </delete>
+
+    <insert id="insertProjectEnvironment" parameterType="sysEnvironment">
+        INSERT INTO sys_project_environment values
+        <if test="projectIds !=null and projectIds.length>0">
+            <foreach collection="projectIds" item="projectId" separator=",">
+                (#{projectId},#{id})
+            </foreach>
+        </if>
+        <if test="projectId != null and projectId != ''">
+            (#{projectId},#{id})
+        </if>
+    </insert>
+
+    <delete id="deleteProjectEnvironmentByIds">
+        DELETE FROM sys_project_environment
+        WHERE environment_id IN
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

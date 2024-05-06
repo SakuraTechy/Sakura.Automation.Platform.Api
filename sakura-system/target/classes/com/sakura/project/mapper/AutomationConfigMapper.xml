@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.project.mapper.AutomationConfigMapper">
+
+    <sql id="automationConfigColumns">
+        a.id as "id",
+        a.name as "name",
+        a.description as "description",
+        a.type as "type",
+        a.project_config as "projectConfig",
+        a.jenkins_config as "jenkinsConfig",
+        a.environment_config as "environmentConfig",
+        a.browser_config as "browserConfig",
+        a.last_project as "lastProject",
+        a.last_jenkins as "lastJenkins",
+        a.last_environment as "lastEnvironment",
+        a.last_browser as "lastBrowser",
+        a.status as "status",
+        a.del_flag as "delFlag",
+        a.create_by as "createBy",
+        a.create_by_name as "createByName",
+        a.create_dept as "createDept",
+        a.create_time as "createTime",
+        a.update_by as "updateBy",
+        a.update_by_name as "updateByName",
+        a.update_time as "updateTime",
+        a.update_ip as "updateIp",
+        a.remark as "remark",
+        a.version as "version"
+    </sql>
+
+    <sql id="automationConfigJoins">
+    </sql>
+
+    <select id="get" resultType="AutomationConfig">
+        SELECT
+        <include refid="automationConfigColumns"/>
+        FROM automation_config a
+        <include refid="automationConfigJoins"/>
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="findList" resultType="AutomationConfig">
+        SELECT
+        <include refid="automationConfigColumns"/>
+        FROM automation_config a
+        <include refid="automationConfigJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test="id != null and id != ''">
+                and a.id like concat('%', #{id}, '%')
+            </if>
+            <if test="name != null and name != ''">
+                and a.name like concat('%', #{name}, '%')
+            </if>
+            <if test="description != null and description != ''">
+                and a.description like concat('%', #{description}, '%')
+            </if>
+            <if test="type != null and type != ''">
+                and a.type like concat('%', #{type}, '%')
+            </if>
+            <if test="status != null">
+                and a.status = #{status}
+            </if>
+            <if test="createByName != null and createByName != ''">
+                and a.create_by_name like concat('%', #{createByName}, '%')
+            </if>
+            <if test="createStartTime != null and createStartTime != '' and createEndTime != null and createEndTime != ''">
+                and a.create_time between #{createStartTime} and #{createEndTime}
+            </if>
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findListWithUnique" resultType="AutomationConfig">
+        SELECT
+        a.id
+        FROM automation_config a
+        <include refid="automationConfigJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test="id != null and id != '' and id != 'null'">
+                AND a.id = #{id}
+            </if>
+            <if test="type != null and type != '' and type != 'null'">
+                AND a.type = #{type}
+            </if>
+            <if test="name != null and name != '' and name != 'null'">
+                AND a.name = #{name}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO automation_config(id,
+                                       name,
+                                       description,
+                                       type,
+                                       project_config,
+                                       jenkins_config,
+                                       environment_config,
+                                       browser_config,
+                                       last_project,
+                                       last_environment,
+                                       last_browser,
+                                       status,
+                                       remark,
+                                       create_by,
+                                       create_by_name,
+                                       create_dept,
+                                       create_time,
+                                       update_by,
+                                       update_by_name,
+                                       update_time,
+                                       update_ip,
+                                       version,
+                                       del_flag)
+        VALUES (#{id},
+                #{name},
+                #{description},
+                #{type},
+                #{projectConfig},
+                #{jenkinsConfig},
+                #{environmentConfig},
+                #{browserConfig},
+                #{lastProject},
+                #{lastEnvironment},
+                #{lastBrowser},
+                #{status},
+                #{remark},
+                #{createBy},
+                #{createByName},
+                #{createDept},
+                #{createTime},
+                #{updateBy},
+                #{updateByName},
+                #{updateTime},
+                #{updateIp},
+                #{version},
+                #{delFlag})
+    </insert>
+
+    <update id="update">
+        update automation_config
+        <set>
+            <if test="name != null and name != '' and name != 'null'">name = #{name},</if>
+            <if test="description != null and description != '' and description != 'null'">description = #{description},</if>
+            <if test="type != null and type != '' and type != 'null'">type = #{type},</if>
+            <if test="projectConfig != null and projectConfig != '' and projectConfig != 'null'">project_config = #{projectConfig},</if>
+            <if test="jenkinsConfig != null and jenkinsConfig != '' and jenkinsConfig != 'null'">jenkins_config = #{jenkinsConfig},</if>
+            <if test="environmentConfig != null and environmentConfig != '' and environmentConfig != 'null'">environment_config = #{environmentConfig},</if>
+            <if test="browserConfig != null and browserConfig != '' and browserConfig != 'null'">browser_config = #{browserConfig},</if>
+            <if test="lastProject != null and lastProject != '' and lastProject != 'null'">last_project = #{lastProject},</if>
+            <if test="lastJenkins != null and lastJenkins != '' and lastJenkins != 'null'">last_jenkins = #{lastJenkins},</if>
+            <if test="lastEnvironment != null and lastEnvironment != '' and lastEnvironment != 'null'">last_environment = #{lastEnvironment},</if>
+            <if test="lastBrowser != null and lastBrowser != '' and lastBrowser != 'null'">last_browser = #{lastBrowser},</if>
+            <if test="status != null">status = #{status},</if>
+            update_by = #{updateBy},
+            update_by_name = #{updateByName},
+            update_time = #{updateTime},
+            update_ip = #{updateIp},
+            remark = #{remark},
+            del_flag = #{delFlag},
+            version = version + 1
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="closeStatus">
+        UPDATE automation_config
+        SET status = 0,
+        update_by = #{updateBy},
+        update_by_name = #{updateByName},
+        update_time = #{updateTime},
+        update_ip = #{updateIp},
+        version = version + 1
+        WHERE type = #{type};
+    </update>
+
+    <update id="updateStatus">
+        UPDATE automation_config
+        SET status = #{status},
+        update_by = #{updateBy},
+        update_by_name = #{updateByName},
+        update_time = #{updateTime},
+        update_ip = #{updateIp},
+        version = version + 1
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        UPDATE automation_config
+        SET del_flag = #{DEL_FLAG_DELETE},
+            update_by = #{updateBy},
+            update_by_name = #{updateByName},
+            update_time = #{updateTime},
+            update_ip = #{updateIp},
+            version = version + 1
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteAutomationConfigByIds">
+        UPDATE automation_config SET
+        del_flag = #{DEL_FLAG_DELETE}
+        WHERE id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

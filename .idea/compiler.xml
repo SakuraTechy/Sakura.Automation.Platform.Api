@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="sakura-framework" />
+        <module name="sakura-controller" />
+        <module name="sakura-system" />
+        <module name="sakura-common" />
+        <module name="sakura-quartz" />
+        <module name="sakura-admin" />
+        <module name="sakura-generator" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ankki" target="1.8" />
+      <module name="ankki-framework" target="1.8" />
+      <module name="ankki-generator" target="1.8" />
+      <module name="ankki-quartz" target="1.8" />
+      <module name="ankki-system" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

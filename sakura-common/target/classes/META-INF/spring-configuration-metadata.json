@@ -1,0 +1,36 @@
+{
+  "groups": [
+    {
+      "name": "sakura",
+      "type": "com.sakura.common.config.SakuraConfig",
+      "sourceType": "com.sakura.common.config.SakuraConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "sakura.captcha-type",
+      "type": "java.lang.String",
+      "description": "验证码类型",
+      "sourceType": "com.sakura.common.config.SakuraConfig"
+    },
+    {
+      "name": "sakura.copyright-year",
+      "type": "java.lang.String",
+      "description": "版权年份",
+      "sourceType": "com.sakura.common.config.SakuraConfig"
+    },
+    {
+      "name": "sakura.demo-enabled",
+      "type": "java.lang.Boolean",
+      "description": "实例演示开关",
+      "sourceType": "com.sakura.common.config.SakuraConfig"
+    },
+    {
+      "name": "sakura.version",
+      "type": "java.lang.String",
+      "description": "版本",
+      "sourceType": "com.sakura.common.config.SakuraConfig"
+    }
+  ],
+  "hints": []
+}

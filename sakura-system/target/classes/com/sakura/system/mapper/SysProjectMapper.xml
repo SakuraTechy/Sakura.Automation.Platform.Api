@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.system.mapper.SysProjectMapper">
+
+    <sql id="sysProjectColumns">
+        a.id = "id",
+        a.project_name = "projectName",
+        a.description = "description",
+        a.create_by_name = "createByName",
+        a.create_by = "createBy",
+        a.create_time = "createTime",
+        a.create_dept = "createDept",
+        a.update_by = "updateBy",
+        a.update_time = "updateTime",
+        a.update_ip = "updateIp",
+        a.status = "status",
+        a.remark = "remark",
+        a.del_flag = "delFlag",
+        a.version = "version"
+    </sql>
+
+    <sql id="selectProjectVo">
+        SELECT
+        @i := @i + 1 'index',
+        a.*
+        FROM
+        (
+        SELECT
+        a.id,
+        a.project_name,
+        a.description,
+        a.latest_version,
+        a.create_by_name,
+        a.create_by,
+        a.create_time,
+        a.create_dept,
+        a.update_by,
+        a.update_time,
+        a.STATUS,
+        a.update_ip,
+        a.remark,
+        a.del_flag,
+        a.version,
+        u.id userId,
+        u.NAME
+        FROM
+        sys_project a
+        LEFT JOIN sys_user_project up ON a.id = up.project_id
+        LEFT JOIN sys_user u ON up.user_id = u.id
+        WHERE
+        a.del_flag = '0'
+<!--        GROUP BY a.id-->
+        ORDER BY
+        a.create_time
+        ) a,
+        ( SELECT @i := 0 ) r
+    </sql>
+
+    <sql id="sysProjectJoins">
+    </sql>
+
+    <sql id="sysProjectOrderBy">
+        order by a.create_time
+    </sql>
+
+    <select id="get" parameterType="String" resultMap="sysProjectResult">
+        <include refid="selectProjectVo"/>
+        <!--        <include refid="sysProjectOrderBy"/>-->
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="findList" parameterType="string" resultMap="sysProjectResult">
+        <include refid="selectProjectVo"/>
+        where a.del_flag = #{DEL_FLAG_NORMAL}
+        <if test="projectName != null and projectName != ''">
+            AND a.project_name like concat('%', #{projectName}, '%')
+        </if>
+<!--        <include refid="sysProjectOrderBy"/>-->
+    </select>
+
+    <resultMap id="sysProjectResult" type="sysProject">
+        <id property="id" column="id"/>
+        <result property="index" column="index"/>
+        <result property="projectName" column="project_name"/>
+        <result property="description" column="description"/>
+        <result property="latestVersion" column="latest_version"/>
+        <result property="createByName" column="create_by_name"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createDept" column="create_dept"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateIp" column="update_ip"/>
+        <result property="status" column="status"/>
+        <result property="remark" column="remark"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="version" column="version"/>
+        <collection property="members" javaType="java.util.List" resultMap="userResult"/>
+    </resultMap>
+
+    <resultMap id="userResult" type="sysUser">
+        <id property="id" column="userId"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <insert id="insert">
+        insert into sys_project(id,
+                                project_name,
+                                description,
+                                create_by_name,
+                                create_by,
+                                create_time,
+                                create_dept,
+                                update_by,
+                                update_time,
+                                status,
+                                update_ip,
+                                remark,
+                                del_flag,
+                                version)
+        values (#{id},
+                #{projectName},
+                #{description},
+                #{createByName},
+                #{createBy},
+                #{createTime},
+                #{createDept},
+                #{updateBy},
+                #{updateTime},
+                #{status},
+                #{updateIp},
+                #{remark},
+                #{delFlag},
+                #{version})
+    </insert>
+
+    <insert id="insertUserProject" parameterType="sysProject">
+        insert into sys_user_project values
+        <foreach collection="memberIds" item="memberId" separator=",">
+            (#{memberId} ,#{id})
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE sys_project
+        SET project_name = #{projectName},
+            description  = #{description},
+            update_by    = #{updateBy},
+            update_time  = #{updateTime},
+            status       = #{status},
+            update_ip    = #{updateIp},
+            remark       = #{remark},
+            update_by    = #{updateBy},
+            del_flag     = #{delFlag},
+            version      = version + 1
+        WHERE id = #{id}
+
+    </update>
+
+    <update id="deleteSysProjectByIds">
+        UPDATE sys_project SET
+        del_flag = '1'
+        WHERE id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="delete">
+        UPDATE sys_project
+        SET del_flag = #{DEL_FLAG_DELETE}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteUserProject" parameterType="sysProject">
+        DELETE
+        FROM sys_user_project
+        WHERE project_id = #{id}
+    </delete>
+
+    <select id="getConfigDetail" parameterType="string" resultType="sysEnvironment">
+        SELECT e.id,
+               e.environment_name,
+               e.version_config,
+               e.domain_config,
+               e.account_config,
+               e.server_config,
+               e.database_config,
+               e.create_by_name,
+               e.create_by,
+               e.create_time,
+               e.create_dept,
+               e.update_by,
+               e.update_time,
+               e.update_ip,
+               e.status,
+               e.remark,
+               e.del_flag,
+               e.version,
+               pe.project_id
+        FROM sys_environment e
+                 LEFT JOIN sys_project_environment pe ON e.id = pe.environment_id
+        WHERE pe.project_id = #{id}
+    </select>
+
+    <delete id="deleteUserProjectByIds">
+        DELETE FROM sys_user_project
+        WHERE project_id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="editEnvironmentConfig" parameterType="sysEnvironment">
+        update sys_environment
+        <set>
+            environment_name = #{environmentName},
+            <if test="commonConfig != null and commonConfig != '' and commonConfig != 'null'">common_config = #{commonConfig},</if>
+            <if test="versionConfig != 'null'">version_config = #{versionConfig},</if>
+            <if test="domainConfig != 'null'">domain_config = #{domainConfig},</if>
+            <if test="accountConfig != 'null'">account_config = #{accountConfig},</if>
+            <if test="serverConfig != 'null'">server_config = #{serverConfig},</if>
+            <if test="dataBaseConfig != 'null'">database_config = #{dataBaseConfig},</if>
+            update_by = #{updateBy},
+            update_time = #{updateTime},
+            update_ip = #{updateIp},
+            status = #{status},
+            remark = #{remark},
+            del_flag = #{delFlag},
+            version = version + 1
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="removeConfig" parameterType="map">
+        DELETE
+        FROM sys_project_environment
+        WHERE project_id = #{projectId}
+          AND environment_id = #{environmentId}
+    </delete>
+
+<!--    <update id="editProjectVersion">-->
+<!--        update sys_project-->
+<!--        set latest_version = #{versionName}-->
+<!--        where id = #{projectId}-->
+<!--    </update>-->
+
+    <update id="editProjectVersion">
+        update sys_project
+        set latest_version = #{latestVersion}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteEnvironmentProjectByProjectIds">
+        delete from sys_project_environment
+        where project_id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,268 @@
+# 项目相关配置
+sakura:
+  # 名称
+  name: Sakura
+  # 版本
+  version: v1.0.0
+  # 版权年份
+  copyrightYear: 2022
+  # 实例演示开关
+  demoEnabled: true
+  # 文件路径 示例（ Windows配置D:/sakura/uploadPath，Linux配置 /home/sakura/uploadPath）
+  # profile: D:\King\Vue\Sakura.Test.Platform\Sakura.Test.Platform.Api\sakura-admin\uploadPath
+  # profile: /Sakura/Sakura.Test.Platform/service/uploadPath
+  # 获取ip地址开关
+  addressEnabled: false
+  # 验证码类型 math 数组计算 char 字符验证
+  captchaType: math
+
+# Spring配置
+spring:
+  application:
+    name: ${APP_NAME:unnamed}
+  # 资源信息
+  messages:
+    # 国际化资源文件路径
+    basename: i18n/messages
+  # 环境配置
+  profiles: 
+    # 默认启动环境，dev开发，test测试，druid生产
+#    active: dev
+    active: test
+#    active: druid
+
+#  quartz:
+#    job-store-type: jdbc
+#    properties:
+#      org:
+#        quartz:
+#          scheduler:
+#            instanceName: RuoyiScheduler
+#            instanceId: AUTO
+#          jobStore:
+#            class: org.springframework.scheduling.quartz.LocalDataSourceJobStore
+#            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+#            tablePrefix: QRTZ_
+#            isClustered: true
+#            clusterCheckinInterval: 10000
+#            useProperties: false
+#          threadPool:
+#            class: org.quartz.simpl.SimpleThreadPool
+#            threadCount: 10
+#            threadPriority: 5
+#            threadsInheritContextClassLoaderOfInitializingThread: true
+#  quartz:
+#    properties:
+#      org:
+#        quartz:
+#          scheduler:
+#            instanceName: RuoyiScheduler
+#            instanceId: AUTO
+#          jobStore:
+#            class: org.springframework.scheduling.quartz.LocalDataSourceJobStore
+#            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+#            tablePrefix: QRTZ_
+#            isClustered: true
+#            clusterCheckinInterval: 10000
+#            useProperties: false
+#          threadPool:
+#            class: org.quartz.simpl.SimpleThreadPool
+#            threadCount: 10
+#            threadPriority: 5
+#            threadsInheritContextClassLoaderOfInitializingThread: true
+#    job-store-type: jdbc
+  ## 服务器配置
+  #server:
+  #  # 服务器的HTTP端口，默认为8080
+  #  port: 8080 #生产
+  ##  port: 8081 #开发
+  ##  port: 8082 #测试
+  #  servlet:
+  #    # 应用的访问路径
+  #    context-path: /
+  #  tomcat:
+  #    # tomcat的URI编码
+  #    uri-encoding: UTF-8
+  #    # 连接数满后的排队数，默认为100
+  #    accept-count: 1000
+  #    threads:
+  #      # tomcat最大线程数，默认为200
+  #      max: 800
+  #      # Tomcat启动初始化的线程数，默认值10
+  #      min-spare: 100
+
+  # 文件上传
+  servlet:
+     multipart:
+       # 单个文件大小
+       max-file-size:  10MB
+       # 设置总上传的文件大小
+       max-request-size:  20MB
+  # 服务模块
+  devtools:
+    restart:
+      # 热部署开关
+      enabled: true
+  # redis 配置
+  redis:
+    # 地址
+    host: 172.19.5.222
+    # 端口，6380 开发和测试，6379 生产
+    port: 6380
+    # 数据库索引
+    database: 0
+    # 密码
+    password: 3edc$RFV
+    # 连接超时时间
+    timeout: 10s
+    lettuce:
+      pool:
+        # 连接池中的最小空闲连接
+        min-idle: 0
+        # 连接池中的最大空闲连接
+        max-idle: 8
+        # 连接池的最大数据库连接数
+        max-active: 8
+        # #连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1ms
+
+#---
+## 测试环境配置
+#spring:
+#  profiles: test
+#server:
+#  port: 8080
+#---
+## 生产环境配置
+#spring:
+#  profiles: pro
+#server:
+#  port: 8080
+#---
+
+# token配置
+token:
+    # 令牌自定义标识
+    header: Authorization
+    # 令牌密钥
+    secret: abcdefghijklmnopqrstuvwxyz
+    # 令牌有效期（默认30分钟）
+    expireTime: 600
+    # 是否允许账户多终端同时登录（true允许 false不允许）
+    soloLogin: true
+  
+# MyBatis配置
+mybatis:
+    # 搜索指定包别名
+    typeAliasesPackage: com.sakura.**.domain,com.sakura.**.entity,com.sakura.**.po
+    # 配置mapper的扫描，找到所有的mapper.xml映射文件
+    mapperLocations: classpath*:mapper/**/*Mapper.xml,classpath*:com/sakura/**/mapper/*Mapper.xml
+    # 加载全局的配置文件
+    configLocation: classpath:mybatis/mybatis-config.xml
+    # 加载全局的配置文件
+    dbName: oracle
+    # 是否显示拦截器输出sql
+    isShowMyBatisSql: true
+
+# PageHelper分页插件
+pagehelper: 
+  helperDialect: mysql
+  supportMethodsArguments: true
+  params: count=countSql 
+
+# Swagger配置
+swagger:
+  # 是否开启swagger
+  enabled: true
+  # 请求前缀
+  # pathMapping: /dev-api
+  pathMapping: 
+
+# knife4j配置
+knife4j:
+  # 是否开启Knife4j增强模式
+  enable: true
+  # 请求前缀
+  pathMapping: 
+  # 自定义文档集合，该属性是数组
+  documents:
+    -
+      # 所属分组
+      group: 3.X版本
+      # 类似于接口中的tag,对于自定义文档的分组
+      name: 接口签名
+      # markdown文件路径,可以是一个文件夹(classpath:markdowns/*)，也可以是单个文件(classpath:md/sign.md)
+      locations: classpath:sign/*
+  # 前端Ui的个性化配置属性
+  setting:
+    # Ui默认显示语言,目前主要有两种:中文(zh-CN)、英文(en-US)
+    language: zh-CN
+    # 是否显示界面中SwaggerModel功能
+    enableSwaggerModels: true
+    # 是否显示界面中"文档管理"功能
+    enableDocumentManage: true
+    swaggerModelName: 实体类列表
+    # 是否开启界面中对某接口的版本控制,如果开启，后端变化后Ui界面会存在小蓝点
+    enableVersion: true
+    # 是否在每个Debug调试栏后显示刷新变量按钮,默认不显示
+    enableReloadCacheParameter: true
+    # 调试Tab是否显示AfterScript功能,默认开启
+    enableAfterScript: true
+    # 具体接口的过滤类型
+    enableFilterMultipartApiMethodType: POST
+    # 针对RequestMapping的接口请求类型,在不指定参数类型的情况下,如果不过滤,默认会显示7个类型的接口地址参数,如果开启此配置,默认展示一个Post类型的接口地址
+    enableFilterMultipartApis: true
+    # 是否开启请求参数缓存
+    enableRequestCache: true
+    # 是否启用Host
+    enableHost: true
+    enableHostText: localhost:8080/dev-api
+    # 是否开启自定义主页内容
+    enableHomeCustom: false
+    # 主页内容Markdown文件路径
+    homeCustomLocation: classpath:markdown/home.md
+    # 启用接口搜索
+    enableSearch: true
+    # 启用页脚
+    enableFooter: true
+    # 启用页脚自定义
+    enableFooterCustom: false
+    footerCustomContent: Apache License 2.0 | Copyright  2019-[浙江八一菜刀股份有限公司](https://gitee.com/xiaoym/knife4j)
+    # 启用动态参数
+    enableDynamicParameter: true
+    # 启用调试
+    enableDebug: true
+    # 显示OpenAPI规范
+    enableOpenApi: true
+    # 启用分组
+    enableGroup: true
+  # 是否开启一个默认的跨域配置,该功能配合自定义Host使用
+  cors: false
+  # 是否开启生产环境保护策略
+  production: false
+  # 对Knife4j提供的资源提供BasicHttp校验,保护文档
+  basic:
+    # 关闭BasicHttp功能
+    enable: false
+    # basic用户名
+    username: test
+    # basic密码
+    password: 12313
+
+mvc:
+  static-path-pattern: /static/**
+
+# 防止XSS攻击
+xss:
+  # 过滤开关
+  enabled: true
+  # 排除链接（多个用逗号分隔）
+  excludes: /system/notice
+  # 匹配链接
+  urlPatterns: /system/*,/monitor/*,/tool/*
+
+# 日志配置
+logging:
+  level:
+    com.sakura: info
+    org.springframework: info

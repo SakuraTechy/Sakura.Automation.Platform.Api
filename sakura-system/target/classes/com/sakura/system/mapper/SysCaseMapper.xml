@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.system.mapper.SysCaseMapper">
+
+    <sql id="sysCaseColumns">
+        SELECT
+        a.id as "id",
+        a.case_name as "caseName",
+        a.version_id as "versionId",
+        a.node_id as "nodeId",
+        a.project_id as "projectId",
+        a.user_id as "userId",
+        a.case_level as "caseLevel",
+        a.case_status as "caseStatus",
+        a.step_msg as "stepMsg",
+        a.remark as "remark",
+        a.ref_case_id as "refCaseId",
+        a.ref_needs as "refNeeds",
+        a.file as "file",
+        a.create_by as "createBy",
+        a.create_dept as "createDept",
+        a.create_time as "createTime",
+        a.update_by as "updateBy",
+        a.update_time as "updateTime",
+        a.update_ip as "updateIp",
+        a.version as "version",
+        a.del_flag as "delFlag",
+        u.name as "name",
+        v.version_name as "versionName",
+        n.name as "nodeName"
+        FROM
+	        sys_case a
+        LEFT JOIN
+	        sys_user u ON a.user_id = u.id
+        LEFT JOIN
+	        sys_version v ON a.version_id =v.id
+        LEFT JOIN
+            sys_node n on a.node_id = n.id
+    </sql>
+    <sql id="sysCaseOrderBy">
+        order by a.create_time desc
+    </sql>
+
+    <select id="get" resultType="sysCase">
+        <include refid="sysCaseColumns"></include>
+        WHERE a.del_flag = '0'
+        AND a.id = #{id}
+    </select>
+
+
+
+
+    <select id="findList" resultType="sysCase">
+        <include refid="sysCaseColumns"></include>
+        WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+        AND a.node_id = #{nodeId}
+        <if test="caseName != null and caseName != ''">
+            AND a.case_name like concat('%', #{caseName}, '%')
+        </if>
+        <include refid="sysCaseOrderBy"></include>
+    </select>
+
+    <insert id="insert">
+    INSERT INTO sysNode(
+        id,
+        case_name,
+        version_id,
+        node_id,
+        project_id,
+        user_id,
+        case_level,
+        case_status,
+        step_msg,
+        remark,
+        ref_case_id,
+        ref_needs,
+        file,
+        create_by,
+        create_dept,
+        create_time,
+        update_by,
+        update_time,
+        update_ip,
+        version,
+        del_flag
+    )VALUES (
+             #{id},
+             #{caseName},
+             #{versionId},
+             #{nodeId},
+             #{projectId},
+             #{userId},
+             #{caseLevel},
+             #{caseStatus},
+             #{stepMsg},
+             #{remark},
+             #{refCaseId},
+             #{refNeeds},
+             #{file},
+             #{createBy},
+             #{createDept},
+             #{createTime},
+             #{updateBy},
+             #{updateTime},
+             #{updateIp},
+             #{version},
+             #{delFlag}
+    )
+    </insert>
+
+
+    <update id="deleteSysCaseByIds">
+        UPDATE sys_case SET
+            del_flag = '1'
+        WHERE id IN
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="deleteCaseByNodeId" >
+        UPDATE sys_case SET del_flag = '1'
+        WHERE node_id = #{nodeId}
+    </update>
+
+</mapper>

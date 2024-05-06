@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.system.mapper.SysVersionMapper">
+
+    <sql id="SysVersionColumns">
+            a.id as "id",
+            a.version_name as "versionName",
+            a.status as "status",
+            a.is_latest as "isLatest",
+            a.project_id as "projectId",
+            a.start_time as "startTime",
+            a.end_time as "endTime",
+            a.publish_time as "publishTime",
+            a.create_by_name as "createByName",
+            a.create_time as "createTime",
+            a.create_by as "createBy",
+            a.create_dept as "createDept",
+            a.update_by as "updateBy",
+            a.update_time as "updateTime",
+            a.description as "description",
+            a.remark as "remark",
+            a.version as "version",
+            a.update_ip as "updateIp",
+            a.del_flag as "delFlag"
+    </sql>
+
+    <sql id="SysVersionJoins">
+    </sql>
+
+    <sql id="sysVersionOrderBy">
+        order by a.create_time desc
+    </sql>
+
+    <select id="get" resultType="sysVersion">
+        SELECT
+        <include refid="SysVersionColumns"/>
+        FROM sys_version a
+        <include refid="SysVersionJoins"/>
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="findList" resultType="SysVersion">
+        SELECT
+        <include refid="SysVersionColumns"/>
+        FROM sys_version a
+        left join sys_project p
+        on a.project_id=p.id
+        <include refid="SysVersionJoins"/>
+        where a.del_flag = #{DEL_FLAG_NORMAL}
+        <if test="versionName != null and versionName != ''">
+            AND a.version_name like concat('%', #{versionName}, '%')
+        </if>
+        <if test="projectId != null and projectId != ''">
+            AND a.project_id = #{projectId}
+        </if>
+        <include refid="sysVersionOrderBy"/>
+    </select>
+
+
+    <insert id="insert">
+        insert into sys_version(
+            id,
+            version_name,
+            status,
+            is_latest,
+            project_id,
+            start_time,
+            end_time,
+            publish_time,
+            create_by_name,
+            create_time,
+            create_by,
+            create_dept,
+            update_by,
+            update_time,
+            description,
+            remark,
+            version,
+            update_ip,
+            del_flag
+        )values (
+                 #{id},
+                 #{versionName},
+                 #{status},
+                 #{isLatest},
+                 #{projectId},
+                 #{startTime},
+                 #{endTime},
+                 #{publishTime},
+                 #{createByName},
+                 #{createTime},
+                 #{createBy},
+                 #{createDept},
+                 #{updateBy},
+                 #{updateTime},
+                 #{description},
+                 #{remark},
+                 #{version},
+                 #{updateIp},
+                 #{delFlag}
+        )
+    </insert>
+    <update id="update">
+        UPDATE sys_version SET
+                               version_name = #{versionName},
+                               status = #{status},
+                               is_latest = #{isLatest},
+                               project_id = #{projectId},
+                               start_time = #{startTime},
+                               end_time = #{endTime},
+                               publish_time = #{publishTime},
+                               update_by = #{updateBy},
+                               update_time = #{updateTime},
+                               description = #{description},
+                               update_ip = #{updateIp},
+                               version = version + 1
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        UPDATE sys_version SET
+            del_flag = #{DEL_FLAG_DELETE}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteSysVersionServiceByIds">
+        UPDATE sys_version SET
+        del_flag = '1'
+        WHERE id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="editSysVersionStatusById">
+        UPDATE sys_version SET
+            status = #{status}
+        where id = #{id}
+    </update>
+
+    <update id="editLatestToOld">
+        UPDATE sys_version SET
+            is_latest = '1'
+        where is_latest = '0' AND project_id = #{projectId}
+    </update>
+
+    <update id="editSysVersionIsLatestById">
+        UPDATE sys_version SET
+            status = '0',
+            is_latest = '0'
+        where id = #{id}
+    </update>
+
+    <update id="deleteVersionByProjectIds">
+        update sys_version set del_flag = '1'
+        where project_id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.project.mapper.EnvironmentConfigMapper">
+
+    <sql id="environmentConfigColumns">
+        a.id as "id",
+        a.name as "name",
+        a.project_id as "projectId",
+        a.version_config as "versionConfig",
+        a.domain_config as "domainConfig",
+        a.account_config as "accountConfig",
+        a.server_config as "serverConfig",
+        a.database_config as "dataBaseConfig",
+        a.last_domain as "lastDomain",
+        a.last_version as "lastVersion",
+        a.status as "status",
+        a.remark as "remark",
+        a.create_by as "createBy",
+        a.create_by_name as "createByName",
+        a.create_dept as "createDept",
+        a.create_time as "createTime",
+        a.update_by as "updateBy",
+        a.update_by_name as "updateByName",
+        a.update_time as "updateTime",
+        a.update_ip as "updateIp",
+        a.version as "version",
+        a.del_flag as "delFlag"
+    </sql>
+
+    <sql id="environmentConfigJoins">
+    </sql>
+
+    <select id="get" resultType="EnvironmentConfig">
+        SELECT
+        <include refid="environmentConfigColumns"/>
+        FROM environment_config a
+        <include refid="environmentConfigJoins"/>
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="findList" resultType="EnvironmentConfig">
+        SELECT
+        <include refid="environmentConfigColumns"/>
+        FROM environment_config a
+        <include refid="environmentConfigJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test="id != null and id != ''">
+                and a.id like concat('%', #{id}, '%')
+            </if>
+            <if test="name != null and name != ''">
+                and a.name like concat('%', #{name}, '%')
+            </if>
+            <if test="status != null">
+                and a.status = #{status}
+            </if>
+            <if test="projectId != null and projectId != ''">
+                and a.project_id like concat('%', #{projectId}, '%')
+            </if>
+            <if test="createByName != null and createByName != ''">
+                and a.create_by_name like concat('%', #{createByName}, '%')
+            </if>
+            <if test="createStartTime != null and createStartTime != '' and createEndTime != null and createEndTime != ''">
+                and a.create_time between #{createStartTime} and #{createEndTime}
+            </if>
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findListWithUnique" resultType="EnvironmentConfig">
+        SELECT
+        a.id
+        FROM environment_config a
+        <include refid="environmentConfigJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test="id != null and id != '' and id != 'null'">
+                AND a.id = #{id}
+            </if>
+            <if test="projectId != null and projectId != '' and projectId != 'null'">
+                AND a.project_id = #{projectId}
+            </if>
+            <if test="name != null and name != '' and name != 'null'">
+                AND a.name = #{name}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO environment_config(id,
+                                       name,
+                                       project_id,
+                                       version_config,
+                                       domain_config,
+                                       account_config,
+                                       server_config,
+                                       database_config,
+                                       last_domain,
+                                       last_version,
+                                       status,
+                                       remark,
+                                       create_by,
+                                       create_by_name,
+                                       create_dept,
+                                       create_time,
+                                       update_by,
+                                       update_by_name,
+                                       update_time,
+                                       update_ip,
+                                       version,
+                                       del_flag)
+        VALUES (#{id},
+                #{name},
+                #{projectId},
+                #{versionConfig},
+                #{domainConfig},
+                #{accountConfig},
+                #{serverConfig},
+                #{dataBaseConfig},
+                #{lastDomain},
+                #{lastVersion},
+                #{status},
+                #{remark},
+                #{createBy},
+                #{createByName},
+                #{createDept},
+                #{createTime},
+                #{updateBy},
+                #{updateByName},
+                #{updateTime},
+                #{updateIp},
+                #{version},
+                #{delFlag})
+    </insert>
+
+    <update id="update">
+        update environment_config
+        <set>
+            <if test="name != null and name != '' and name != 'null'">name = #{name},</if>
+            <if test="projectId != null and projectId != '' and projectId != 'null'">project_id = #{projectId},</if>
+            <if test="versionConfig != null and versionConfig != '' and versionConfig != 'null'">version_config = #{versionConfig},</if>
+            <if test="domainConfig != null and domainConfig != '' and domainConfig != 'null'">domain_config = #{domainConfig},</if>
+            <if test="accountConfig != null and accountConfig != '' and accountConfig != 'null'">account_config = #{accountConfig},</if>
+            <if test="serverConfig != null and serverConfig != '' and serverConfig != 'null'">server_config = #{serverConfig},</if>
+            <if test="dataBaseConfig != null and dataBaseConfig != '' and dataBaseConfig != 'null'">database_config = #{dataBaseConfig},</if>
+            <if test="lastDomain != null and lastDomain != '' and lastDomain != 'null'">last_domain = #{lastDomain},</if>
+            <if test="lastVersion != null and lastVersion != '' and lastVersion != 'null'">last_version = #{lastVersion},</if>
+            <if test="status != null">status = #{status},</if>
+            update_by = #{updateBy},
+            update_by_name = #{updateByName},
+            update_time = #{updateTime},
+            update_ip = #{updateIp},
+            remark = #{remark},
+            del_flag = #{delFlag},
+            version = version + 1
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="closeStatus">
+        UPDATE environment_config
+        SET status = 0,
+        update_by = #{updateBy},
+        update_by_name = #{updateByName},
+        update_time = #{updateTime},
+        update_ip = #{updateIp},
+        version = version + 1
+        WHERE project_id = #{projectId};
+    </update>
+
+    <select id="getStatusNum" resultType="int">
+        select count(1) from environment_config where project_id=#{projectId} and status='1'
+    </select>
+
+    <update id="updateStatus">
+        UPDATE environment_config
+        SET status = #{status},
+        update_by = #{updateBy},
+        update_by_name = #{updateByName},
+        update_time = #{updateTime},
+        update_ip = #{updateIp},
+        version = version + 1
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        UPDATE environment_config
+        SET del_flag = #{DEL_FLAG_DELETE},
+            update_by = #{updateBy},
+            update_by_name = #{updateByName},
+            update_time = #{updateTime},
+            update_ip = #{updateIp},
+            version = version + 1
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteEnvironmentConfigByIds">
+        UPDATE environment_config SET
+        del_flag = #{DEL_FLAG_DELETE}
+        WHERE id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

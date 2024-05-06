@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.system.mapper.SysAutomationMapper">
+
+    <sql id="sysSceneColumns">
+        a.id as "id",
+        a.scene_id as "sceneId",
+        a.name as "name",
+        a.description as "description",
+        a.project_id as "projectId",
+        a.project_name as "projectName",
+        a.version_id as "versionId",
+        a.version_name as "versionName",
+        a.module_id as "moduleId",
+        a.module_path as "modulePath",
+        a.level as "level",
+        a.status as "status",
+        a.tags as "tags",
+        a.case_msg as "caseMsg",
+
+        a.case_total as "caseTotal",
+        a.case_pass as "casePass",
+        a.case_fail as "caseFail",
+        a.case_skip as "caseSkip",
+        a.pass_rate as "passRate",
+        a.last_result as "executeResult",
+
+        a.step_total as "stepTotal",
+        a.step_pass as "stepPass",
+        a.step_fail as "stepFail",
+        a.step_skip as "stepSkip",
+
+        a.test_plan_id as "testPlanId",
+        a.report_id as "reportId",
+        a.debug_record as "debugRecord",
+        a.test_record as "testRecord",
+        a.build_number as "buildNumber",
+        a.console_url as "consoleUrl",
+        a.test_report_url as "testReportUrl",
+
+        a.create_by_name as "createByName",
+        a.create_by as "createBy",
+        a.create_dept as "createDept",
+        a.update_by as "updateBy",
+        a.update_ip as "updateIp",
+        a.principal_name as "principalName",
+        a.principal_id as "principalId",
+        a.delete_user as "deleteUser",
+        a.delete_user_id as "deleteUserId",
+        a.create_time as "createTime",
+        a.update_time as "updateTime",
+        a.delete_time as "deleteTime",
+        a.remark as "remark",
+        a.version as "version",
+        a.del_flag as "delFlag"
+    </sql>
+
+    <sql id="sysSceneOrderBy">
+        order by a.scene_id
+    </sql>
+
+    <select id="findList" resultType="SysScene">
+        SELECT
+        <include refid="sysSceneColumns"/>
+        FROM sys_scene a
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test="sceneId != null and sceneId != ''">
+                and a.scene_id like concat('%', #{sceneId}, '%')
+            </if>
+            <if test="name != null and name != ''">
+                and a.name like concat ('%',#{name},'%')
+            </if>
+            <if test="versionId != null and versionId != ''">
+                and a.version_id = #{versionId}
+            </if>
+            <if test="versionName != null and versionName != ''">
+                and a.version_name = #{versionName}
+            </if>
+            <if test="level != null and level != ''">
+                and a.level = #{level}
+            </if>
+            <if test="moduleId != null and moduleId != ''">
+                and a.module_id = #{moduleId}
+            </if>
+            <if test="moduleIds != null and moduleIds.length>0">
+                and a.module_id in
+                <foreach collection="moduleIds" item="moduleId" open="(" separator="," close=")">
+                    #{moduleId,javaType=STRING}
+                </foreach>
+            </if>
+            <if test="projectId != null and projectId != ''">
+                and a.project_id = #{projectId}
+            </if>
+            <if test="testPlanId != null and testPlanId != '' and testSceneState =='select'">
+                and a.test_plan_id LIKE '%${testPlanId}%'
+            </if>
+            <if test="testPlanId != null and testPlanId != '' and testSceneState =='association'">
+                and (a.test_plan_id IS NULL OR a.test_plan_id NOT LIKE '%${testPlanId}%' )
+            </if>
+<!--            <if test="executeResultType =='debug' and executeResult != null and executeResult != ''">-->
+<!--                and JSON_EXTRACT(a.debug_record, '$[0].executeResult') = #{executeResult}-->
+<!--            </if>-->
+<!--            <if test="testPlanId != null and testPlanId != '' and executeResultType =='test' or executeStatus != null and executeStatus != '' or executeResult != null and executeResult != ''">-->
+<!--                &lt;!&ndash; and JSON_EXTRACT(a.test_record, '$[*].testPlanId') = #{testPlanId} IS NOT NULL and JSON_EXTRACT(a.test_record, '$[*].executeResult') = #{executeResult} IS NOT NULL&ndash;&gt;-->
+<!--                and JSON_SEARCH(a.test_record, 'all', '${testPlanId}', NULL, '$[*].testPlanId') IS NOT NULL-->
+<!--            </if>-->
+<!--            <if test="executeStatus != null and executeStatus != ''">-->
+<!--                and JSON_SEARCH(a.test_record, 'one', '${executeStatus}', NULL, '$[*].executeStatus') IS NOT NULL-->
+<!--            </if>-->
+<!--            <if test="executeResult != null and executeResult != ''">-->
+<!--                and JSON_SEARCH(a.test_record, 'one', '${executeResult}', NULL, '$[*].executeResult') IS NOT NULL-->
+<!--            </if>-->
+<!--            <if test="status != null and status != ''">-->
+<!--                and a.status = #{status}-->
+<!--            </if>-->
+            <if test="createByName != null and createByName != ''">
+                and a.create_by_name = #{createByName}
+            </if>
+            <if test="principalName != null and principalName != ''">
+                and a.principal_name = #{principalName}
+            </if>
+            <if test="createStartTime != null and createStartTime != '' and createEndTime != null and createEndTime != ''">
+                and a.create_time between #{createStartTime} and #{createEndTime}
+            </if>
+            <!--            <choose>-->
+            <!--                <when test="testSceneState =='association' and  testPlanId != null and testPlanId != ''">-->
+            <!--                    and a.test_plan_id NOT LIKE '%${testPlanId}%' OR test_plan_id IS NULL-->
+            <!--                </when>-->
+            <!--                <otherwise>-->
+            <!--                    and a.test_plan_id LIKE '%${testPlanId}%'-->
+            <!--                </otherwise>-->
+            <!--            </choose>-->
+            <include refid="sysSceneOrderBy"/>
+        </where>
+    </select>
+
+    <select id="get" resultType="SysScene">
+        SELECT
+        <include refid="sysSceneColumns"/>
+        FROM sys_scene a
+        where a.del_flag = '0'
+        and id = #{id}
+    </select>
+
+    <update id="update1">
+        update sys_scene
+        set scene_id        = #{sceneId},
+            name            =#{name},
+            description     =#{description},
+            version_id      =#{versionId},
+            version_name    =#{versionName},
+            module_id       =#{moduleId},
+            module_path     =#{modulePath},
+            level        =#{level},
+            status       =#{status},
+            tags         =#{tags},
+            case_msg     =#{caseMsg},
+
+            case_total   =#{caseTotal},
+            case_pass    =#{casePass},
+            case_fail    =#{caseFail},
+            case_skip    =#{caseSkip},
+            pass_rate    =#{passRate},
+            last_result  =#{executeResult},
+
+            step_total   =#{stepTotal},
+            step_pass    =#{stepPass},
+            step_fail    =#{stepFail},
+            step_skip    =#{stepSkip},
+
+            report_id    =#{reportId},
+            build_number =#{buildNumber},
+            console_url     = #{consoleUrl},
+            test_report_url = #{testReportUrl},
+
+            update_by       = #{updateBy},
+            update_ip       =#{updateIp},
+            principal_name  =#{principalName},
+            principal_id    =#{principalId},
+            update_time     =#{updateTime},
+            remark          =#{remark},
+            version         = version + 1
+        where del_flag = #{DEL_FLAG_NORMAL}
+          and id = #{id}
+    </update>
+
+    <update id="update">
+        update sys_scene
+        <set>
+            scene_id        = #{sceneId},
+            name            =#{name},
+            description     =#{description},
+            version_id      =#{versionId},
+            version_name    =#{versionName},
+            module_id       =#{moduleId},
+            module_path     =#{modulePath},
+            level        =#{level},
+            status       =#{status},
+            tags         =#{tags},
+            case_msg     =#{caseMsg},
+            <if test="caseTotal != null">case_total = #{caseTotal},</if>
+            <if test="casePass != null">case_pass = #{casePass},</if>
+            <if test="caseFail != null">case_fail = #{caseFail},</if>
+            <if test="caseSkip != null">case_skip = #{caseSkip},</if>
+            <if test="passRate != null">pass_rate = #{passRate},</if>
+            <if test="executeResult != null">last_result = #{executeResult},</if>
+
+            <if test="stepTotal != null">step_total = #{stepTotal},</if>
+            <if test="stepPass != null">step_pass = #{stepPass},</if>
+            <if test="stepFail != null">step_fail = #{stepFail},</if>
+            <if test="stepSkip != null">step_skip = #{stepSkip},</if>
+
+            <if test="reportId != null and reportId != '' and reportId != 'null'">report_id = #{reportId},</if>
+            <if test="debugRecord != null and debugRecord != '' and debugRecord != 'null'">debug_record = #{debugRecord},</if>
+            <if test="testRecord != null and testRecord != '' and testRecord != 'null'">test_record = #{testRecord},</if>
+            <if test="buildNumber != null">build_number = #{buildNumber},</if>
+            <if test="consoleUrl != null and consoleUrl != '' and consoleUrl != 'null'">console_url = #{consoleUrl},</if>
+            <if test="testReportUrl != null and testReportUrl != '' and testReportUrl != 'null'">test_report_url = #{testReportUrl},</if>
+
+            update_by       = #{updateBy},
+            update_ip       =#{updateIp},
+            principal_name  =#{principalName},
+            principal_id    =#{principalId},
+            update_time     =#{updateTime},
+            remark          =#{remark},
+            version         = version + 1
+        </set>
+        where del_flag = #{DEL_FLAG_NORMAL} and id = #{id}
+    </update>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_scene(id,
+                              scene_id,
+                              name,
+                              description,
+                              project_id,
+                              project_name,
+                              version_id,
+                              version_name,
+                              module_id,
+                              module_path,
+                              level,
+                              status,
+                              tags,
+                              case_msg,
+                              case_total,
+                              case_pass,
+                              case_fail,
+                              case_skip,
+                              pass_rate,
+                              last_result,
+                              step_total,
+                              step_pass,
+                              step_fail,
+                              step_skip,
+                              report_id,
+                              debug_record,
+                              build_number,
+                              console_url,
+                              test_report_url,
+                              create_by_name,
+                              create_by,
+                              create_dept,
+                              update_by,
+                              update_ip,
+                              principal_name,
+                              principal_id,
+                              delete_user,
+                              delete_user_id,
+                              create_time,
+                              update_time,
+                              delete_time,
+                              remark,
+                              version,
+                              del_flag)
+        values (#{id},
+                #{sceneId},
+                #{name},
+                #{description},
+                #{projectId},
+                #{projectName},
+                #{versionId},
+                #{versionName},
+                #{moduleId},
+                #{modulePath},
+                #{level},
+                #{status},
+                #{tags},
+                #{caseMsg},
+                #{caseTotal},
+                #{casePass},
+                #{caseFail},
+                #{caseSkip},
+                #{passRate},
+                #{executeResult},
+                #{stepTotal},
+                #{stepPass},
+                #{stepFail},
+                #{stepSkip},
+                #{reportId},
+                #{debugRecord},
+                #{buildNumber},
+                #{consoleUrl},
+                #{testReportUrl},
+                #{createByName},
+                #{createBy},
+                #{createDept},
+                #{updateBy},
+                #{updateIp},
+                #{principalName},
+                #{principalId},
+                #{deleteUser},
+                #{deleteUserId},
+                #{createTime},
+                #{updateTime},
+                #{deleteTime},
+                #{remark},
+                #{version},
+                #{delFlag})
+    </insert>
+
+    <insert id="copySysScene" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_scene (`id`,
+                               `scene_id`,
+                               `name`,
+                               `description`,
+                               `project_id`,
+                               `project_name`,
+                               `version_id`,
+                               `version_name`,
+                               `module_id`,
+                               `module_path`,
+                               `level`,
+                               `status`,
+                               `tags`,
+                               `case_msg`,
+                               `debug_record`,
+#                                `case_total`,
+#                                `case_pass`,
+#                                `case_fail`,
+#                                `case_skip`,
+#                                `pass_rate`,
+#                                `last_result`,
+#                                `step_total`,
+#                                `step_pass`,
+#                                `step_fail`,
+#                                `step_skip`,
+#                                `report_id`,
+#                                `build_number`,
+#                                `console_url`,
+#                                `test_report_url`,
+                               `create_by_name`,
+                               `create_by`,
+                               `create_dept`,
+                               `update_by`,
+                               `update_ip`,
+                               `principal_name`,
+                               `principal_id`,
+                               `delete_user`,
+                               `delete_user_id`,
+                               `create_time`,
+                               `update_time`,
+                               `delete_time`,
+                               `remark`,
+                               `version`,
+                               `del_flag`)
+        SELECT #{copyId}    as id,
+               #{sceneId}   as scene_id,
+               #{name}      as name,
+               `description`,
+               #{projectId} as project_id,
+               #{projectName} as project_name,
+               #{versionId}  as version_id,
+               #{versionName}  as version_name,
+               #{moduleId}  as module_id,
+               `module_path`,
+               #{level}  as level,
+               #{status}  as status,
+               `tags`,
+               `case_msg`,
+               #{debugRecord} as debug_record,
+#                `case_total`,
+#                `case_pass`,
+#                `case_fail`,
+#                `case_skip`,
+#                `pass_rate`,
+#                `last_result`,
+#                `step_total`,
+#                `step_pass`,
+#                `step_fail`,
+#                `step_skip`,
+#                `report_id`,
+#                `build_number`,
+#                `console_url`,
+#                `test_report_url`,
+               `create_by_name`,
+               `create_by`,
+               `create_dept`,
+               `update_by`,
+               `update_ip`,
+               `principal_name`,
+               `principal_id`,
+               `delete_user`,
+               `delete_user_id`,
+               `create_time`,
+               `update_time`,
+               `delete_time`,
+               `remark`,
+               `version`,
+               `del_flag`
+        FROM sys_scene
+        WHERE id = #{id};
+    </insert>
+
+    <update id="delete">
+        UPDATE sys_node
+        SET del_flag = '1'
+        WHERE
+        <if test="projectId != null and projectId != ''">
+            project_id = #{projectId}
+        </if>
+        <if test="versionId != null and versionId != ''">
+            and version_id = #{versionId}
+        </if>
+    </update>
+
+    <update id="deleteSceneByVersionId">
+        update sys_scene
+        set del_flag = '1'
+        where version_id = #{versionId}
+    </update>
+
+    <update id="deleteSceneByNodeId">
+        update sys_scene
+        set del_flag = '1'
+        where module_id = #{moduleId}
+    </update>
+
+    <update id="deleteSysSceneByIds">
+        update sys_scene set del_flag = '1'
+        where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="execSysSceneByIds">
+        update sys_scene
+        set
+        build_number = #{buildNumber},
+        console_url = #{consoleUrl},
+        test_report_url = #{testReportUrl}
+        where id in
+        <foreach collection="sysSceneList" item="item" open="(" separator="," close=")">
+            #{item.id}
+        </foreach>
+<!--        <if test="ids != null and ids.length>0">-->
+<!--            <foreach collection="ids" item="ids" open="(" separator="," close=")">-->
+<!--                #{id}-->
+<!--            </foreach>-->
+<!--        </if>-->
+    </update>
+
+<!--    <update id="uploadResults">-->
+<!--        update sys_scene-->
+<!--        set case_total  =#{caseTotal},-->
+<!--            case_pass   =#{casePass},-->
+<!--            case_fail   =#{caseFail},-->
+<!--            case_skip   =#{caseSkip},-->
+<!--            pass_rate   =#{passRate},-->
+<!--            last_result =#{executeResult},-->
+<!--            status =#{status},-->
+<!--            step_total  =#{stepTotal},-->
+<!--            step_pass   =#{stepPass},-->
+<!--            step_fail   =#{stepFail},-->
+<!--            step_skip   =#{stepSkip}-->
+<!--        where project_name = #{projectName}-->
+<!--          and version_name = #{versionName}-->
+<!--          and scene_id = #{sceneId}-->
+<!--    </update>-->
+
+    <update id="clearResults">
+        update sys_scene
+        set last_result = ''
+        where del_flag = #{DEL_FLAG_NORMAL}
+          and test_plan_id LIKE '%${testPlanId}%'
+    </update>
+
+    <update id="uploadResults">
+        update sys_scene
+        set status =#{status},
+        <if test="debugRecord != null and debugRecord != '' and debugRecord != 'null'">debug_record = #{debugRecord}</if>
+        <if test="testRecord != null and testRecord != '' and testRecord != 'null'">test_record = #{testRecord}</if>
+        where project_name = #{projectName}
+          and version_name = #{versionName}
+          and scene_id = #{sceneId}
+    </update>
+
+    <update id="updateTestPlan" parameterType="com.sakura.system.domain.SysScene">
+        update sys_scene
+        set test_plan_id = #{testPlanId}
+        <if test="testRecord != null and testRecord != '' and testRecord != 'null'">,test_record = #{testRecord}</if>
+        where id = #{id}
+<!--        where id in-->
+<!--        <foreach collection="sysSceneList" item="item" open="(" separator="," close=")">-->
+<!--            #{item.id}-->
+<!--        </foreach>-->
+    </update>
+
+    <select id="getDateNum" resultType="int">
+        SELECT COUNT(1)
+#         # 查询去重后的数量
+#         SELECT COUNT(distinct module_id)
+        from sys_scene
+        where del_flag = '0'
+          and module_id = #{id}
+    </select>
+
+    <select id="findListWithUnique" resultType="sysScene">
+        SELECT
+        a.id
+        FROM
+        sys_scene a
+        where a.del_flag = #{DEL_FLAG_NORMAL}
+        <if test="projectId != null and projectId != ''">
+            and a.project_id = #{projectId}
+        </if>
+        <if test="sceneId != null and sceneId != ''">
+            and a.scene_id = #{sceneId}
+        </if>
+        <if test="name != null and name != ''">
+            and a.name = #{name}
+        </if>
+        <if test="moduleId != null and moduleId != ''">
+            and a.module_id = #{moduleId}
+        </if>
+        <if test="versionId != null and versionId != ''">
+            and a.version_id = #{versionId}
+        </if>
+        <if test="level != null and level != ''">
+            and a.level = #{level}
+        </if>
+    </select>
+</mapper>

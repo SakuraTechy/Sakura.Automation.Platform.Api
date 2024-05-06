@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.test.mapper.TestPlanMapper">
+
+    <sql id="testPlanColumns">
+        a.project_id as "projectId",
+        a.type as "type",
+        a.id as "id",
+        a.name as "name",
+        a.abbreviate as "abbreviate",
+        a.description as "description",
+        a.members as "members",
+        a.timed_tasks_config as "timedTasksConfig",
+        a.project_config as "projectConfig",
+        a.automation_config as "automationConfig",
+        a.functional_test_scene as "functionalTestScene",
+        a.ui_test_scene as "uiTestScene",
+        a.principals as "principals",
+        a.test_progress as "testProgress",
+        a.status as "status",
+        a.planned_start_time as "plannedStartTime",
+        a.planned_end_time as "plannedEndTime",
+        a.actual_start_time as "actualStartTime",
+        a.actual_end_time as "actualEndTime",
+        a.create_by as "createBy",
+        a.create_by_name as "createByName",
+        a.create_dept as "createDept",
+        a.create_time as "createTime",
+        a.update_by as "updateBy",
+        a.update_by_name as "updateByName",
+        a.update_time as "updateTime",
+        a.update_ip as "updateIp",
+        a.version as "version",
+        a.remark as "remark",
+        a.del_flag as "delFlag"
+    </sql>
+
+    <sql id="testPlanJoins">
+    </sql>
+
+    <select id="get" resultType="TestPlan">
+        SELECT
+        <include refid="testPlanColumns"/>
+        FROM test_plan a
+        <include refid="testPlanJoins"/>
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="findList" resultType="TestPlan">
+        SELECT
+        <include refid="testPlanColumns"/>
+        FROM test_plan a
+        <include refid="testPlanJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test="projectId != null and projectId != ''">
+                and a.project_id like concat('%', #{projectId}, '%')
+            </if>
+            <if test="type != null and type != ''">
+                and a.type like concat('%', #{type}, '%')
+            </if>
+            <if test="name != null and name != ''">
+                and a.name like concat('%', #{name}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                and a.status like concat('%', #{status}, '%')
+            </if>
+            <if test="abbreviate != null and abbreviate != ''">
+                and a.abbreviate like concat('%', #{abbreviate}, '%')
+            </if>
+            <if test="members != null and members != ''">
+                and a.members like concat('%', #{members}, '%')
+            </if>
+            <if test="description != null and description != ''">
+                and a.description like concat('%', #{description}, '%')
+            </if>
+            <if test="createByName != null and createByName != ''">
+                and a.create_by_name like concat('%', #{createByName}, '%')
+            </if>
+            <if test="createStartTime != null and createStartTime != '' and createEndTime != null and createEndTime != ''">
+                and a.create_time between #{createStartTime} and #{createEndTime}
+            </if>
+            <if test="updateStartTime != null and updateStartTime != '' and updateEndTime != null and updateEndTime != ''">
+                and a.update_time between #{updateStartTime} and #{updateEndTime}
+            </if>
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findListWithUnique" resultType="TestPlan">
+        SELECT a.id FROM test_plan a
+        <include refid="testPlanJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test="id != null and id != '' and id != 'null'">
+                AND a.id = #{id}
+            </if>
+            <if test="name != null and name != '' and name != 'null'">
+                AND a.name = #{name}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO test_plan(
+                              project_id,
+                              type,
+                              id,
+                              name,
+                              abbreviate,
+                              description,
+                              members,
+                              timed_tasks_config,
+                              project_config,
+                              automation_config,
+                              functional_test_scene,
+                              ui_test_scene,
+                              principals,
+                              test_progress,
+                              status,
+                              planned_start_time,
+                              planned_end_time,
+                              actual_start_time,
+                              actual_end_time,
+                              create_by,
+                              create_by_name,
+                              create_dept,
+                              create_time,
+                              update_by,
+                              update_by_name,
+                              update_time,
+                              update_ip,
+                              version,
+                              remark,
+                              del_flag
+        )
+        VALUES (
+                #{projectId},
+                #{type},
+                #{id},
+                #{name},
+                #{abbreviate},
+                #{description},
+                #{members},
+                #{timedTasksConfig},
+                #{projectConfig},
+                #{automationConfig},
+                #{functionalTestScene},
+                #{uiTestScene},
+                #{principals},
+                #{testProgress},
+                #{status},
+                #{plannedStartTime},
+                #{plannedEndTime},
+                #{actualStartTime},
+                #{actualEndTime},
+                #{createBy},
+                #{createByName},
+                #{createDept},
+                #{createTime},
+                #{updateBy},
+                #{updateByName},
+                #{updateTime},
+                #{updateIp},
+                #{version},
+                #{remark},
+                #{delFlag}
+               )
+    </insert>
+
+    <update id="update">
+        UPDATE test_plan
+        <set>
+            <if test="projectId != null and projectId != '' and projectId != 'null'">project_id = #{projectId},</if>
+            <if test="type != null and type != '' and type != 'null'">type = #{type},</if>
+            <if test="name != null and name != '' and name != 'null'">name = #{name},</if>
+            <if test="abbreviate != null and abbreviate != '' and abbreviate != 'null'">abbreviate = #{abbreviate},</if>
+            <if test="description != null and description != '' and description != 'null'">description = #{description},</if>
+            <if test="members != null and members != '' and members != 'null'">members = #{members},</if>
+            <if test="timedTasksConfig != null and timedTasksConfig != '' and timedTasksConfig != 'null'">timed_tasks_config = #{timedTasksConfig},</if>
+            <if test="projectConfig != null and projectConfig != '' and projectConfig != 'null'">project_config = #{projectConfig},</if>
+            <if test="automationConfig != null and automationConfig != '' and automationConfig != 'null'">automation_config = #{automationConfig},</if>
+            <if test="functionalTestScene != null and functionalTestScene != '' and functionalTestScene != 'null'">functional_test_scene = #{functionalTestScene},</if>
+            <if test="uiTestScene != null and uiTestScene != '' and uiTestScene != 'null'">ui_test_scene = #{uiTestScene},</if>
+            <if test="principals != null and principals != '' and principals != 'null'">principals = #{principals},</if>
+            <if test="testProgress != null and testProgress != '' and testProgress != 'null'">test_progress = #{testProgress},</if>
+            <if test="status != null and status != '' and status != 'null'">status = #{status},</if>
+            <if test="plannedStartTime != null and plannedStartTime != '' and plannedStartTime != 'null'">planned_start_time = #{plannedStartTime},</if>
+            <if test="plannedEndTime != null and plannedEndTime != '' and plannedEndTime != 'null'">planned_end_time = #{plannedEndTime},</if>
+            <if test="actualStartTime != null and actualStartTime != '' and actualStartTime != 'null'">actual_start_time = #{actualStartTime},</if>
+            <if test="actualEndTime != null and actualEndTime != '' and actualEndTime != 'null'">actual_end_time = #{actualEndTime},</if>
+            remark = #{remark},
+            update_by = #{updateBy},
+            update_by_name = #{updateByName},
+            update_time = #{updateTime},
+            update_ip = #{updateIp},
+            version = version + 1
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateStatus">
+        UPDATE test_plan
+        SET status         = #{status},
+            update_by      = #{updateBy},
+            update_by_name = #{updateByName},
+            update_time    = #{updateTime},
+            update_ip      = #{updateIp},
+            version        = version + 1
+        WHERE id = #{id}
+    </update>
+
+
+    <update id="delete">
+        UPDATE test_plan
+        SET del_flag = #{DEL_FLAG_DELETE}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteTestPlanByIds">
+        UPDATE test_plan SET del_flag = #{DEL_FLAG_DELETE} WHERE id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

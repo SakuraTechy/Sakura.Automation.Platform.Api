@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/sakura-admin/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sakura-admin/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sakura-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sakura-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sakura-controller/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sakura-controller/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sakura-framework/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sakura-framework/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sakura-generator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sakura-generator/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sakura-quartz/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sakura-quartz/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sakura-system/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sakura-system/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

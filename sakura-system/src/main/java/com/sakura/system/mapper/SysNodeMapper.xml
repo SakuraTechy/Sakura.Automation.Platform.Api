@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.system.mapper.SysNodeMapper">
+
+    <sql id="nodeColumns">
+        a.id as "id",
+		a.name AS "name",
+        a.parent_id AS "parentId",
+        a.project_id AS "projectId",
+        a.version_id AS "versionId",
+		a.create_by AS "createBy",
+		a.create_dept AS "createDept",
+		a.create_time AS "createTime",
+		a.update_by AS "updateBy",
+		a.update_time AS "updateTime",
+		a.update_ip AS "updateIp",
+		a.remark AS "remark",
+		a.version AS "version",
+		a.del_flag AS "delFlag"
+    </sql>
+
+    <sql id="SysNodeJoins">
+    </sql>
+
+    <resultMap id="BaseResultMap" type="SysNode">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="project_id" property="projectId"></result>
+        <result column="parent_id" property="parentId"></result>
+        <collection property="children" select="findNodeByParentId" column="id"></collection>
+    </resultMap>
+
+    <select id="findNodeByParentId" resultMap="BaseResultMap">
+        SELECT
+            a.id,
+            a.name,
+            a.project_id,
+            a.version_id,
+            a.parent_id
+        from sys_node a
+        where a.del_flag = '0'
+        and a.parent_id = #{id}
+    </select>
+
+    <sql id="commonSorts">
+        order by a.create_time
+    </sql>
+
+    <sql id="commonWhere">
+        <if test="name != null and name != ''">
+            AND a.name = #{name}
+        </if>
+        <if test="parentId != null and parentId != ''">
+            AND a.parent_id = #{parentId}
+        </if>
+        <if test="projectId != null and projectId != ''">
+            AND a.project_id = #{projectId}
+        </if>
+        <if test="versionId != null and versionId != ''">
+            AND a.version_id = #{versionId}
+        </if>
+        <if test="createStartTime != null and createStartTime != '' and createEndTime != null and createEndTime != ''">
+            and a.create_time between #{createStartTime} and #{createEndTime}
+        </if>
+    </sql>
+
+    <select id="findList" resultType="sysNode">
+        SELECT
+        <include refid="nodeColumns"/>
+        FROM sys_node a
+        where a.del_flag = #{DEL_FLAG_NORMAL}
+        <include refid="commonWhere"/>
+        <include refid="commonSorts"/>
+    </select>
+
+    <select id="findListWithUnique" resultType="sysNode">
+        SELECT
+        a.id
+        FROM sys_node a
+        WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+        <if test="name != null and name != ''">
+            AND a.name = #{name}
+        </if>
+        <if test="parentId != null and parentId != ''">
+            AND a.parent_id = #{parentId}
+        </if>
+        <if test="projectId != null and projectId != ''">
+            AND a.project_id = #{projectId}
+        </if>
+        <if test="versionId != null and versionId != ''">
+            AND a.version_id = #{versionId}
+        </if>
+    </select>
+
+    <select id="selectDefaultFileNum" parameterType="sysNode" resultType="int">
+        SELECT COUNT(1) FROM sys_node where name like concat( #{DEFAULT_FILE_NAME}, '%') and parent_id = #{parentId}
+    </select>
+
+    <insert id="insert">
+        insert into sys_node(
+            id,
+            name,
+            parent_id,
+            project_id,
+            version_id,
+            create_by,
+            create_dept,
+            create_time,
+            update_by,
+            update_ip,
+            update_time,
+            remark,
+            version,
+            del_flag
+        )values (
+                 #{id},
+                 #{name},
+                 #{parentId},
+                 #{projectId},
+                 #{versionId},
+                 #{createBy},
+                 #{createDept},
+                 #{createTime},
+                 #{updateBy},
+                 #{updateIp},
+                 #{updateTime},
+                 #{remark},
+                 #{version},
+                 #{delFlag}
+                )
+    </insert>
+
+    <update id="update">
+        UPDATE sys_node SET
+                            name = #{name},
+                            update_by = #{updateBy},
+                            update_ip = #{updateIp},
+                            update_time = #{updateTime}
+        <if test="parentId != null and parentId != ''">
+            , parent_id = #{parentId}
+        </if>
+        WHERE id = #{id}
+    </update>
+
+    <select id="get" resultType="sysNode">
+        SELECT
+        <include refid="nodeColumns"/>
+        FROM sys_node a
+        <include refid="SysNodeJoins"/>
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="getFind" resultType="sysNode">
+        SELECT
+        <include refid="nodeColumns"/>
+        FROM sys_node a
+        WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+        <if test="id != null and id != ''">
+            AND a.id = #{id}
+        </if>
+        <if test="name != null and name != ''">
+            AND a.name = #{name}
+        </if>
+        <if test="parentId != null and parentId != ''">
+            AND a.parent_id = #{parentId}
+        </if>
+        <if test="projectId != null and projectId != ''">
+            AND a.project_id = #{projectId}
+        </if>
+        <if test="versionId != null and versionId != ''">
+            AND a.version_id = #{versionId}
+        </if>
+    </select>
+
+    <select id="findChildByParentId"  resultType="SysNode">
+        SELECT
+        <include refid="nodeColumns"></include>
+        FROM sys_node a
+        WHERE a.del_flag = '0'
+        AND a.parent_id = #{id}
+    </select>
+
+    <select id="getAll" resultMap="BaseResultMap">
+        SELECT
+            a.id as "id",
+            a.name AS "name",
+            a.parent_id,
+            a.project_id,
+            a.version_id
+        from sys_node a
+        where a.del_flag = '0'
+          AND a.project_id = #{projectId}
+          AND a.version_id = #{versionId}
+          AND a.name = #{name}
+    </select>
+
+    <select id="getRoot" resultType="sysNode">
+        SELECT
+        <include refid="nodeColumns"></include>
+        FROM sys_node a
+        WHERE a.del_flag = '0'
+        AND project_id = #{projectId}
+        AND name = #{name}
+    </select>
+
+    <update id="delete" parameterType="sysNode">
+        UPDATE sys_node
+        SET del_flag = '1'
+        WHERE id = #{id}
+    </update>
+
+    <update id="deleteNodeByVersionId">
+        UPDATE sys_node
+        SET del_flag = '1'
+        WHERE version_id = #{versionId}
+    </update>
+
+    <update id="deleteNodeByProjectIds" >
+        update sys_node set del_flag = '1'
+            where project_id in
+            <foreach collection="array" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+    </update>
+</mapper>

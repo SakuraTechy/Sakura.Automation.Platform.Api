@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.project.mapper.ProjectConfigMapper">
+
+    <sql id="projectConfigColumns">
+        a.id as "id",
+        a.name as "name",
+        a.abbreviate as "abbreviate",
+        a.members as "members",
+        a.description as "description",
+        a.last_domain as "lastDomain",
+        a.last_version as "lastVersion",
+        a.status as "status",
+        a.remark as "remark",
+        a.create_by as "createBy",
+        a.create_by_name as "createByName",
+        a.create_dept as "createDept",
+        a.create_time as "createTime",
+        a.update_by as "updateBy",
+        a.update_by_name as "updateByName",
+        a.update_time as "updateTime",
+        a.update_ip as "updateIp",
+        a.version as "version",
+        a.del_flag as "delFlag"
+        <!--        u.id userId,-->
+        <!--        u.name createByName-->
+    </sql>
+
+    <sql id="selectProjectVo">
+        SELECT
+        @i := @i + 1 'index',
+        a.*
+        FROM
+        (
+        SELECT
+        a.id,
+        a.name,
+        a.abbreviate,
+        a.description,
+        a.last_domain,
+        a.last_version,
+        a.status,
+        a.del_flag,
+        a.create_by,
+        a.create_time,
+        a.create_dept,
+        a.update_by,
+        a.update_time,
+        a.update_ip,
+        a.remark,
+        a.version,
+        u.id userId,
+        u.name userName
+        FROM
+        project_config a
+        LEFT JOIN sys_user_project up ON a.id = up.project_id
+        LEFT JOIN sys_user u ON up.user_id = u.id
+        WHERE
+        a.del_flag = '0'
+        <!--        GROUP BY-->
+        <!--        a.id-->
+        ORDER BY
+        a.create_time
+        ) a,
+        ( SELECT @i := 0 ) r
+    </sql>
+
+    <sql id="ProjectOrderBy">
+<!--        order by a.create_time desc-->
+    </sql>
+
+    <sql id="projectConfigJoins">
+    </sql>
+
+    <select id="get" resultType="ProjectConfig" resultMap="ProjectResult">
+        SELECT
+        <include refid="projectConfigColumns"/>
+        FROM project_config a
+        <include refid="projectConfigJoins"/>
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="findList" resultType="ProjectConfig" resultMap="ProjectResult">
+        SELECT
+        <include refid="projectConfigColumns"/>
+        FROM project_config a
+        <!--        LEFT JOIN sys_user u ON u.id=a.create_by-->
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test="id != null and id != ''">
+                and a.id like concat('%', #{id}, '%')
+            </if>
+            <if test="name != null and name != ''">
+                and a.name like concat('%', #{name}, '%')
+            </if>
+            <if test="abbreviate != null and abbreviate != ''">
+                and a.abbreviate like concat('%', #{abbreviate}, '%')
+            </if>
+            <if test="status != null">
+                and a.status = #{status}
+            </if>
+            <if test="createByName != null and createByName != ''">
+                and a.create_by_name like concat('%', #{createByName}, '%')
+            </if>
+            <if test="createStartTime != null and createStartTime != '' and createEndTime != null and createEndTime != ''">
+                and a.create_time between #{createStartTime} and #{createEndTime}
+            </if>
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+        <include refid="ProjectOrderBy"/>
+    </select>
+
+    <resultMap id="ProjectResult" type="ProjectConfig">
+        <id property="id" column="id"/>
+        <result property="index" column="index"/>
+        <result property="name" column="name"/>
+        <result property="abbreviate" column="abbreviate"/>
+        <result property="members" column="members"/>
+        <result property="description" column="description"/>
+        <result property="lastDomain" column="lastDomain"/>
+        <result property="lastVersion" column="lastVersion"/>
+        <result property="createBy" column="createBy"/>
+        <result property="createByName" column="createByName"/>
+        <result property="createTime" column="createTime"/>
+        <result property="createDept" column="createDept"/>
+        <result property="updateBy" column="updateBy"/>
+        <result property="updateByName" column="updateByName"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="updateIp" column="updateIp"/>
+        <result property="status" column="status"/>
+        <result property="remark" column="remark"/>
+        <result property="delFlag" column="delFlag"/>
+        <result property="version" column="version"/>
+        <collection property="memberList" javaType="java.util.List" resultMap="userResult"/>
+    </resultMap>
+
+    <resultMap id="userResult" type="sysUser">
+        <id property="id" column="userId"/>
+        <result property="name" column="userName"/>
+    </resultMap>
+
+    <select id="findListWithUnique" resultType="ProjectConfig">
+        SELECT
+        a.id
+        FROM project_config a
+        <include refid="projectConfigJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test="id != null and id != '' and id != 'null'">
+                AND a.id = #{id}
+            </if>
+            <if test="name != null and name != '' and name != 'null'">
+                AND a.name = #{name}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO project_config(id,
+                                   name,
+                                   abbreviate,
+                                   members,
+                                   description,
+                                   last_domain,
+                                   last_version,
+                                   status,
+                                   remark,
+                                   create_by,
+                                   create_by_name,
+                                   create_dept,
+                                   create_time,
+                                   update_by,
+                                   update_by_name,
+                                   update_time,
+                                   update_ip,
+                                   version,
+                                   del_flag)
+        VALUES (#{id},
+                #{name},
+                #{abbreviate},
+                #{members},
+                #{description},
+                #{lastDomain},
+                #{lastVersion},
+                #{status},
+                #{remark},
+                #{createBy},
+                #{createByName},
+                #{createDept},
+                #{createTime},
+                #{updateBy},
+                #{updateByName},
+                #{updateTime},
+                #{updateIp},
+                #{version},
+                #{delFlag})
+    </insert>
+
+    <insert id="insertUserProject" parameterType="projectConfig">
+        insert into sys_user_project values
+        <foreach collection="memberIds" item="memberId" separator=",">
+            (#{memberId} ,#{id})
+        </foreach>
+    </insert>
+
+    <delete id="deleteUserProject" parameterType="projectConfig">
+        DELETE
+        FROM sys_user_project
+        WHERE project_id = #{id}
+    </delete>
+
+    <delete id="deleteUserProjectByIds">
+        DELETE FROM sys_user_project
+        WHERE project_id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update">
+        UPDATE project_config
+        <set>
+            <if test="name != null and name != '' and name != 'null'">name = #{name},</if>
+            <if test="abbreviate != null and abbreviate != '' and abbreviate != 'null'">abbreviate = #{abbreviate},</if>
+            <if test="members != null and members != '' and members != 'null'">members = #{members},</if>
+            <if test="description != null and description != '' and description != 'null'">description = #{description},</if>
+            <if test="lastDomain != null and lastDomain != '' and lastDomain != 'null'">last_domain = #{lastDomain},</if>
+            <if test="lastVersion != null and lastVersion != '' and lastVersion != 'null'">last_version = #{lastVersion},</if>
+            <if test="status != null">status = #{status},</if>
+            remark = #{remark},
+            update_by = #{updateBy},
+            update_by_name = #{updateByName},
+            update_time = #{updateTime},
+            update_ip = #{updateIp},
+            version = version + 1
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateStatus">
+        UPDATE project_config
+        SET status         = #{status},
+            update_by      = #{updateBy},
+            update_by_name = #{updateByName},
+            update_time    = #{updateTime},
+            update_ip      = #{updateIp},
+            version        = version + 1
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        UPDATE project_config
+        SET del_flag       = #{DEL_FLAG_DELETE},
+            update_by      = #{updateBy},
+            update_by_name = #{updateByName},
+            update_time    = #{updateTime},
+            update_ip      = #{updateIp},
+            version        = version + 1
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteProjectConfigByIds">
+        UPDATE project_config SET
+        del_flag = #{DEL_FLAG_DELETE}
+        WHERE id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.test.mapper.TestReportMapper">
+
+    <sql id="testReportColumns">
+        a.project_id as "projectId",
+        a.version_id as "versionId",
+        a.test_plan_id as "testPlanId",
+        a.id as "id",
+        a.name as "name",
+        a.description as "description",
+        a.trigger_mode as "triggerMode",
+        a.execution_mode as "executionMode",
+        a.project_config as "projectConfig",
+        a.automation_config as "automationConfig",
+        a.run_environment as "runEnvironment",
+        a.run_time as "runTime",
+        a.status as "status",
+        a.statistic_analysis as "statisticAnalysisStr",
+        a.create_by as "createBy",
+        a.create_by_name as "createByName",
+        a.create_dept as "createDept",
+        a.create_time as "createTime",
+        a.update_by as "updateBy",
+        a.update_by_name as "updateByName",
+        a.update_time as "updateTime",
+        a.update_ip as "updateIp",
+        a.version as "version",
+        a.remark as "remark",
+        a.del_flag as "delFlag"
+    </sql>
+
+    <sql id="testReportJoins">
+    </sql>
+
+    <select id="get" resultType="TestReport">
+        SELECT
+        <include refid="testReportColumns"/>
+        FROM test_report a
+        <include refid="testReportJoins"/>
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="findList" resultType="TestReport">
+        SELECT
+        <include refid="testReportColumns"/>
+        FROM test_report a
+        <include refid="testReportJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test="projectId != null and projectId != ''">
+                and a.project_id like concat('%', #{projectId}, '%')
+            </if>
+            <if test="versionId != null and versionId != ''">
+                and a.version_id = #{versionId}
+            </if>
+            <if test="testPlanId != null and testPlanId != ''">
+                AND a.test_plan_id = #{testPlanId}
+            </if>
+            <if test="name != null and name != ''">
+                and a.name like concat('%', #{name}, '%')
+            </if>
+            <if test="description != null and description != ''">
+                and a.description like concat('%', #{description}, '%')
+            </if>
+            <if test="executionMode != null and executionMode != ''">
+                and a.execution_mode like concat('%', #{executionMode}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                and a.status like concat('%', #{status}, '%')
+            </if>
+            <if test="createByName != null and createByName != ''">
+                and a.create_by_name like concat('%', #{createByName}, '%')
+            </if>
+            <if test="createStartTime != null and createStartTime != '' and createEndTime != null and createEndTime != ''">
+                and a.create_time between #{createStartTime} and #{createEndTime}
+            </if>
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findListWithUnique" resultType="TestReport">
+        SELECT a.id FROM test_report a
+        <include refid="testReportJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test="id != null and id != '' and id != 'null'">
+                AND a.id = #{id}
+            </if>
+            <if test="name != null and name != '' and name != 'null'">
+                AND a.name = #{name}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO test_report(
+                                project_id,
+                                version_id,
+                                test_plan_id,
+                                id,
+                                name,
+                                description,
+                                trigger_mode,
+                                execution_mode,
+                                project_config,
+                                automation_config,
+                                run_environment,
+                                run_time,
+                                status,
+                                statistic_analysis,
+                                create_by,
+                                create_by_name,
+                                create_dept,
+                                create_time,
+                                update_by,
+                                update_by_name,
+                                update_time,
+                                update_ip,
+                                version,
+                                remark,
+                                del_flag)
+        VALUES (
+                #{projectId},
+                #{versionId},
+                #{testPlanId},
+                #{id},
+                #{name},
+                #{description},
+                #{triggerMode},
+                #{executionMode},
+                #{projectConfig},
+                #{automationConfig},
+                #{runEnvironment},
+                #{runTime},
+                #{status},
+                #{statisticAnalysisStr},
+                #{createBy},
+                #{createByName},
+                #{createDept},
+                #{createTime},
+                #{updateBy},
+                #{updateByName},
+                #{updateTime},
+                #{updateIp},
+                #{version},
+                #{remark},
+                #{delFlag})
+    </insert>
+
+    <update id="update">
+        UPDATE test_report
+        <set>
+            <if test="name != null and name != '' and name != 'null'">name = #{name},</if>
+            <if test="description != null and description != '' and description != 'null'">description = #{description},</if>
+            <if test="status != null and status != '' and status != 'null'">status = #{status},</if>
+            <if test="statisticAnalysisStr != null and statisticAnalysisStr != '' and statisticAnalysisStr != 'null'">statistic_analysis = #{statisticAnalysisStr},</if>
+            remark = #{remark},
+            update_by = #{updateBy},
+            update_by_name = #{updateByName},
+            update_time = #{updateTime},
+            update_ip = #{updateIp},
+            version = version + 1
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="uploadResults">
+        UPDATE test_report
+        <set>
+            <if test="runTime != null and runTime != '' and runTime != 'null'">status = #{runTime},</if>
+            <if test="status != null and status != '' and status != 'null'">status = #{status},</if>
+            <if test="statisticAnalysisStr != null and statisticAnalysisStr != '' and statisticAnalysisStr != 'null'">statistic_analysis = #{statisticAnalysisStr},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateStatus">
+        UPDATE test_report
+        SET status         = #{status},
+            update_by      = #{updateBy},
+            update_by_name = #{updateByName},
+            update_time    = #{updateTime},
+            update_ip      = #{updateIp},
+            version        = version + 1
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+        UPDATE test_report
+        SET del_flag = #{DEL_FLAG_DELETE}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteTestReportByIds">
+        UPDATE test_report SET del_flag = #{DEL_FLAG_DELETE} WHERE id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

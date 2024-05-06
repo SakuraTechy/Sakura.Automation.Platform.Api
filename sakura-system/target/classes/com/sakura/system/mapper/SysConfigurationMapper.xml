@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.system.mapper.SysConfigurationMapper">
+
+    <sql id="sysConfigurationParams">
+                a.id AS "id",
+                a.config_name AS "configName",
+                a.params_name AS "paramsName",
+                a.params_value AS "paramsValue",
+                a.create_by_name as "createByName",
+                a.create_time as "createTime",
+                a.create_by as "createBy",
+                a.create_dept as "createDept",
+                a.update_by as "updateBy",
+                a.update_time as "updateTime",
+                a.version as "version",
+                a.update_ip as "updateIp",
+                a.del_flag as "delFlag"
+    </sql>
+
+    <sql id="sysConfigurationOrderBy">
+        order by a.create_time desc
+    </sql>
+
+    <select id="findList" resultType="sysConfiguration">
+        SELECT
+            <include refid="sysConfigurationParams"></include>
+        from sys_configuration a
+        where  a.del_flag = #{DEL_FLAG_NORMAL}
+        <if test="configName != null and configName != ''" >
+            AND a.config_name like concat('%', #{configName} ,'%')
+        </if>
+        <include refid="sysConfigurationOrderBy"></include>
+    </select>
+
+    <select id="get" resultType="sysConfiguration">
+        SELECT
+        <include refid="sysConfigurationParams"></include>
+        from sys_configuration a
+        where  a.del_flag = '0'
+        AND a.id = #{id}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO sys_configuration(
+            id,
+            config_name,
+            params_name,
+            params_value,
+            create_by_name,
+            create_time,
+            create_by,
+            create_dept,
+            update_by,
+            update_time,
+            version,
+            update_ip,
+            del_flag
+        )VALUES (
+                 #{id},
+                 #{configName},
+                 #{paramsName},
+                 #{paramsValue},
+                 #{createByName},
+                 #{createTime},
+                 #{createBy},
+                 #{createDept},
+                 #{updateBy},
+                 #{updateTime},
+                 #{version},
+                 #{updateIp},
+                 #{delFlag}
+               )
+    </insert>
+
+    <update id="update">
+        update sys_configuration set
+                                     config_name = #{configName},
+                                     params_name =#{paramsName},
+                                     params_value =#{paramsValue},
+                                     update_by = #{updateBy},
+                                     update_time = #{updateTime},
+                                     version = version+1,
+                                     update_ip = #{updateIp}
+        where del_flag = #{DEL_FLAG_NORMAL} AND id = #{id}
+    </update>
+    <update id="deleteSysConfigurationByIds" >
+        update sys_configuration set
+            del_flag = '1'
+        where id IN
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+               #{id}
+        </foreach>
+    </update>
+
+    <select id="getPath" resultType="string">
+        select params_value from sys_configuration
+        where params_name =#{paramsName}
+    </select>
+</mapper>
