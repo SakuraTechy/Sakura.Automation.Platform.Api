@@ -1,13 +1,13 @@
 # 项目相关配置
 sakura:
   # 文件路径 示例（ Windows配置D:/sakura/uploadPath，Linux配置 /home/sakura/uploadPath）
-  profile: D:/King/Vue/Sakura.Test.Platform/Sakura.Test.Platform.Api/sakura-admin/uploadPath
+  profile: D:/King/Vue/Sakura.Automation.Platform/Sakura.Automation.Platform.Api/sakura-admin/uploadPath
 
 # Yaml配置
 yaml:
   project:
     # 项目运行环境，配置文件路径
-    filePath: D:/King/Vue/Sakura.Test.Platform/Sakura.Test.Platform.Api/sakura-admin/environment.yml
+    filePath: D:/King/Vue/Sakura.Automation.Platform/Sakura.Automation.Platform.Api/sakura-admin/environment.yml
 
 # 服务器配置
 server:

@@ -7,11 +7,11 @@
         <a>
             <img src="https://img.shields.io/badge/sakura--sharp-V3.3-green" alt="Aidex-Sharp">
         </a>
-        <a href="https://gitee.com/big-hedgehog/Sakura.Test.Platform.Api">
-            <img src="https://gitee.com/big-hedgehog/Sakura.Test.Platform.Api/badge/star.svg?theme=dark" alt="Gitee star">
+        <a href="https://gitee.com/big-hedgehog/Sakura.Automation.Platform.Api">
+            <img src="https://gitee.com/big-hedgehog/Sakura.Automation.Platform.Api/badge/star.svg?theme=dark" alt="Gitee star">
         </a>
-        <a href="https://gitee.com/big-hedgehog/Sakura.Test.Platform.Api">
-            <img src="https://gitee.com/big-hedgehog/Sakura.Test.Platform.Api/badge/fork.svg?theme=dark" alt="Gitee fork">
+        <a href="https://gitee.com/big-hedgehog/Sakura.Automation.Platform.Api">
+            <img src="https://gitee.com/big-hedgehog/Sakura.Automation.Platform.Api/badge/fork.svg?theme=dark" alt="Gitee fork">
         </a>
     </p>
 </p>

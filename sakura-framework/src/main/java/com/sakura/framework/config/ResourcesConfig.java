@@ -31,7 +31,7 @@ public class ResourcesConfig implements WebMvcConfigurer
          * 本地文件上传路径 
          * 前面为前端URL访问路径  后面 file:xxxx为本地磁盘映射
          * 前端: http://localhost/api/profile/avatar.jpg
-         * 本地: D:/King/Vue/Sakura.Test.Platform.Api/sakura-admin/uploadPath/avatar.jpg
+         * 本地: D:/King/Vue/Sakura.Automation.Platform.Api/sakura-admin/uploadPath/avatar.jpg
          */
         registry.addResourceHandler(Constants.RESOURCE_PREFIX + "/**")
                 .addResourceLocations("file:" + SakuraConfig.getProfile() + "/");
