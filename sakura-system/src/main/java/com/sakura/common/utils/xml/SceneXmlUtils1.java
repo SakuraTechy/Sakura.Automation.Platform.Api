@@ -492,7 +492,7 @@ public class SceneXmlUtils1 {
             String fileName = sysScene.getSceneId();
             String projectPath = getProjectPath("Remote_ProjectPath", sysScene.getProjectId()) + sysScene.getVersionName() + "/TestCaseXml/";
             fileName = URLEncoder.encode(fileName, "UTF-8");
-            //File file = new File("D:\\Sakura\\Sakura.Test.Platform\\automation\\Sakura.Web.UI.Automation.Test\\src\\test\\java\\AAS_DBSG\\V6_1B01_POC\\TestCaseXml\\1.xml");
+            //File file = new File("D:\\Sakura\\Sakura.Automation.Platform\\automation\\Sakura.Web.UI.Automation.Test\\src\\test\\java\\AAS_DBSG\\V6_1B01_POC\\TestCaseXml\\1.xml");
             String xmlFile = projectPath + fileName + ".xml";
             File file = new File(xmlFile);
             if (!file.exists()) {

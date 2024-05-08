@@ -17,7 +17,7 @@
 // */
 //public class YmlUtilTest1 {
 //    public static void main1(String[] args) throws IOException {
-//        File file = new File("D:/King/Vue/Sakura.Test.Platform/Sakura.Test.Platform.Api/sakura-admin/environment1.yml");
+//        File file = new File("D:/King/Vue/Sakura.Automation.Platform/Sakura.Automation.Platform.Api/sakura-admin/environment1.yml");
 //        FileOutputStream fileOutputStream = new FileOutputStream(file);
 //        PrintStream printStream = new PrintStream(fileOutputStream);
 //        System.setOut(printStream);
@@ -56,7 +56,7 @@
 ////            System.out.println(dev.toString());
 ////        }
 //
-//        File file1 = new File("D:/King/Vue/Sakura.Test.Platform/Sakura.Test.Platform.Api/sakura-admin/environment2.yml");
+//        File file1 = new File("D:/King/Vue/Sakura.Automation.Platform/Sakura.Automation.Platform.Api/sakura-admin/environment2.yml");
 //        FileWriter fileWriter = new FileWriter(file1);
 //        fileWriter.write(yaml.toString());
 //        fileWriter.close();
@@ -407,17 +407,17 @@
 //                .build();
 //        System.out.println(yaml.toString());
 //
-//        File file2 = new File("D:/King/Vue/Sakura.Test.Platform/Sakura.Test.Platform.Api/sakura-admin/environment3.yml");
+//        File file2 = new File("D:/King/Vue/Sakura.Automation.Platform/Sakura.Automation.Platform.Api/sakura-admin/environment3.yml");
 //        FileWriter fileWriter2 = new FileWriter(file2);
 //        fileWriter2.write(yaml2.toString());
 //        fileWriter2.close();
 //
-//        File file3 = new File("D:/King/Vue/Sakura.Test.Platform/Sakura.Test.Platform.Api/sakura-admin/environment4.yml");
+//        File file3 = new File("D:/King/Vue/Sakura.Automation.Platform/Sakura.Automation.Platform.Api/sakura-admin/environment4.yml");
 //        FileWriter fileWriter3 = new FileWriter(file3);
 //        fileWriter3.write(yaml3.toString());
 //        fileWriter3.close();
 //
-//        File file = new File("D:/King/Vue/Sakura.Test.Platform/Sakura.Test.Platform.Api/sakura-admin/environment5.yml");
+//        File file = new File("D:/King/Vue/Sakura.Automation.Platform/Sakura.Automation.Platform.Api/sakura-admin/environment5.yml");
 //        FileWriter fileWriter = new FileWriter(file);
 //        fileWriter.write(yaml.toString());
 //        fileWriter.close();

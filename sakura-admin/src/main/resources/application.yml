@@ -9,8 +9,8 @@ sakura:
   # 实例演示开关
   demoEnabled: true
   # 文件路径 示例（ Windows配置D:/sakura/uploadPath，Linux配置 /home/sakura/uploadPath）
-  # profile: D:\King\Vue\Sakura.Test.Platform\Sakura.Test.Platform.Api\sakura-admin\uploadPath
-  # profile: /Sakura/Sakura.Test.Platform/service/uploadPath
+  # profile: D:\King\Vue\Sakura.Automation.Platform\Sakura.Automation.Platform.Api\sakura-admin\uploadPath
+  # profile: /Sakura/Sakura.Automation.Platform/service/uploadPath
   # 获取ip地址开关
   addressEnabled: false
   # 验证码类型 math 数组计算 char 字符验证
@@ -27,8 +27,8 @@ spring:
   # 环境配置
   profiles: 
     # 默认启动环境，dev开发，test测试，druid生产
-#    active: dev
-    active: test
+    active: dev
+#    active: test
 #    active: druid
 
 #  quartz:

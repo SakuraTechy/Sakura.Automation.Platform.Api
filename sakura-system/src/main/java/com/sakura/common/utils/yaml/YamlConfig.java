@@ -449,7 +449,7 @@ public class YamlConfig {
             @ApiModelProperty(value = "项目地址", required = true, example = "http://172.19.5.222:8099/Test/Sakura.Web.UI.Automation.Test.git")
             @JSONField(ordinal = 5)
             private String url;
-            @ApiModelProperty(value = "项目路径", required = true, example = "/data/sakura/Sakura.Test.Platform/automation/Sakura.Web.UI.Automation.Test/src/test/java")
+            @ApiModelProperty(value = "项目路径", required = true, example = "/data/sakura/Sakura.Automation.Platform/automation/Sakura.Web.UI.Automation.Test/src/test/java")
             @JSONField(ordinal = 6)
             private String path;
             @ApiModelProperty(value = "启用状态(0关闭 1开启)", required = true, example = "1")
