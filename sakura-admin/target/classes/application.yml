@@ -27,8 +27,8 @@ spring:
   # 环境配置
   profiles: 
     # 默认启动环境，dev开发，test测试，druid生产
-#    active: dev
-    active: test
+    active: dev
+#    active: test
 #    active: druid
 
 #  quartz:
