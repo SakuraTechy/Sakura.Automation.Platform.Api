@@ -790,7 +790,7 @@ public class AutomationConfigServiceImpl extends BaseServiceImpl<AutomationConfi
         JsonNode jsonNode = JenkinsService.getJenkinsNodeAll(jenkinsUrl, jenkinsUserName, jenkinsPassWord);
         String environmentConfig = super.get(automationConfig.getId()).getEnvironmentConfig();
         List<YamlConfig.Automation.Environment> environmentList = JSON.parseArray(environmentConfig, YamlConfig.Automation.Environment.class);
-        if (jsonNode.get("computer").size() == environmentList.size()) {
+        if (StringUtils.isNotEmpty(environmentList) && jsonNode.get("computer").size() == environmentList.size()) {
             for (JsonNode computer : jsonNode.get("computer")) {
                 environmentList.forEach((environment) -> {
                     String displayName = computer.get("displayName").asText();
