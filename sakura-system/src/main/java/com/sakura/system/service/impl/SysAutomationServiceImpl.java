@@ -1304,9 +1304,10 @@ public class SysAutomationServiceImpl extends BaseServiceImpl<SysAutomationMappe
         while (iterator.hasNext()) {
             SysSceneCase next = iterator.next();
             if (next.getId().equals(stepVo.getStep().getPid())) {
-                String stepMsg1 = next.getStepMsg();
-                List<Step> stepList = JSONObject.parseArray(stepMsg1, Step.class);
-                Iterator<Step> iterator1 = stepList.iterator();
+//                String stepMsg1 = next.getStepMsg();
+//                List<Step> stepList = JSONObject.parseArray(stepMsg1, Step.class);
+//                Iterator<Step> iterator1 = stepList.iterator();
+                Iterator<Step> iterator1 = next.getStepList().iterator();
                 while (iterator1.hasNext()) {
                     Step next1 = iterator1.next();
                     if (next1.getId().equals(stepVo.getStep().getId())) {
