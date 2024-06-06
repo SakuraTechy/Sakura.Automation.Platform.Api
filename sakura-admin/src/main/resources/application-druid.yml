@@ -12,7 +12,7 @@ yaml:
 # 服务器配置
 server:
   # 服务器的HTTP端口，默认为8080
-  port: 8084
+  port: 8082
   servlet:
     # 应用的访问路径
     context-path: /
