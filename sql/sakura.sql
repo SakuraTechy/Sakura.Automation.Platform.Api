@@ -1,10 +1,10 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 172.19.5.226（生产环境）
+ Source Server         : 172.19.5.227（生产环境）
  Source Server Type    : MySQL
  Source Server Version : 50740
- Source Host           : 172.19.5.226:3306
+ Source Host           : 172.19.5.227:3306
  Source Schema         : sakura
 
  Target Server Type    : MySQL
