@@ -5,7 +5,7 @@ sakura:
   # 版本
   version: v1.0.0
   # 版权年份
-  copyrightYear: 2022
+  copyrightYear: 2024
   # 实例演示开关
   demoEnabled: true
   # 文件路径 示例（ Windows配置D:/sakura/uploadPath，Linux配置 /home/sakura/uploadPath）
@@ -106,13 +106,13 @@ spring:
   # redis 配置
   redis:
     # 地址
-    host: 172.19.5.226
+    host: 172.19.5.227
     # 端口，6380 开发和测试，6379 生产
     port: 6379
     # 数据库索引
     database: 0
     # 密码
-    password: 3edc$RFV
+    password: 3edc%RFV
     # 连接超时时间
     timeout: 10s
     lettuce:
