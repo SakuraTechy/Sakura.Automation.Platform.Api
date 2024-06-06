@@ -1,10 +1,10 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 172.19.5.226（runnergo）
+ Source Server         : 172.19.5.227（runnergo）
  Source Server Type    : MySQL
  Source Server Version : 50740
- Source Host           : 172.19.5.226:3307
+ Source Host           : 172.19.5.227:3307
  Source Schema         : runnergo
 
  Target Server Type    : MySQL
@@ -1220,9 +1220,9 @@ CREATE TABLE `user`  (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES (1, '20a81cd5-4043-43c2-9f7f-a49d91f198d1', 'runnergo', '', '', '$2a$10$bYkJvocVy88CD2WVvBzBs.WcqpDeIALRtD3l6x3XCM6K0mfcQVJKG', 'runnergo', 'https://apipost.oss-cn-beijing.aliyuncs.com/kunpeng/avatar/default3.png', '', '', '2024-05-08 22:23:11', '2024-01-16 05:07:08', '2024-05-08 22:23:11', NULL);
-INSERT INTO `user` VALUES (40, 'f307073c-37a7-4f20-abdb-24045aeb75c7', 'yinghua', '', '', '$2a$10$yL4yAtZfR70ZoaG6ghpO8OWOvDcf8RSIRt.heQsNY9UsgUjtci2/K', '樱花', 'http://172.19.5.226:58888/c931ef0a-a763-4f60-ab0a-42d6d24dc6f5.png', '', '', '2024-05-08 22:07:25', '2024-05-08 18:56:47', '2024-05-08 22:22:11', '2024-05-08 22:22:11');
-INSERT INTO `user` VALUES (42, '71852c74-cd08-4d00-b009-471e7bd01bbc', 'guanliyuan', '', '', '$2a$10$1olZUw8aIb0EfUQ4QvcL8uYBEOi76blPRS0oLCvN.H1NUjV.boXvG', '管理员', 'http://172.19.5.226:58888/fe1e83f2-7fb0-4936-92b3-6274dccfab5a.jpg', '', '', '2024-05-08 22:18:31', '2024-05-08 22:06:38', '2024-05-08 22:18:30', NULL);
-INSERT INTO `user` VALUES (43, 'd4145c27-21c7-4dff-8b34-f6e9de5f04dc', 'liuzhi', 'liuzhi@sakura.com', '', '$2a$10$FrHdYCKvVkKFNRw5sIebeusUbkM.ROxtW0yDlaXQMJkyDCoymZzbK', '刘智', 'http://172.19.5.226:58888/5060e8a8-dce5-45c5-bfd6-6d02b9f8f12f.jpg', '', '', '2024-05-08 22:26:27', '2024-05-08 22:22:25', '2024-05-08 22:26:27', NULL);
+INSERT INTO `user` VALUES (40, 'f307073c-37a7-4f20-abdb-24045aeb75c7', 'yinghua', '', '', '$2a$10$yL4yAtZfR70ZoaG6ghpO8OWOvDcf8RSIRt.heQsNY9UsgUjtci2/K', '樱花', 'http://172.19.5.227:58888/c931ef0a-a763-4f60-ab0a-42d6d24dc6f5.png', '', '', '2024-05-08 22:07:25', '2024-05-08 18:56:47', '2024-05-08 22:22:11', '2024-05-08 22:22:11');
+INSERT INTO `user` VALUES (42, '71852c74-cd08-4d00-b009-471e7bd01bbc', 'guanliyuan', '', '', '$2a$10$1olZUw8aIb0EfUQ4QvcL8uYBEOi76blPRS0oLCvN.H1NUjV.boXvG', '管理员', 'http://172.19.5.227:58888/fe1e83f2-7fb0-4936-92b3-6274dccfab5a.jpg', '', '', '2024-05-08 22:18:31', '2024-05-08 22:06:38', '2024-05-08 22:18:30', NULL);
+INSERT INTO `user` VALUES (43, 'd4145c27-21c7-4dff-8b34-f6e9de5f04dc', 'liuzhi', 'liuzhi@sakura.com', '', '$2a$10$FrHdYCKvVkKFNRw5sIebeusUbkM.ROxtW0yDlaXQMJkyDCoymZzbK', '刘智', 'http://172.19.5.227:58888/5060e8a8-dce5-45c5-bfd6-6d02b9f8f12f.jpg', '', '', '2024-05-08 22:26:27', '2024-05-08 22:22:25', '2024-05-08 22:26:27', NULL);
 
 -- ----------------------------
 -- Table structure for user_collect_info
