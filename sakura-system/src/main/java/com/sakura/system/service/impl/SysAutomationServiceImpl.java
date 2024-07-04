@@ -594,7 +594,7 @@ public class SysAutomationServiceImpl extends BaseServiceImpl<SysAutomationMappe
 //        SceneXmlUtils.createJava(sysScene,"true");
 //        SceneXmlUtils.createTestngReportXml(sysScene);
 //        SceneXmlUtils.createExtentReportXml(sysScene);
-        if (sysSceneCases != null && sysSceneCases.size() != 0) {
+        if (sysSceneCases != null && !sysSceneCases.isEmpty()) {
             for (SysSceneCase sysSceneCase : sysSceneCases) {
                 sysSceneCase.setStepMsg(JSON.toJSONString(sysSceneCase.getStepList()));
             }
@@ -602,7 +602,7 @@ public class SysAutomationServiceImpl extends BaseServiceImpl<SysAutomationMappe
             String caseMsg = JSON.toJSONString(sysSceneCases);
             sysScene.setCaseMsg(caseMsg);
         } else {
-//            sysScene.setCaseMsg(null);
+            sysScene.setCaseMsg(null);
         }
         return super.save(sysScene);
     }
