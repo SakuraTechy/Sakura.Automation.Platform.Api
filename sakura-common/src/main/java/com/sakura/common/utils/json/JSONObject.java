@@ -1,5 +1,9 @@
 package com.sakura.common.utils.json;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
 import com.sakura.common.utils.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -89,6 +93,20 @@ public class JSONObject extends LinkedHashMap<String, Object>
         {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * 转换为xml格式的字符串。
+     *
+     * @return 返回本对象xml字符串。
+     */
+    public String toXml(String json) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(json);
+        XmlMapper xmlMapper = new XmlMapper();
+        // 配置XmlMapper以包含XML声明
+        xmlMapper.configure(ToXmlGenerator.Feature.WRITE_XML_DECLARATION, true);
+        return xmlMapper.writeValueAsString(jsonNode);
     }
 
     /**
