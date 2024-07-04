@@ -602,7 +602,7 @@ public class SysAutomationServiceImpl extends BaseServiceImpl<SysAutomationMappe
             String caseMsg = JSON.toJSONString(sysSceneCases);
             sysScene.setCaseMsg(caseMsg);
         } else {
-//            sysScene.setCaseMsg(null);
+            sysScene.setCaseMsg(null);
         }
         return super.save(sysScene);
     }
