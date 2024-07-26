@@ -383,18 +383,21 @@ public class AutomationConfigServiceImpl extends BaseServiceImpl<AutomationConfi
             }else{
                 if(automationConfig.getProject().getStatus()==1){
                     project.setStatus(0);
-                    automationConfig.setLastProject(automationConfig.getProject().getName());
                 }
             }
         }
+        boolean allStatusZero = projectList.stream().allMatch(item -> item.getStatus() == 0);
         ArrayList<YamlConfig.Automation.Project> collect = projectList.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(YamlConfig.Automation.Project::getName))), ArrayList::new));
-        if (projectList.size() == collect.size()) {
+        if(allStatusZero) {
+            throw new BizException(SysErrorCode.B_PROJECT_Automation_DisableNotExistent);
+        }else if (projectList.size() != collect.size()) {
+            throw new BizException(SysErrorCode.B_PROJECT_Automation_ProjectNameAlreadyExist);
+        }else {
 //            collect.sort((x, y) -> Integer.compare(x.getIndex(), y.getIndex()));
             collect.sort((x, y) -> x.getName().compareTo(y.getName()));
+            automationConfig.setLastProject(automationConfig.getProject().getName());
             automationConfig.setProjectList(collect);
             return edit(automationConfig);
-        } else {
-            throw new BizException(SysErrorCode.B_PROJECT_Automation_ProjectNameAlreadyExist);
         }
     }
 
@@ -509,18 +512,21 @@ public class AutomationConfigServiceImpl extends BaseServiceImpl<AutomationConfi
             }else{
                 if(automationConfig.getJenkins().getStatus()==1){
                     jenkins.setStatus(0);
-                    automationConfig.setLastJenkins(automationConfig.getJenkins().getIp());
                 }
             }
         }
+        boolean allStatusZero = jenkinsList.stream().allMatch(item -> item.getStatus() == 0);
         ArrayList<YamlConfig.Automation.Jenkins> collect = jenkinsList.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(YamlConfig.Automation.Jenkins::getIp).thenComparing(YamlConfig.Automation.Jenkins::getPort))), ArrayList::new));
-        if (jenkinsList.size() == collect.size()) {
+        if(allStatusZero) {
+            throw new BizException(SysErrorCode.B_PROJECT_Automation_DisableNotExistent);
+        }else if (jenkinsList.size() != collect.size()) {
+            throw new BizException(SysErrorCode.B_PROJECT_Automation_JenkinsIPAlreadyExist);
+        }else {
 //            collect.sort((x, y) -> Integer.compare(x.getIndex(), y.getIndex()));
             collect.sort((x, y) -> x.getIp().compareTo(y.getIp()));
+            automationConfig.setLastJenkins(automationConfig.getJenkins().getIp());
             automationConfig.setJenkinsList(collect);
             return edit(automationConfig);
-        } else {
-            throw new BizException(SysErrorCode.B_PROJECT_Automation_JenkinsIPAlreadyExist);
         }
     }
 
@@ -631,18 +637,21 @@ public class AutomationConfigServiceImpl extends BaseServiceImpl<AutomationConfi
             }else{
                 if(automationConfig.getEnvironment().getStatus()==1){
                     environment.setStatus(0);
-                    automationConfig.setLastEnvironment(automationConfig.getEnvironment().getName());
                 }
             }
         }
+        boolean allStatusZero = environmentList.stream().allMatch(item -> item.getStatus() == 0);
         ArrayList<YamlConfig.Automation.Environment> collect = environmentList.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(YamlConfig.Automation.Environment::getName))), ArrayList::new));
-        if (environmentList.size() == collect.size()) {
+        if(allStatusZero) {
+            throw new BizException(SysErrorCode.B_PROJECT_Automation_DisableNotExistent);
+        }else if (environmentList.size() != collect.size()) {
+            throw new BizException(SysErrorCode.B_PROJECT_Automation_EnvironmentNameAlreadyExist);
+        }else {
 //            collect.sort((x, y) -> Integer.compare(x.getIndex(), y.getIndex()));
             collect.sort((x, y) -> x.getName().compareTo(y.getName()));
+            automationConfig.setLastEnvironment(automationConfig.getEnvironment().getName());
             automationConfig.setEnvironmentList(collect);
             return edit(automationConfig);
-        } else {
-            throw new BizException(SysErrorCode.B_PROJECT_Automation_EnvironmentNameAlreadyExist);
         }
     }
 
@@ -1128,18 +1137,21 @@ public class AutomationConfigServiceImpl extends BaseServiceImpl<AutomationConfi
             }else{
                 if(automationConfig.getBrowser().getStatus()==1){
                     browser.setStatus(0);
-                    automationConfig.setLastBrowser(automationConfig.getBrowser().getName());
                 }
             }
         }
+        boolean allStatusZero = browserList.stream().allMatch(item -> item.getStatus() == 0);
         ArrayList<YamlConfig.Automation.Browser> collect = browserList.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(YamlConfig.Automation.Browser::getType).thenComparing(YamlConfig.Automation.Browser::getVersion))), ArrayList::new));
-        if (browserList.size() == collect.size()) {
+        if(allStatusZero) {
+            throw new BizException(SysErrorCode.B_PROJECT_Automation_DisableNotExistent);
+        }else if (browserList.size() != collect.size()) {
+            throw new BizException(SysErrorCode.B_PROJECT_Automation_BrowserNameAlreadyExist);
+        }else {
 //            collect.sort((x, y) -> Integer.compare(x.getIndex(), y.getIndex()));
             collect.sort((x, y) -> x.getName().compareTo(y.getName()));
+            automationConfig.setLastBrowser(automationConfig.getBrowser().getName());
             automationConfig.setBrowserList(collect);
             return edit(automationConfig);
-        } else {
-            throw new BizException(SysErrorCode.B_PROJECT_Automation_BrowserNameAlreadyExist);
         }
     }
 
