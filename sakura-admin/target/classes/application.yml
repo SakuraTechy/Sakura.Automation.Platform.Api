@@ -1,7 +1,7 @@
 # 项目相关配置
 sakura:
   # 名称
-  name: Sakura
+  name: Ankki
   # 版本
   version: v1.0.0
   # 版权年份
@@ -106,13 +106,13 @@ spring:
   # redis 配置
   redis:
     # 地址
-    host: 172.19.5.227
+    host: 172.19.5.222
     # 端口，6380 开发和测试，6379 生产
     port: 6380
     # 数据库索引
     database: 0
     # 密码
-    password: 3edc%RFV
+    password: 3edc$RFV
     # 连接超时时间
     timeout: 10s
     lettuce:

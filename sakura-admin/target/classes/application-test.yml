@@ -1,13 +1,13 @@
 # 项目相关配置
 sakura:
   # 文件路径 示例（ Windows配置D:/sakura/uploadPath，Linux配置 /home/sakura/uploadPath）
-  profile: /data/sakura/Sakura.Automation.Platform/service/uploadPath
+  profile: /data/ankki/Ankki.Test.Platform/service/uploadPath
 
 # Yaml配置
 yaml:
   project:
     # 项目运行环境，配置文件路径
-    filePath: /data/sakura/Sakura.Automation.Platform/automation/test/environment.yml
+    filePath: /data/ankki/Ankki.Test.Platform/automation/test/environment.yml
 
 # 服务器配置
 server:
@@ -35,9 +35,9 @@ spring:
     druid:
       # 主库数据源
       master:
-        url: jdbc:mysql://172.19.5.227:3306/sakura_dev?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&&allowMultiQueries=true
-        username: sakura_dev
-        password: 3edc%RFV
+        url: jdbc:mysql://172.19.5.222:3306/ankki_dev?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&&allowMultiQueries=true
+        username: ankki_dev
+        password: 3edc$RFV
       # 从库数据源
       slave:
         # 从数据源开关/默认关闭
