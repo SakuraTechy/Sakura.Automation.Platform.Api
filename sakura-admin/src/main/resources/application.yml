@@ -28,8 +28,8 @@ spring:
   profiles: 
     # 默认启动环境，dev开发，test测试，druid生产
 #    active: dev
-    active: test
-#    active: druid
+#    active: test
+    active: druid
 
 #  quartz:
 #    job-store-type: jdbc
