@@ -137,7 +137,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/forgotPassword",
                     "/system/automation/uploadResults",
                     "/test/testReport/uploadResults",
-                    "/sendSms"
+                    "/sms/**"
                 ).anonymous()
                 .antMatchers(
                         HttpMethod.GET,
