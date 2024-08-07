@@ -121,7 +121,7 @@ public class SceneXmlUtils {
                     .addParameter(String.class,"browserName")
                     .addParameter(Boolean.class,"profile")
                     .addException(Exception.class)
-                    .addStatement("TestUnit testunit = WebXmlParseService.parse(browserName,profile,this.getClass().getPackage().getName()+this.getClass().getSimpleName())")
+                    .addStatement("TestUnit testunit = WebXmlParseService.parse(browserName,profile,this.getClass().getPackage().getName(),this.getClass().getSimpleName())")
                     .addStatement("runService = new RunUnitService(testunit)")
                     .build();
 
