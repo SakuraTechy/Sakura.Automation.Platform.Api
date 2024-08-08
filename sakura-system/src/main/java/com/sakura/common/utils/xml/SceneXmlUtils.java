@@ -1003,7 +1003,7 @@ public class SceneXmlUtils {
         params.put("Domain",domain);
         params.put("Port",port);
         params.put("Run",run);
-        params.put("Branch","prod");
+        params.put("Branch","ankki");
         params.put("testPlanId", testPlanId);
         params.put("testReportId", testReportId);
 
