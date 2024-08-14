@@ -983,6 +983,8 @@ public class SceneXmlUtils {
             port = optionalValue.get().toString();
         }
         String run = executeConfig.getAutomationConfig().getEnvironment().getName();
+        String jenkinsUrl = executeConfig.getAutomationConfig().getJenkins().getUrl();
+        String jenkinsJob = executeConfig.getAutomationConfig().getJenkins().getJob();
         String testReportId = executeConfig.getTestReport().getId();
         String testPlanId = executeConfig.getTestPlanId();
 
@@ -1003,7 +1005,8 @@ public class SceneXmlUtils {
         params.put("Domain",domain);
         params.put("Port",port);
         params.put("Run",run);
-        params.put("Branch","ankki");
+        params.put("Branch","test");
+        params.put("jenkinsUrl", jenkinsUrl+"/job/"+jenkinsJob);
         params.put("testPlanId", testPlanId);
         params.put("testReportId", testReportId);
 
