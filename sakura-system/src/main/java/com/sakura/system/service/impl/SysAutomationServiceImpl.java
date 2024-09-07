@@ -768,6 +768,7 @@ public class SysAutomationServiceImpl extends BaseServiceImpl<SysAutomationMappe
             } else {
                 sceneVo.setName(sceneVo1.getName());
             }
+            sysScene.setModuleId(sceneVo.getModuleId());
             sysScene.setLevel(sceneVo.getLevel());
             sysScene.setSceneId(sceneVo.getSceneId());
             sysScene.setName(sceneVo.getName());
