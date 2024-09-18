@@ -45,9 +45,9 @@ public class JenkinsService {
             log.info("***************************************************************");
             log.info("Job:{} launch success!", jobName);
             log.info("BUILD NUMBER:{}", buildNumber);
-            log.info(String.valueOf(job.details().getLastBuild().getNumber()));
-            log.info(String.valueOf(job.getLastBuild().details().getNumber()));
-            log.info(String.valueOf(job.details().getNextBuildNumber()));
+//            log.info(String.valueOf(job.details().getLastBuild().getNumber()));
+//            log.info(String.valueOf(job.getLastBuild().details().getNumber()));
+//            log.info(String.valueOf(job.details().getNextBuildNumber()));
             TimeUnit.SECONDS.sleep(10);
         } catch (Exception e) {
             log.error("Jenkins构建失败!");
