@@ -41,13 +41,14 @@ public class JenkinsService {
             }
 //            TimeUnit.SECONDS.sleep(10);
 //            buildNumber = job.details().getLastBuild().getNumber();
-            buildNumber = job.details().getNextBuildNumber();
+//            buildNumber = job.details().getNextBuildNumber();
+            buildNumber = job.getNextBuildNumber();
             log.info("***************************************************************");
             log.info("Job:{} launch success!", jobName);
             log.info("BUILD NUMBER:{}", buildNumber);
-            log.info(String.valueOf(job.details().getLastBuild().getNumber()));
-            log.info(String.valueOf(job.getLastBuild().details().getNumber()));
-            log.info(String.valueOf(job.details().getNextBuildNumber()));
+//            log.info(String.valueOf(job.details().getLastBuild().getNumber()));
+//            log.info(String.valueOf(job.getLastBuild().details().getNumber()));
+//            log.info(String.valueOf(job.details().getNextBuildNumber()));
             TimeUnit.SECONDS.sleep(10);
         } catch (Exception e) {
             log.error("Jenkins构建失败!");
@@ -175,13 +176,30 @@ public class JenkinsService {
         return rootNode;
     }
 
+    public static Map<String, String> convertToMap(String input) {
+        Map<String, String> map = new HashMap<>();
+        // 去掉字符串两端的大括号
+        input = input.substring(1, input.length() - 1);
+        // 分割键值对
+        String[] entries = input.split(", ");
+        for (String entry : entries) {
+            String[] keyValue = entry.split("=");
+            if (keyValue.length == 2) {
+                map.put(keyValue[0], keyValue[1]);
+            }
+        }
+        return map;
+    }
+
     public static void main(String[] args) throws IOException {
-//        String url = "http://172.19.5.221:8080/";
-//        String userName = "sakura";
-//        String passWord = "3edc$RFV";
-//        String jobName = "2";
-//        Map<String, String> params = new HashMap<>(2);
-//        Integer buildNumber = launchJob(url,userName,passWord,jobName, params);
+        String url = "http://172.19.5.222:8080/";
+        String userName = "ankki";
+        String passWord = "3edc$RFV";
+        String jobName = "Ankki.Web.UI.Automation.Test";
+        String input = "{Date=2024-09-18, Name=刘智, Email=, Product=防统方系统, Abbreviate=AAS_P, Version=V6.5B05, Description=V6.5B05, IP=172.19.5.45, EDescription=防统方测试环境, PassWord=@nKk1^2Oe38&8!~!, DataBasePort=3306, Domain=https://172.19.5.45:443/login, Port=443, Run=172.19.5.242, Branch=ankki, jenkinsUrl=http://172.19.5.222:8080/job/Ankki.Web.UI.Automation.Test, testPlanId=, testReportId=b57262b075a911efab85d161e0b57220}";
+        Map<String, String> params = convertToMap(input);
+        Integer buildNumber = launchJob(url,userName,passWord,jobName, params);
+        log.info("Build Success? {}", buildNumber);
 //        boolean buildResult = false;
 //        try {
 //            buildResult = getBuildResult(jobName, buildNumber);
