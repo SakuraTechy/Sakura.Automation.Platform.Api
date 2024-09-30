@@ -5,12 +5,12 @@ sakura:
   # 版本
   version: v1.0.0
   # 版权年份
-  copyrightYear: 2022
+  copyrightYear: 2024
   # 实例演示开关
   demoEnabled: true
   # 文件路径 示例（ Windows配置D:/sakura/uploadPath，Linux配置 /home/sakura/uploadPath）
-  # profile: D:\King\Vue\Sakura.Test.Platform\Sakura.Test.Platform.Api\sakura-admin\uploadPath
-  # profile: /Sakura/Sakura.Test.Platform/service/uploadPath
+  # profile: D:\King\Vue\Sakura.Automation.Platform\Sakura.Automation.Platform.Api\sakura-admin\uploadPath
+  # profile: /Sakura/Sakura.Automation.Platform/service/uploadPath
   # 获取ip地址开关
   addressEnabled: false
   # 验证码类型 math 数组计算 char 字符验证
@@ -28,8 +28,8 @@ spring:
   profiles: 
     # 默认启动环境，dev开发，test测试，druid生产
 #    active: dev
-    active: test
-#    active: druid
+#    active: test
+    active: druid
 
 #  quartz:
 #    job-store-type: jdbc
@@ -105,14 +105,14 @@ spring:
       enabled: true
   # redis 配置
   redis:
-    # 地址
-    host: 172.19.5.222
+    # 地址，在docker中可使用默认网关172.17.0.1来代表宿主机IP
+    host: 172.17.0.1
     # 端口，6380 开发和测试，6379 生产
-    port: 6380
+    port: 6379
     # 数据库索引
     database: 0
     # 密码
-    password: 3edc$RFV
+    password: 3edc%RFV
     # 连接超时时间
     timeout: 10s
     lettuce:

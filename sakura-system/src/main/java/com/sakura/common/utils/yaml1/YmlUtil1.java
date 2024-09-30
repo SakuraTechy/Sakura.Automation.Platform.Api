@@ -614,7 +614,7 @@
 ////        System.out.println(SpringUtils.getRequiredProperty("sakura.profile"));
 ////        System.out.println(SpringUtils.getRequiredProperty("yaml.project.filePath"));
 //
-////        String path = "D:/King/Vue/Sakura.Test.Platform/Sakura.Test.Platform.Api/sakura-admin/environment.yml";
+////        String path = "D:/King/Vue/Sakura.Automation.Platform/Sakura.Automation.Platform.Api/sakura-admin/environment.yml";
 //        String path = SpringUtils.getRequiredProperty("yaml.project.filePath");
 //        File file = new File(path);
 //        FileWriter fileWriter = new FileWriter(file);
@@ -1199,7 +1199,7 @@
 ////        JSONObject projectJson = JSONUtil.parseObj(sysYamlConfig, false, true);
 ////        System.out.println(projectJson.get("projects"));
 //
-////        String path = "D:/King/Vue/Sakura.Test.Platform/Sakura.Test.Platform.Api/sakura-admin/environment.yml";
+////        String path = "D:/King/Vue/Sakura.Automation.Platform/Sakura.Automation.Platform.Api/sakura-admin/environment.yml";
 ////        System.out.println(SakuraConfig.getName());
 ////        System.out.println(SpringUtils.getRequiredProperty("sakura.profile"));
 ////        System.out.println(SpringUtils.getRequiredProperty("yaml.project.filePath"));

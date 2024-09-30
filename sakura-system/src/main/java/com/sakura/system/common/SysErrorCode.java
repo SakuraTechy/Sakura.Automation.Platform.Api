@@ -121,7 +121,7 @@ public enum SysErrorCode implements ErrorCodeI {
     B_PROJECT_AutomationNameAlreadyExist("B_PROJECT_AutomationNameAlreadyExist", "自动化配置名称已存在"),
     B_PROJECT_Automation_StateNotExistent("B_PROJECT_Automation_StateNotExistent", "已启用状态下，不可删除"),
     B_PROJECT_Automation_DeleteNotExistent("B_PROJECT_Automation_DeleteNotExistent", "不可全部删除，需保留一个"),
-
+    B_PROJECT_Automation_DisableNotExistent("B_PROJECT_Automation_DisableNotExistent", "不可全部禁用，需保留一个"),
     B_PROJECT_Automation_ProjectNameAlreadyExist("B_PROJECT_Automation_ProjectNameAlreadyExist", "项目名称已存在"),
     B_PROJECT_Automation_ProjectIdNotExistent("B_PROJECT_Automation_ProjectIdNotExistent", "项目ID不存在"),
     B_PROJECT_Automation_ProjectNotExistent("B_PROJECT_Automation_ProjectNotExistent", "自动化项目信息不存在"),
@@ -129,7 +129,6 @@ public enum SysErrorCode implements ErrorCodeI {
     B_PROJECT_Automation_JenkinsIPAlreadyExist("B_PROJECT_Automation_JenkinsIPAlreadyExist", "Jenkins主机已存在"),
     B_PROJECT_Automation_JenkinsIdNotExistent("B_PROJECT_Automation_JenkinsIdNotExistent", "JenkinsID不存在"),
     B_PROJECT_Automation_JenkinsNotExistent("B_PROJECT_Automation_JenkinsNotExistent", "自动化Jenkins信息不存在"),
-
     B_PROJECT_Automation_EnvironmentNameAlreadyExist("B_PROJECT_Automation_EnvironmentNameAlreadyExist", "环境名称已存在"),
     B_PROJECT_Automation_EnvironmentIdNotExistent("B_PROJECT_Automation_EnvironmentIdNotExistent", "环境ID不存在"),
     B_PROJECT_Automation_EnvironmentNotExistent("B_PROJECT_Automation_EnvironmentNotExistent", "自动化环境信息不存在"),

@@ -1003,13 +1003,17 @@ public class EnvironmentConfigServiceImpl extends BaseServiceImpl<EnvironmentCon
                 }
             }
         }
+        boolean allStatusZero = accountList.stream().allMatch(item -> item.getStatus() == 0);
         ArrayList<YamlConfig.Project.Environment.Account> collect = accountList.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(YamlConfig.Project.Environment.Account::getType).thenComparing(YamlConfig.Project.Environment.Account::getUserName))), ArrayList::new));
-        if (accountList.size() == collect.size()) {
+        if(allStatusZero) {
+            throw new BizException(SysErrorCode.B_PROJECT_Environment_DisableNotExistent);
+        }else if (accountList.size() != collect.size()) {
+            throw new BizException(SysErrorCode.B_PROJECT_Environment_AccountNameAlreadyExist);
+        }else {
+//            collect.sort((x, y) -> Integer.compare(x.getIndex(), y.getIndex()));
             collect.sort((x, y) -> x.getType().compareTo(y.getType()));
             environmentConfig.setAccountList(collect);
             return edit(environmentConfig);
-        } else {
-            throw new BizException(SysErrorCode.B_PROJECT_Environment_AccountNameAlreadyExist);
         }
     }
 
@@ -1124,14 +1128,18 @@ public class EnvironmentConfigServiceImpl extends BaseServiceImpl<EnvironmentCon
                 }
             }
         }
+
+        boolean allStatusZero = serverList.stream().allMatch(item -> item.getStatus() == 0);
         ArrayList<YamlConfig.Project.Environment.Server> collect = serverList.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(YamlConfig.Project.Environment.Server::getHost).thenComparing(YamlConfig.Project.Environment.Server::getUserName))), ArrayList::new));
-        if (serverList.size() == collect.size()) {
+        if(allStatusZero) {
+            throw new BizException(SysErrorCode.B_PROJECT_Environment_DisableNotExistent);
+        }else if (serverList.size() != collect.size()) {
+            throw new BizException(SysErrorCode.B_PROJECT_Environment_ServerHostlAlreadyExist);
+        }else {
 //            collect.sort((x, y) -> Integer.compare(x.getIndex(), y.getIndex()));
             collect.sort((x, y) -> x.getHost().compareTo(y.getHost()));
             environmentConfig.setServerList(collect);
             return edit(environmentConfig);
-        } else {
-            throw new BizException(SysErrorCode.B_PROJECT_Environment_ServerHostlAlreadyExist);
         }
     }
 
@@ -1250,14 +1258,17 @@ public class EnvironmentConfigServiceImpl extends BaseServiceImpl<EnvironmentCon
 //                }
             }
         }
+        boolean allStatusZero = dataBaseList.stream().allMatch(item -> item.getStatus() == 0);
         ArrayList<YamlConfig.Project.Environment.DataBase> collect = dataBaseList.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(YamlConfig.Project.Environment.DataBase::getName).thenComparing(YamlConfig.Project.Environment.DataBase::getPort))), ArrayList::new));
-        if (dataBaseList.size() == collect.size()) {
+        if(allStatusZero) {
+            throw new BizException(SysErrorCode.B_PROJECT_Environment_DisableNotExistent);
+        }else if (dataBaseList.size() != collect.size()) {
+            throw new BizException(SysErrorCode.B_PROJECT_Environment_DataBaseNameAlreadyExist);
+        }else {
 //            collect.sort((x, y) -> Integer.compare(x.getIndex(), y.getIndex()));
-            collect.sort((x, y) -> y.getName().compareTo(x.getName()));
+            collect.sort((x, y) -> x.getName().compareTo(y.getName()));
             environmentConfig.setDataBaseList(collect);
             return edit(environmentConfig);
-        } else {
-            throw new BizException(SysErrorCode.B_PROJECT_Environment_DataBaseNameAlreadyExist);
         }
     }
 

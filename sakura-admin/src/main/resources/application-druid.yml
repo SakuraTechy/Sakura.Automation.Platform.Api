@@ -1,18 +1,18 @@
 # 项目相关配置
 sakura:
   # 文件路径 示例（ Windows配置D:/sakura/uploadPath，Linux配置 /home/sakura/uploadPath）
-  profile: /data/sakura/Sakura.Test.Platform/service/uploadPath
+  profile: /data/sakura/Sakura.Automation.Platform/service/uploadPath
 
 # Yaml配置
 yaml:
   project:
     # 项目运行环境，配置文件路径
-    filePath: /data/sakura/Sakura.Test.Platform/automation/druid/environment.yml
+    filePath: /data/sakura/Sakura.Automation.Platform/automation/prod/environment.yml
 
 # 服务器配置
 server:
   # 服务器的HTTP端口，默认为8080
-  port: 8081
+  port: 8082
   servlet:
     # 应用的访问路径
     context-path: /
@@ -35,9 +35,9 @@ spring:
     druid:
       # 主库数据源
       master:
-        url: jdbc:mysql://172.19.5.222:3306/sakura?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&&allowMultiQueries=true
+        url: jdbc:mysql://172.17.0.1:3306/sakura?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&&allowMultiQueries=true
         username: sakura
-        password: 3edc$RFV
+        password: 3edc%RFV
       # 从库数据源
       slave:
         # 从数据源开关/默认关闭

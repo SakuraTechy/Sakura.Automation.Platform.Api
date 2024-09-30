@@ -469,7 +469,7 @@ public class FreeSftpUtil {
             FreeSftpUtil ftp = new FreeSftpUtil("172.18.1.118", 22, "king", "111111");
 //        String localPath = System.getProperty("user.dir") + "/TestData/PCAP/";
 //        String remotePath = "/sql/";
-            String localPath = "D:/Sakura/Sakura.Test.Platform/automation/Sakura.Web.UI.Automation.Test/src/test/java/TestRunXml";
+            String localPath = "D:/Sakura/Sakura.Automation.Platform/automation/Sakura.Web.UI.Automation.Test/src/test/java/TestRunXml";
             String remotePath = "/Sakura.Web.UI.Automation.Test/src/test/java/1/";
 
             ftp.connect();

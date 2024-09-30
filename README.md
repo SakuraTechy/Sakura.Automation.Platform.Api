@@ -1,265 +1,353 @@
+<!-- > 👋🏼 您当前浏览的文档为 v1.0.0，其它版本的文档请参考：[v1.3.0](/v1.3.0/)、[v1.2.0](/v1.2.0/)、[v1.1.0](/v1.1.0/) -->
 
-<div align="center"><h3 align="center">Sakura Sharp 快速开发平台</h3></div>
-<div align="center"><h3 align="center">基于若依扩展的Spring Boot前后端分离架构，代码精简，开箱即用，紧随前沿技术</h3></div>
+<div style="display: grid;justify-items: center;gap: 10px;">
+  <img alt="logo" src="/logo.svg" width="100px" />
+  <p style="font-size: 20px;font-weight: bold;line-height: 0px;margin-top: 5px;">
+    Sakura Automation Platform
+  </p>
+  <div style="display: flex;justify-content: center;gap: 5px;">
+    <!-- <a href="https://github.com/SakuraTechy/Sakura.Automation.Platform.Api/blob/dev/LICENSE" target="_blank">
+      <img src="https://img.shields.io/badge/License-Apache--2.0-blue.svg" alt="License" />
+    </a> -->
+    <a href="https://sakura.hk.cn/" target="_blank" style="display: inline-block;">
+      <img alt="官方网站" src="https://img.shields.io/badge/官网-sakura.hk.cn-F54860">
+    </a>
+    <a href="https://github.com/SakuraTechy/Sakura.Automation.Platform.Api" target="_blank">
+      <img src="https://img.shields.io/badge/版本-v1.0.0-%23ff3f59.svg" alt="Release" />
+    </a>
+  <!-- <a href="https://app.codacy.com/gh/SakuraTechy/Sakura.Automation.Platform.Api/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade" target="_blank">
+    <img src="https://app.codacy.com/project/badge/Grade/19e3e2395d554efe902c3822e65db30e" alt="Codacy Badge" />
+  </a>
+  <a href="https://sonarcloud.io/summary/new_code?id=Charles7c_continew-admin" target="_blank">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=Charles7c_continew-admin&metric=alert_status" alt="Sonar Status" />
+  </a>
+  <a href="https://github.com/Charles7c/continew-starter" target="_blank">
+    <img src="https://img.shields.io/badge/ContiNew Starter-2.0.0-%236CB52D.svg" alt="ContiNew Starter" />
+  </a>
+  <a href="https://spring.io/projects/spring-boot" target="_blank">
+    <img src="https://img.shields.io/badge/Spring Boot-3.1.10-%236CB52D.svg?logo=Spring-Boot" alt="Spring Boot" />
+  </a>
+  <a href="https://github.com/Charles7c/continew-starter" target="_blank">
+    <img src="https://img.shields.io/badge/Open JDK-17-%236CB52D.svg?logo=OpenJDK&logoColor=FFF" alt="Open JDK" /> 
+  </a>-->
+  <a href="https://github.com/SakuraTechy/Sakura.Automation.Platform.Api" target="_blank">
+    <img src="https://img.shields.io/github/stars/SakuraTechy/Sakura.Automation.Platform.Api?style=social" alt="GitHub stars" />
+  </a>
+  <a href="https://github.com/SakuraTechy/Sakura.Automation.Platform.Api" target="_blank">
+    <img src="https://img.shields.io/github/forks/SakuraTechy/Sakura.Automation.Platform.Api?style=social" alt="GitHub forks" />
+  </a>
+  <!-- <a href="https://gitee.com/continew/continew-admin" target="_blank">
+    <img src="https://gitee.com/continew/continew-admin/badge/star.svg?theme=white" alt="Gitee stars" />
+  </a>
+  <a href="https://gitee.com/continew/continew-admin" target="_blank">
+    <img src="https://gitee.com/continew/continew-admin/badge/fork.svg?theme=white" alt="Gitee forks" />
+  </a> -->
+  <a href="https://gitee.com/SakuraTech/Sakura.Automation.Platform.Api">
+    <img src="https://gitee.com/SakuraTech/Sakura.Automation.Platform.Api/badge/star.svg?theme=dark" alt="Gitee star">
+  </a>
+  <a href="https://gitee.com/SakuraTech/Sakura.Automation.Platform.Api">
+    <img src="https://gitee.com/SakuraTech/Sakura.Automation.Platform.Api/badge/fork.svg?theme=dark" alt="Gitee fork">
+  </a>
+    <!-- <a href="https://www.gnu.org/licenses/gpl-3.0.html"><img src="https://shields.io/github/license/metersphere/metersphere" alt="License: GPL v3"></a>
+    <a href="https://www.codacy.com/gh/metersphere/metersphere/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=metersphere/metersphere&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/da67574fd82b473992781d1386b937ef" alt="Codacy"></a>
+    <a href="https://codecov.io/github/metersphere/metersphere"><img src="https://codecov.io/github/metersphere/metersphere/graph/badge.svg?token=5AB5V8ZGXQ"/></a>
+    <a href="https://github.com/metersphere/metersphere/releases"><img src="https://img.shields.io/github/v/release/metersphere/metersphere" alt="GitHub release"></a>
+    <a href="https://github.com/metersphere/metersphere"><img src="https://img.shields.io/github/stars/metersphere/metersphere?color=%231890FF&style=flat-square" alt="Stars"></a> -->
+  </div>
+</div>
 
-<p align="center">     
-    <p align="center">
-        <a>
-            <img src="https://img.shields.io/badge/sakura--sharp-V3.3-green" alt="Aidex-Sharp">
-        </a>
-        <a href="https://gitee.com/big-hedgehog/Sakura.Test.Platform.Api">
-            <img src="https://gitee.com/big-hedgehog/Sakura.Test.Platform.Api/badge/star.svg?theme=dark" alt="Gitee star">
-        </a>
-        <a href="https://gitee.com/big-hedgehog/Sakura.Test.Platform.Api">
-            <img src="https://gitee.com/big-hedgehog/Sakura.Test.Platform.Api/badge/fork.svg?theme=dark" alt="Gitee fork">
-        </a>
-    </p>
-</p>
+## 产品简介
 
-## 平台简介
+Sakura Automation Platform 是一站式持续自动化平台，涵盖 APP 自动化、WEB 自动化、API 接口自动化、性能自动化，并且支持分布式测试，全面兼容 Appium、Selenium、Rest Assured、JMeter 等主流开源框架，有效助力公司研发人员充分利用云弹性进行高度可扩展的自动化工作，加速高质量的软件产品交付，推动研发团体整体效率的提升。
 
- **Sakura Sharp 快速开发平台** 基于著名的开源项目“ **若依-RuoYi-Vue** ”改造而成，追求 **极致的UI交互体验** 和 **快速开发** ，一切向 **效率** 看齐， **重构优化** 后端的代码，对前端页面进行了 **美化** 。 **我们将持续升级，持续完善，欢迎友友们收藏和点赞** 。
+## 技术栈
 
-* 感谢[RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue)
-* 感谢[RuoYi-Antdv](https://gitee.com/fuzui/RuoYi-Antdv)
+> 前端
 
+- [✔] 🍉 Vue
+- [✔] 🍓 Vuex
+- [✔] 🍌 Vue-router
+- [✔] 🍍 Element UI
+- [✔] 🍒 Axios
+- [✔] 🍇 Node.js
+- [✔] 🍎 Nginx
 
-## 基于RuoYi修改的美化皮肤的样式地址
+> 后端
 
-- [🎉 RuoYi + vue2.x + Max + element-ui（vue2.x 支持 PC、平板、手机）](http://82.157.44.212:8091/index)
+- [✔] 🌺 Java
+- [✔] 🍃 Maven
+- [✔] 🌿 MyBatis
+- [✔] 🍁 SpringBoot
+- [✔] 🍂 Spring Security
+- [✔] 🌴 Redis
+- [✔] 💎 MySQL
+- [✔] 🚣 Docker
+- [✔] 🚀 Jenkins
 
-- [🎉 RuoYi + vue3.x + Max + element-plus（vue3.x 支持 PC、平板、手机）](http://82.157.44.212:8090/index)
+## 基础功能
 
-- [🎉 RuoYi + vue2.x + Max + element-ui + Cloud（vue2.x 支持 PC、平板、手机）](http://82.157.44.212:8093/index)
+- **用户管理**：用户是系统操作者，该功能主要完成系统用户配置;
+- **部门管理**：配置系统组织机构（公司、部门、小组），树结构展现支持数据权限;
+- **岗位管理**：配置系统用户所属担任职务;
+- **菜单管理**：配置系统菜单，操作权限，按钮权限标识等;
+- **角色管理**：角色菜单权限分配、设置角色按机构进行数据范围权限划分;
+- **字典管理**：对系统中经常使用的一些较为固定的数据进行维护;
+- **参数管理**：对系统动态配置常用参数;
+- **通知公告**：系统通知公告信息发布维护;
+- **操作日志**：系统正常操作日志记录和查询;系统异常信息日志记录和查询;
+- **登录日志**：系统登录日志记录查询包含登录异常;
+- **在线用户**：当前系统中活跃用户状态监控;
+- **定时任务**：在线（添加、修改、删除)任务调度包含执行结果日志;
+- **代码生成**：前后端代码的生成（java、html、xml、sql）支持 CRUD 下载 ;
+- **系统接口**：根据业务代码自动生成相关的 api 接口文档;
+- **服务监控**：监视当前系统 CPU、内存、磁盘、堆栈等相关信息;
+- **缓存监控**：对系统的缓存查询，删除、清空等操作;
+- **在线构建器**：拖动表单元素生成相应的 HTML 代码;
+- **连接池监视**：监视当前系统数据库连接池状态，可进行分析 SQL 找出系统性能瓶颈;
 
-- [🎉 RuoYi + vue3.x + Max + element-plus + Cloud（vue3.x 支持 PC、平板、手机）](http://82.157.44.212:8092/index)
+## 核心功能
 
-- [🎉 RuoYi + vue3.x + element-plus + uniapp2（vue3.x 支持 PC、平板、手机）](http://82.157.44.212:8094/#/)
+- **系统管理**：在线管理系统，包括系统设置、系统监控、系统日志等;
+- **用户管理**：在线管理用户，包括用户信息、用户角色、用户权限等;
+- **项目管理**：在线管理项目，包括项目配置，环境配置，自动化配置等;
+- **测试管理**：在线管理测试，包括测试用例，测试计划，测试报告，测试度量等;
+- **接口管理**：在线管理接口，包括接口文档，接口调试，接口自动化测试等;
+- **自动化管理**：在线管理自动化测试，包括 WEB 自动化，APP 自动化，API 自动化，性能自动化等;
 
+## 产品优势
 
+> 在线编写自动化测试用例脚本
 
-## 系统截图（开源版：完全免费开源）
+- 目前测试人员根据需求规格说明书的要求，只能在本地搭建环境，编写自动化测试脚本，用例编写的门槛高，维护麻烦，编写大量自动化脚本增加了项目的人力成本和沟通成本，导致低效率以及高差错率，使用自动化测试平台，可以在线便捷的编写和调试自动化测试脚本，提高用例编写效率;
 
-<table>
-    <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2021/0923/234823_7d05456a_9700683.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2021/0923/234748_170e4ee7_9700683.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2021/0911/184041_c4d1f1aa_9700683.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2021/0911/184055_0cf08e45_9700683.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="https://images.gitee.com/uploads/images/2021/0911/184110_2e6df64f_9700683.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2021/0911/184125_3d5bdddf_9700683.png"/></td>
-    </tr>	 
-    <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2021/0911/184139_092a8f07_9700683.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2021/0922/225255_f8710fb3_9700683.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="https://images.gitee.com/uploads/images/2021/0911/184210_ffa2880b_9700683.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2021/0911/184223_8f57f5f0_9700683.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="https://images.gitee.com/uploads/images/2021/0911/184238_5cb3e09e_9700683.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2021/0911/184256_5bc77bff_9700683.png"/></td>
-    </tr>
-</table>
-更多功能请访问系统体验
+> 在线跟踪自动化测试用例进度
+
+- 目前整体项目自动化测试缺乏控制，自动化测试用例执行情况等都需要人工统计，无法精确统计自动化覆盖率、业务场景覆盖率，缺失实时反馈机制，使用自动化测试平台，可以在线跟踪自动化测试相关进度，实现在线实时监控;
+
+> 在线生成自动化测试项目报告
+
+- 目前的自动化测试、接口测试、性能测试等测试结果需要花费大量的时间进行整理，无法根据测试结果自动出具测试报告，使用自动化测试平台，可以把自动化测试报告分类分级的统一进行展示;
+
+> 在线整合相关自动化测试工具
+
+- 目前自动化测试的工具都是相互独立的，种类不一，不同工具的整合较差，都是独立使用，相关用例和自动化没有关联，使用自动化测试平台，可以把相关自动化测试工具进行整合，统一使用;
 
 ## 在线体验
 
-演示地址：http://sakura.vip  帐号：admin 密码：admin123
+- 地址：[www.sakura.hk.cn:28383](https://www.sakura.hk.cn:28383)
+- 账号：自行注册（用自己的姓名即可）
+- 密码：自行注册（用自己的密码即可）
 
-## 关于我们
+> 陆陆续续收到一些打赏，为了更好的体验已用于演示服务器升级，谢谢各位小伙伴。
 
-&nbsp; &nbsp; 我们擅长UI、前端开发、后端架构，有一颗热爱开源的心，致力于打造企业级的通用产品设计UI体系让项目
-或者更直观，更高效、更简单，未来将持续关注UI交互，持续推出高质量的交互产品。
-#####
- **QQ：1125373330**  <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1125373330&amp;site=qq&amp;menu=yes">    点击这里给我发消息</a>
-######
-<img src="https://images.gitee.com/uploads/images/2021/1112/114326_5eb079c2_9700683.jpeg" width="220" height="220" >&nbsp; &nbsp; &nbsp;&nbsp;
-<img src="https://images.gitee.com/uploads/images/2021/1112/114207_bb1bac92_9700683.jpeg" width="220" height="220" >&nbsp; &nbsp; &nbsp;&nbsp; 
-<img src="https://images.gitee.com/uploads/images/2021/1115/164243_d4e0d61d_9700683.png" width="220" height="220" >&nbsp; &nbsp; &nbsp;&nbsp;
+## 效果图
 
-   **承接各种XX软件和APP定制开发，请让我发挥专业的技能（UI设计+前端开发7年工龄的程序媛，请对我有信心，超出你的期待哦）具体私聊** 
-
-## 官方QQ群
-
-<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=8_5QVK727Jg0sEuLSOWRLiMqOIBGB_lp&jump_from=webapi"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="Aidex Sharp快速开发平台3群" title="Aidex Sharp快速开发平台3群"> 208511180 </a> 使用问题请入群由专人负责简答
-
-
-## 框架优势
-
-* 基于RuoYi-Vue和Ant Design Vue Pro的结合，并进行了UI交互的深度改造。
-* 高效率开发，使用代码生成器可以一键生成前后端代码，可在线预览代码。
-* 代码生成器：自动包含规范，可根据以下规则自动设置：居中、居左、居右，列表页面遵循一下对齐格式：
-  > 1.  居中显示：短小字符居中（用户名）、通用代码、日期时间、数值位数相等的字段（如：编码、编号）、整数型数字（如年龄，个数）
-  > 2.  居左：比较长的字符居左（备注等），部门名称、名称、标题
-  > 3.  居右：货币或带小数点的数字居右，如带小数点的数字，数量、百分数
-* 代码生成器：支撑自动选择图标，挂载菜单。
-* 代码生成器：支持列拖拽，方便表单和列表页面的列排序。
-* 代码生成器：可自定义选择生成唯一性校验代码，减少代码开发量。
-* 列显示定义：用户可自定义列选择和列定义。
-* 表头排序：支持服务端表头排序。
-* 文件中心：内置异步导入和导出的文件管理中心，所有下载附件均以异步任务方式进行提交管理，类似于阿里云的账单中心功能。
-* 代码优化：优化Mapper中的SQL，对各种方法进行片段化管理，最大限度精简方法，提升代码整洁度。
-* 缓存工具类抽取。
-* base类抽取：抽取baseEntity，BaseService，BaseMapper，提出公共方法，减少代码量。
-* 缓存Key监控：监控系统中的缓存信息，并可以删除key，预览缓存内容。
-* 特别鸣谢：[RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue)。
-* 特别鸣谢：[RuoYi-Antdv](https://gitee.com/fuzui/RuoYi-Antdv)。
-
-## 代码生成器优化
-* 根据不同的页面布局生成不同的页面尺寸
-* 增加控件类型：单选按钮控件
-* 增加复制数据功能
-* 增加继续添加功能
-* 默认的状态列支持
-* 提交时按钮禁用（全局的如何控制？）
-* 表头排序
-* 状态列自动格式化
-* 上传后如何清空文件列表
-* 调整按钮顺序：新增、删除、导出
-* 优化关闭的代码
-
-## 登录页面模板
-
+<ZoomImg src="image.png" />
 <table>
     <tr>
-        <td><img src="%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2%E6%A8%A1%E6%9D%BF/01.png"/></td>
-        <td><img src="%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2%E6%A8%A1%E6%9D%BF/02.png"/></td>
+        <td><ZoomImg src="image-1.png"/></td>
+        <td><ZoomImg src="image-2.png"/></td>
     </tr>
     <tr>
-        <td><img src="%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2%E6%A8%A1%E6%9D%BF/08.png"/></td>
-        <td><img src="%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2%E6%A8%A1%E6%9D%BF/09.png"/></td>
+        <td><ZoomImg src="image-3.png"/></td>
+        <td><ZoomImg src="image-4.png"/></td>
     </tr>
-	<tr>
-        <td><img src="%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2%E6%A8%A1%E6%9D%BF/11.png"/></td>
-        <td><img src="%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2%E6%A8%A1%E6%9D%BF/14.png"/></td>
-    </tr>	 
     <tr>
-        <td><img src="%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2%E6%A8%A1%E6%9D%BF/18.png"/></td>
-        <td><img src="%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2%E6%A8%A1%E6%9D%BF/22.png"/></td>
+        <td><ZoomImg src="image-5.png"/></td>
+        <td><ZoomImg src="image-6.png"/></td>
     </tr>
-	<tr>
-        <td><img src="%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2%E6%A8%A1%E6%9D%BF/13.png"/></td>
-        <td><img src="%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2%E6%A8%A1%E6%9D%BF/06.png"/></td>
+    <tr>
+        <td><ZoomImg src="image-7.png"/></td>
+        <td><ZoomImg src="image-8.png"/></td>
+    </tr>
+    <tr>
+        <td><ZoomImg src="image-9.png"/></td>
+        <td><ZoomImg src="image-10.png"/></td>
+    </tr>
+    <tr>
+        <td><ZoomImg src="image-11.png"/></td>
+        <td><ZoomImg src="image-12.png"/></td>
+    </tr>
+    <tr>
+        <td><ZoomImg src="image-13.png"/></td>
+        <td><ZoomImg src="image-14.png"/></td>
+    </tr>
+    <tr>
+        <td><ZoomImg src="image-15.png"/></td>
+        <td><ZoomImg src="image-16.png"/></td>
+    </tr>
+    <tr>
+        <td><ZoomImg src="image-17.png"/></td>
+        <td><ZoomImg src="image-18.png"/></td>
+    </tr>
+    <tr>
+        <td><ZoomImg src="image-19.png"/></td>
+        <td><ZoomImg src="image-20.png"/></td>
+    </tr>
+    <tr>
+        <td><ZoomImg src="image-21.png"/></td>
+        <td><ZoomImg src="image-22.png"/></td>
+    </tr>
+    <tr>
+        <td><ZoomImg src="image-23.png"/></td>
+        <td><ZoomImg src="image-24.png"/></td>
+    </tr>
+    <tr>
+        <td><ZoomImg src="image-25.png"/></td>
+        <td><ZoomImg src="image-26.png"/></td>
+    </tr>
+    <tr>
+        <td><ZoomImg src="image-27.png"/></td>
+        <td><ZoomImg src="image-28.png"/></td>
+    </tr>
+    <tr>
+        <td><ZoomImg src="image-29.png"/></td>
+        <td><ZoomImg src="image-30.png"/></td>
+    </tr>
+    <tr>
+        <td><ZoomImg src="image-31.png"/></td>
+        <td><ZoomImg src="image-32.png"/></td>
     </tr>
 </table>
 
-## 内置功能
+<!-- <table>
+    <tr>
+        <td><img src="1.png" data-fancybox="gallery"/></td>
+        <td><img src="2.png" data-fancybox="gallery"/></td>
+    </tr>
+    <tr>
+        <td><img src="3.png" data-fancybox="gallery"/></td>
+        <td><img src="4.png" data-fancybox="gallery"/></td>
+    </tr>
+    <tr>
+        <td><img src="5.png" data-fancybox="gallery"/></td>
+        <td><img src="6.png" data-fancybox="gallery"/></td>
+    </tr>
+    <tr>
+        <td><img src="7.png" data-fancybox="gallery"/></td>
+        <td><img src="8.png" data-fancybox="gallery"/></td>
+    </tr>
+    <tr>
+        <td><img src="9.png" data-fancybox="gallery"/></td>
+        <td><img src="10.png" data-fancybox="gallery"/></td>
+    </tr>
+    <tr>
+        <td><img src="11.png" data-fancybox="gallery"/></td>
+        <td><img src="12.png" data-fancybox="gallery"/></td>
+    </tr>
+    <tr>
+        <td><img src="13.png" data-fancybox="gallery"/></td>
+        <td><img src="14.png" data-fancybox="gallery"/></td>
+    </tr>
+    <tr>
+        <td><img src="15.png" data-fancybox="gallery"/></td>
+        <td><img src="16.png" data-fancybox="gallery"/></td>
+    </tr>
+    <tr>
+        <td><img src="17.png" data-fancybox="gallery"/></td>
+        <td><img src="18.png" data-fancybox="gallery"/></td>
+    </tr>
+    <tr>
+        <td><img src="19.png" data-fancybox="gallery"/></td>
+        <td><img src="20.png" data-fancybox="gallery"/></td>
+    </tr>
+    <tr>
+        <td><img src="21.png" data-fancybox="gallery"/></td>
+        <td><img src="22.png" data-fancybox="gallery"/></td>
+    </tr>
+</table> -->
 
-斜体为重点增强优化功能
+## 参与贡献
 
-1.  _用户管理：用户是系统操作者，该功能主要完成系统用户配置。_
-2.  _部门管理：配置系统组织机构（公司、部门、小组），树结构展现支持数据权限。_
-3.  _岗位管理：配置系统用户所属担任职务。_
-4.  _菜单管理：配置系统菜单，操作权限，按钮权限标识等。_
-5.  _角色管理：角色菜单权限分配、设置角色按机构进行数据范围权限划分。_
-6.  _字典管理：对系统中经常使用的一些较为固定的数据进行维护。_
-7.  _参数管理：对系统动态配置常用参数。_
-8.  通知公告：系统通知公告信息发布维护。
-9.  操作日志：系统正常操作日志记录和查询；系统异常信息日志记录和查询。
-10. _登录日志：系统登录日志记录查询包含登录异常。_
-11. 在线用户：当前系统中活跃用户状态监控。
-12. _定时任务：在线（添加、修改、删除)任务调度包含执行结果日志。_
-13. _代码生成：前后端代码的生成（java、html、xml、sql）支持CRUD下载 。_
-14. 系统接口：根据业务代码自动生成相关的api接口文档。
-15. _服务监控：监视当前系统CPU、内存、磁盘、堆栈等相关信息。_
-16. _缓存监控：对系统的缓存信息查询，命令统计等。_
-17. _缓存列表：对系统的缓存信息查询，命令统计等。_
-18. 在线构建器：拖动表单元素生成相应的HTML代码。
-19. 连接池监视：监视当前系统数据库连接池状态，可进行分析SQL找出系统性能瓶颈。
+我们欢迎广大开发者贡献大家的智慧，让我们共同让它变得更完美，您可以在 GitHub 上提交 Pull Request，我们会尽快审核并公布;更多信息请参考 [贡献指南](contributing.md);
 
+:::tip
 
----
-前端工程结构
----
+- 如果您想提交新功能或优化现有代码，可以按照以下步骤操作：
+  1. 首先，在 Gitee 或 Github 上将项目 fork 到您自己的仓库
+  2. 然后，将 fork 过来的项目（即您的项目）克隆到本地
+  3. 切换到当前仍在维护的分支（请务必充分了解分支使用说明，可进群联系维护者确认）
+  4. 开始修改代码，修改完成后，将代码 commit 并 push 到您的远程仓库
+  5. 在 Gitee 或 Github 上新建 pull request（pr），选择好源和目标，按模板要求填写说明信息后提交即可（多多参考 [已批准合并的 pr 记录](https://github.com/SakuraTechy/Sakura.Automation.Platform.Api/pulls?q=is%3Apr+is%3Amerged)，会大大增加批准合并率）
+  6. 最后，耐心等待维护者合并您的请求即可
 
-```
-├── public
-│   └── logo.png             # LOGO
-|   └── index.html           # Vue 入口模板
-├── src
-│   ├── api                  # Api ajax 等
-│   ├── assets               # 本地静态资源
-│   ├── config               # 项目基础配置，包含路由，全局设置
-│   ├── components           # 业务通用组件
-│   ├── core                 # 项目引导, 全局配置初始化，依赖包引入等
-│   ├── directive            # 自定义指令
-│   ├── router               # Vue-Router
-│   ├── store                # Vuex
-│   ├── utils                # 工具库
-│   ├── locales              # 国际化资源
-│   ├── views                # 业务页面入口和常用模板
-│   ├── App.vue              # Vue 模板入口
-│   └── main.js              # Vue 入口 JS
-│   └── permission.js        # 路由守卫(路由权限控制)
-│   └── global.less          # 全局样式
-├── tests                    # 测试工具
-├── README.md
-└── package.json
-```
+请记住，如果您有任何疑问或需要帮助，我们将随时提供支持。
+:::
 
-## 后端工程结构
+> [!IMPORTANT]
+> 欢迎大家贡献代码，我们非常感谢您的支持！为了更好地管理项目，维护者有一些要求：
+>
+> 1. 请确保代码、配置文件的结构和命名规范良好，完善的代码注释甚至包括接口文档参数示例，并遵循阿里巴巴的 <a href="https://github.com/continew-org/continew-admin/blob/dev/.style/Java%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C(%E9%BB%84%E5%B1%B1%E7%89%88).pdf" target="_blank">《Java开发手册(黄山版)》</a> 中的代码规范，保证代码质量和可维护性
+> 2. 在提交代码前，请按照 [Angular 提交规范](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular) 编写 commit 的 message（建议在 IntelliJ IDEA 中下载并安装 Git Commit Template 插件，以便按照规范进行 commit）
+> 3. 提交代码之前，请关闭所有代码窗口，执行 `mvn compile` 命令（代码格式化插件会在项目编译时对全局代码进行格式修正），编译通过后，不要再打开查看任何代码窗口，直接提交即可，以免不同的 IDE 配置会自动进行代码格式化
 
-| 项目 | 说明 |
-| --- | --- |
-| `sakura-admin` | 系统启动入口 |
-| `sakura-common` | 工具类 |
-| `sakura-controller` | 前台控制器 |
-| `sakura-framework` | 框架核心 |
-| `sakura-generator` | 代码生成工具 |
-| `sakura-quartz` | 定时任务|
-| `sakura-system` | 系统管理 |
+## 官方交流群
 
-更多功能请访问系统。
+欢迎各位小伙伴儿扫描下方二维码，备注 `sakura`，可探讨技术、提提需求~
 
----
-系统在线文档
----
-* 文档地址（参考若依）：<http://doc.ruoyi.vip/> 
-* RuoYi-Vue文档：[https://doc.ruoyi.vip/ruoyi-vue/](https://doc.ruoyi.vip/ruoyi-vue/)
-* Ant Design Vue文档：[https://www.antdv.com/docs/vue/introduce-cn/](https://www.antdv.com/docs/vue/introduce-cn/)
-* [《如何搭建环境》](http://doc.ruoyi.vip/ruoyi-vue/document/hjbs.html)
-* [《常见问题》](http://doc.ruoyi.vip/ruoyi-vue/document/hjbs.html#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
+加入后，你将会：
 
- **> 未来会补充文档和视频，方便友友们使用！** 
+- 第一时间收到官方动态
+- 第一时间收到官方更新通知
+- 第一时间收到官方 Bug 通知
+- 和众多大佬互相 (huá shuǐ) 交流 (mō yú)
 
-## 开发计划
+> 扫码加微信，邀请入群
+<div st="left">
+  <img src="./wx.png" alt="个人微信" width="230px" />
+</div>
 
-* :clipboard: 代码生成单表、主子表自动生成选择页面代码
-* :clipboard: ​文件管理中心
-* :clipboard: 首页快速入口自定义
-* :clipboard: 移动开发平台-基于uniapp
-* :clipboard: 代码生成器持续增强，将效率追求到极致
-* :clipboard: 自定义列显隐
-* :clipboard: 适配国产数据库（金仓、达梦）、主流数据库Mysql、Oracle、Mssql、Postgresql
-* :clipboard: 支持国产中间件部署（中创+东方通）、麒麟操作系统、Windows、Linux部署使用
+> 官方 QQ 群
+<div align="left">
+  <img src="./qq.png" alt="QQ群" width="230px" />
+</div>
 
-## 平台官网
+<div style="display: flex;margin-top: 5px;gap: 5px;">
+  <a href="https://qm.qq.com/cgi-bin/qm/qr?k=b8he45MJqnEPzDjQUemTT86E0tLwnG1N&jump_from=webapi&authKey=HdZIaQGhK4BjebajkAJ5wwDzZKBnSrXtq6jEM8g/LcR+0kaZcqLQGfKNl1d8Wwip" target="_blank"><img src="https://img.shields.io/badge/已满-126325129-blue.svg" alt="加入QQ群"></a>
+  <a href="https://qm.qq.com/cgi-bin/qm/qr?k=b8he45MJqnEPzDjQUemTT86E0tLwnG1N&jump_from=webapi&authKey=HdZIaQGhK4BjebajkAJ5wwDzZKBnSrXtq6jEM8g/LcR+0kaZcqLQGfKNl1d8Wwip" target="_blank"><img src="https://img.shields.io/badge/未满-126325130-blue.svg" alt="加入QQ群"></a>
+</div>
 
-  www.sakura.vip
+<!-- [![加入QQ群](https://img.shields.io/badge/已满-104180207-blue.svg)](https://jq.qq.com/?_wv=1027&k=51G72yr) 
+[![加入QQ群](https://img.shields.io/badge/138988063-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=XIzkm_mV2xTsUtFxo63bmicYoDBA6Ifm&authKey=dDW%2F4qsmw3x9govoZY9w%2FoWAoC4wbHqGal%2BbqLzoS6VBarU8EBptIgPKN%2FviyC8j&noverify=0&group_code=138988063) 点击按钮入群。 -->
+<!-- <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=b8he45MJqnEPzDjQUemTT86E0tLwnG1N&jump_from=webapi&authKey=HdZIaQGhK4BjebajkAJ5wwDzZKBnSrXtq6jEM8g/LcR+0kaZcqLQGfKNl1d8Wwip"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="软件测试开发交流群" title="软件测试开发交流群"></a> -->
 
----
-版权说明：近期将会推送更新一版本，重点升级代码生成器，并修复相关漏洞，Uview2.0已经研发完成
----
+<!-- ## 特别鸣谢
 
-* Aidex Sharp快速开发平台采用GPL技术协议
-* 代码可用于个人项目等接私活或企业项目脚手架使用，Aidex Sharp全系开源版完全免费
-* 二次开发如用于商业性质或开源竞品请先联系群主审核
-* 允许进行商用，但是不允许二次开源出来并进行收费
-* 请不要删除和修改Aidex Sharp源码头部的版权与作者声明及出处
-* 不得进行简单修改包装声称是自己的项目
-* 我们已经申请了相关的软件开发著作权和相关登记
-* 如有使用我们项目样式等的扩展项目，请在项目介绍中，进行明确说明
----
-参与贡献
----
-欢迎各路英雄好汉参与Aidex Sharp代码贡献，期待您的加入！
-Fork 本仓库
-新建 Feat_xxx 分支
-提交代码
-新建 Pull Request
+<a href="https://github.com/SakuraTechy/Sakura.Automation.Platform.Api/graphs/contributors">
+  <img src="https://opencollective.com/continew-admin/contributors.svg?width=890&button=false" alt="contributors" />
+</a>
+
+- 感谢参与贡献的每一位小伙伴🥰
+- 感谢 <a href="https://www.jetbrains.com/" target="_blank">JetBrains</a> 提供的 <a href="https://jb.gg/OpenSourceSupport" target="_blank">非商业开源软件开发授权</a>
+- 感谢 <a href="https://github.com/baomidou/mybatis-plus" target="_blank">MyBatis Plus</a>、<a href="https://github.com/dromara/sa-token" target="_blank">Sa-Token</a> 、<a href="https://github.com/alibaba/jetcache" target="_blank">JetCache</a>、<a href="https://github.com/opengoofy/crane4j" target="_blank">Crane4j</a>、<a href="https://github.com/xiaoymin/knife4j" target="_blank">Knife4j</a>、<a href="https://github.com/dromara/hutool" target="_blank">Hutool</a> 等开源组件作者为国内开源世界作出的贡献
+- 感谢项目使用或未使用到的每一款开源组件，致敬各位开源先驱 :fire: 🔥 -->
+
+## 问卷调查
+
+- 大家可根据自己的使用体验感受，填写在线问卷调查，帮助我们改善产品，谢谢！
+- 填写地址：https://jsj.top/f/yCnEjx
+
+![alt text](image-33.png)
+
+## 特别鸣谢
+
+感谢参与贡献的每一位小伙伴🥰
+
+<a href="https://github.com/SakuraTechy/Sakura.Automation.Platform.Api/graphs/contributors">
+  <!-- <img src="https://github.com/SakuraTechy/Sakura.Automation.Platform.Api/contributors.svg?width=890&button=false" alt="contributors" /> -->
+  <img src="https://avatars.githubusercontent.com/u/24785603?s=60&v=4" alt="contributors" />
+</a>
+
+<!-- - 感谢 <a href="https://github.com/baomidou/mybatis-plus" target="_blank">MyBatis Plus</a>、<a href="https://github.com/dromara/sa-token" target="_blank">Sa-Token</a> 、<a href="https://github.com/alibaba/jetcache" target="_blank">JetCache</a>、<a href="https://github.com/opengoofy/crane4j" target="_blank">Crane4j</a>、<a href="https://github.com/xiaoymin/knife4j" target="_blank">Knife4j</a>、<a href="https://github.com/dromara/hutool" target="_blank">Hutool</a> 等开源组件作者为国内开源世界作出的贡献
+- 感谢 [JetBrains](https://www.jetbrains.com/) 提供的 [非商业开源软件开发授权](https://www.jetbrains.com/community/opensource/?utm_campaign=opensource&utm_content=approved&utm_medium=email&utm_source=newsletter&utm_term=jblogo#support)
+- 感谢 [Gi Demo](https://gitee.com/lin0716/gi-demo)、[Arco Design Pro](https://pro.arco.design/) 开箱即用的 Vue 中后台管理系统前端模板
+- 感谢项目使用或未使用到的每一款开源组件，致敬各位开源先驱 🔥 -->
+
+## License
+
+- 遵循 <a href="https://github.com/SakuraTechy/Sakura.Automation.Platform.Api/blob/dev/LICENSE" target="_blank">Apache-2.0</a> 开源许可协议
+- Copyright © 2024-present <a href="https://sakura.hk.cn" target="_blank">Sakura</a>
+
+## GitHub Star 趋势
+
+![GitHub Star 趋势](https://starchart.cc/SakuraTechy/Sakura.Automation.Platform.Api.svg)

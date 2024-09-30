@@ -594,7 +594,7 @@ public class SysAutomationServiceImpl extends BaseServiceImpl<SysAutomationMappe
 //        SceneXmlUtils.createJava(sysScene,"true");
 //        SceneXmlUtils.createTestngReportXml(sysScene);
 //        SceneXmlUtils.createExtentReportXml(sysScene);
-        if (sysSceneCases != null && sysSceneCases.size() != 0) {
+        if (sysSceneCases != null && !sysSceneCases.isEmpty()) {
             for (SysSceneCase sysSceneCase : sysSceneCases) {
                 sysSceneCase.setStepMsg(JSON.toJSONString(sysSceneCase.getStepList()));
             }
@@ -602,7 +602,7 @@ public class SysAutomationServiceImpl extends BaseServiceImpl<SysAutomationMappe
             String caseMsg = JSON.toJSONString(sysSceneCases);
             sysScene.setCaseMsg(caseMsg);
         } else {
-//            sysScene.setCaseMsg(null);
+            sysScene.setCaseMsg(null);
         }
         return super.save(sysScene);
     }
@@ -768,6 +768,7 @@ public class SysAutomationServiceImpl extends BaseServiceImpl<SysAutomationMappe
             } else {
                 sceneVo.setName(sceneVo1.getName());
             }
+            sysScene.setModuleId(sceneVo.getModuleId());
             sysScene.setLevel(sceneVo.getLevel());
             sysScene.setSceneId(sceneVo.getSceneId());
             sysScene.setName(sceneVo.getName());
@@ -1304,9 +1305,10 @@ public class SysAutomationServiceImpl extends BaseServiceImpl<SysAutomationMappe
         while (iterator.hasNext()) {
             SysSceneCase next = iterator.next();
             if (next.getId().equals(stepVo.getStep().getPid())) {
-                String stepMsg1 = next.getStepMsg();
-                List<Step> stepList = JSONObject.parseArray(stepMsg1, Step.class);
-                Iterator<Step> iterator1 = stepList.iterator();
+//                String stepMsg1 = next.getStepMsg();
+//                List<Step> stepList = JSONObject.parseArray(stepMsg1, Step.class);
+//                Iterator<Step> iterator1 = stepList.iterator();
+                Iterator<Step> iterator1 = next.getStepList().iterator();
                 while (iterator1.hasNext()) {
                     Step next1 = iterator1.next();
                     if (next1.getId().equals(stepVo.getStep().getId())) {

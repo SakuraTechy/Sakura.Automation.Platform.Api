@@ -121,7 +121,7 @@ public class SceneXmlUtils {
                     .addParameter(String.class,"browserName")
                     .addParameter(Boolean.class,"profile")
                     .addException(Exception.class)
-                    .addStatement("TestUnit testunit = WebXmlParseService.parse(browserName,profile,this.getClass().getPackage().getName()+this.getClass().getSimpleName())")
+                    .addStatement("TestUnit testunit = WebXmlParseService.parse(browserName,profile,this.getClass().getPackage().getName(),this.getClass().getSimpleName())")
                     .addStatement("runService = new RunUnitService(testunit)")
                     .build();
 
@@ -634,7 +634,7 @@ public class SceneXmlUtils {
             String projectPath = getProjectPath(sysScene) + "/TestCaseXml/";
             mkdirs(projectPath);
             fileName = URLEncoder.encode(fileName, "UTF-8");
-            //File file = new File("D:\\Sakura\\Sakura.Test.Platform\\automation\\Sakura.Web.UI.Automation.Test\\src\\test\\java\\AAS_DBSG\\V6_1B01_POC\\TestCaseXml\\1.xml");
+            //File file = new File("D:\\Sakura\\Sakura.Automation.Platform\\automation\\Sakura.Web.UI.Automation.Test\\src\\test\\java\\AAS_DBSG\\V6_1B01_POC\\TestCaseXml\\1.xml");
             String xmlFile = projectPath + fileName + ".xml";
             File file = new File(xmlFile);
             if (!file.exists()) {
@@ -840,7 +840,7 @@ public class SceneXmlUtils {
                     ArrayList<YamlConfig.Automation.Project> projects = new ArrayList<>();
                     for (YamlConfig.Automation.Project project : projectList) {
                         if(project.getStatus() == 1){
-                            // /data/sakura/Sakura.Test.Platform/automation/Sakura.Web.UI.Automation.Test/src/test/java/
+                            // /data/sakura/Sakura.Automation.Platform/automation/Sakura.Web.UI.Automation.Test/src/test/java/
                             return project.getPath();
                         }
                     }
@@ -861,7 +861,7 @@ public class SceneXmlUtils {
                     ArrayList<YamlConfig.Automation.Project> projects = new ArrayList<>();
                     for (YamlConfig.Automation.Project project : projectList) {
                         if(project.getStatus() == 1){
-                            // /data/sakura/Sakura.Test.Platform/automation/Sakura.Web.UI.Automation.Test/src/test/java/AAS/V6_5B03
+                            // /data/sakura/Sakura.Automation.Platform/automation/Sakura.Web.UI.Automation.Test/src/test/java/AAS/V6_5B03
                             return project.getPath() + "/"+convertToValidPackageName(sysScene.getProjectName())+"/"+convertToValidPackageName(sysScene.getVersionName());
                         }
                     }
@@ -983,6 +983,8 @@ public class SceneXmlUtils {
             port = optionalValue.get().toString();
         }
         String run = executeConfig.getAutomationConfig().getEnvironment().getName();
+        String jenkinsUrl = executeConfig.getAutomationConfig().getJenkins().getUrl();
+        String jenkinsJob = executeConfig.getAutomationConfig().getJenkins().getJob();
         String testReportId = executeConfig.getTestReport().getId();
         String testPlanId = executeConfig.getTestPlanId();
 
@@ -1003,7 +1005,8 @@ public class SceneXmlUtils {
         params.put("Domain",domain);
         params.put("Port",port);
         params.put("Run",run);
-        params.put("Branch","master");
+        params.put("Branch","prod");
+        params.put("jenkinsUrl", jenkinsUrl+"/job/"+jenkinsJob);
         params.put("testPlanId", testPlanId);
         params.put("testReportId", testReportId);
 

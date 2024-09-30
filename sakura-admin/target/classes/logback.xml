@@ -2,8 +2,8 @@
 <configuration>
     <!-- 日志存放路径 -->
     <property name="log.path" value="logs" />
-    <!-- <property name="log.path" value="C:\\Users\\liuzhi\\AppData\\Local\\JetBrains\\IntelliJIdea2023.2\\compile-server/logs" /> -->
-	<!-- <property name="log.path" value="D:/King/Vue/Sakura.Test.Platform.Api/sakura-admin/logs" /> -->
+    <!-- <property name="log.path" value="C:\\Users\\Ankki\\AppData\\Local\\JetBrains\\IntelliJIdea2023.2\\compile-server/logs" /> -->
+	<!-- <property name="log.path" value="D:/King/Vue/Sakura.Automation.Platform.Api/sakura-admin/logs" /> -->
     <!-- 日志输出格式 -->
 	<property name="log.pattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n" />
 

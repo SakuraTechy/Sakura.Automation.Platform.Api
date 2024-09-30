@@ -4,7 +4,7 @@
  * @version: v1.0
  * @LastEditors: 刘智
  * @LastEditTime: 2021-12-14 10:20:34
- * @FilePath: \Sakura.Test.Platform.Api\sakura-admin\src\main\java\com\sakura\SakuraApplication.java
+ * @FilePath: \Sakura.Automation.Platform.Api\sakura-admin\src\main\java\com\sakura\SakuraApplication.java
  * @Description: 该文件的信息，比如做了什么，文件的传参，出参等
  */
 package com.sakura;
