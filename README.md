@@ -134,7 +134,8 @@ Sakura Automation Platform 是一站式持续自动化平台，涵盖 APP 自动
 
 ## 在线体验
 
-- 地址：[www.sakura.hk.cn:28383](https://www.sakura.hk.cn:28383)
+- 官网：[sakura.hk.cn](https://sakura.hk.cn)
+- 体验：[www.sakura.hk.cn:28383](https://www.sakura.hk.cn:28383)
 - 账号：自行注册（用自己的姓名即可）
 - 密码：自行注册（用自己的密码即可）
 
