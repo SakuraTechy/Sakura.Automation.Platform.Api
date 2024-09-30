@@ -1,7 +1,7 @@
 <!-- > 👋🏼 您当前浏览的文档为 v1.0.0，其它版本的文档请参考：[v1.3.0](/v1.3.0/)、[v1.2.0](/v1.2.0/)、[v1.1.0](/v1.1.0/) -->
 
 <div style="display: grid;justify-items: center;gap: 10px;">
-  <img alt="logo" src="/logo.svg" width="100px" />
+  <img alt="logo" src="https://sakura.hk.cn/logo.svg" width="100px" />
   <p style="font-size: 20px;font-weight: bold;line-height: 0px;margin-top: 5px;">
     Sakura Automation Platform
   </p>
@@ -15,50 +15,24 @@
     <a href="https://github.com/SakuraTechy/Sakura.Automation.Platform.Api" target="_blank">
       <img src="https://img.shields.io/badge/版本-v1.0.0-%23ff3f59.svg" alt="Release" />
     </a>
-  <!-- <a href="https://app.codacy.com/gh/SakuraTechy/Sakura.Automation.Platform.Api/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade" target="_blank">
-    <img src="https://app.codacy.com/project/badge/Grade/19e3e2395d554efe902c3822e65db30e" alt="Codacy Badge" />
-  </a>
-  <a href="https://sonarcloud.io/summary/new_code?id=Charles7c_continew-admin" target="_blank">
-    <img src="https://sonarcloud.io/api/project_badges/measure?project=Charles7c_continew-admin&metric=alert_status" alt="Sonar Status" />
-  </a>
-  <a href="https://github.com/Charles7c/continew-starter" target="_blank">
-    <img src="https://img.shields.io/badge/ContiNew Starter-2.0.0-%236CB52D.svg" alt="ContiNew Starter" />
-  </a>
-  <a href="https://spring.io/projects/spring-boot" target="_blank">
-    <img src="https://img.shields.io/badge/Spring Boot-3.1.10-%236CB52D.svg?logo=Spring-Boot" alt="Spring Boot" />
-  </a>
-  <a href="https://github.com/Charles7c/continew-starter" target="_blank">
-    <img src="https://img.shields.io/badge/Open JDK-17-%236CB52D.svg?logo=OpenJDK&logoColor=FFF" alt="Open JDK" /> 
-  </a>-->
   <a href="https://github.com/SakuraTechy/Sakura.Automation.Platform.Api" target="_blank">
     <img src="https://img.shields.io/github/stars/SakuraTechy/Sakura.Automation.Platform.Api?style=social" alt="GitHub stars" />
   </a>
   <a href="https://github.com/SakuraTechy/Sakura.Automation.Platform.Api" target="_blank">
     <img src="https://img.shields.io/github/forks/SakuraTechy/Sakura.Automation.Platform.Api?style=social" alt="GitHub forks" />
   </a>
-  <!-- <a href="https://gitee.com/continew/continew-admin" target="_blank">
-    <img src="https://gitee.com/continew/continew-admin/badge/star.svg?theme=white" alt="Gitee stars" />
-  </a>
-  <a href="https://gitee.com/continew/continew-admin" target="_blank">
-    <img src="https://gitee.com/continew/continew-admin/badge/fork.svg?theme=white" alt="Gitee forks" />
-  </a> -->
   <a href="https://gitee.com/SakuraTech/Sakura.Automation.Platform.Api">
     <img src="https://gitee.com/SakuraTech/Sakura.Automation.Platform.Api/badge/star.svg?theme=dark" alt="Gitee star">
   </a>
   <a href="https://gitee.com/SakuraTech/Sakura.Automation.Platform.Api">
     <img src="https://gitee.com/SakuraTech/Sakura.Automation.Platform.Api/badge/fork.svg?theme=dark" alt="Gitee fork">
   </a>
-    <!-- <a href="https://www.gnu.org/licenses/gpl-3.0.html"><img src="https://shields.io/github/license/metersphere/metersphere" alt="License: GPL v3"></a>
-    <a href="https://www.codacy.com/gh/metersphere/metersphere/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=metersphere/metersphere&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/da67574fd82b473992781d1386b937ef" alt="Codacy"></a>
-    <a href="https://codecov.io/github/metersphere/metersphere"><img src="https://codecov.io/github/metersphere/metersphere/graph/badge.svg?token=5AB5V8ZGXQ"/></a>
-    <a href="https://github.com/metersphere/metersphere/releases"><img src="https://img.shields.io/github/v/release/metersphere/metersphere" alt="GitHub release"></a>
-    <a href="https://github.com/metersphere/metersphere"><img src="https://img.shields.io/github/stars/metersphere/metersphere?color=%231890FF&style=flat-square" alt="Stars"></a> -->
   </div>
 </div>
 
 ## 产品简介
 
-Sakura Automation Platform 是一站式持续自动化平台，涵盖 APP 自动化、WEB 自动化、API 接口自动化、性能自动化，并且支持分布式测试，全面兼容 Appium、Selenium、Rest Assured、JMeter 等主流开源框架，有效助力公司研发人员充分利用云弹性进行高度可扩展的自动化工作，加速高质量的软件产品交付，推动研发团体整体效率的提升。
+Sakura Automation Platform 是一站式持续自动化平台，涵盖 APP自动化、WEB自动化、API接口自动化、性能自动化，并且支持分布式测试，全面兼容 Appium、Selenium、Rest Assured、JMeter 等主流开源框架，有效助力开发和测试团队充分利用云弹性进行高度可扩展的自动化测试，加速高质量的软件交付，推动测试整体效率的提升。
 
 ## 技术栈
 
@@ -133,7 +107,6 @@ Sakura Automation Platform 是一站式持续自动化平台，涵盖 APP 自动
 - 目前自动化测试的工具都是相互独立的，种类不一，不同工具的整合较差，都是独立使用，相关用例和自动化没有关联，使用自动化测试平台，可以把相关自动化测试工具进行整合，统一使用;
 
 ## 在线体验
-
 - 官网：[sakura.hk.cn](https://sakura.hk.cn)
 - 体验：[www.sakura.hk.cn:28383](https://www.sakura.hk.cn:28383)
 - 账号：自行注册（用自己的姓名即可）
@@ -142,121 +115,28 @@ Sakura Automation Platform 是一站式持续自动化平台，涵盖 APP 自动
 > 陆陆续续收到一些打赏，为了更好的体验已用于演示服务器升级，谢谢各位小伙伴。
 
 ## 效果图
-
-<ZoomImg src="image.png" />
-<table>
-    <tr>
-        <td><ZoomImg src="image-1.png"/></td>
-        <td><ZoomImg src="image-2.png"/></td>
-    </tr>
-    <tr>
-        <td><ZoomImg src="image-3.png"/></td>
-        <td><ZoomImg src="image-4.png"/></td>
-    </tr>
-    <tr>
-        <td><ZoomImg src="image-5.png"/></td>
-        <td><ZoomImg src="image-6.png"/></td>
-    </tr>
-    <tr>
-        <td><ZoomImg src="image-7.png"/></td>
-        <td><ZoomImg src="image-8.png"/></td>
-    </tr>
-    <tr>
-        <td><ZoomImg src="image-9.png"/></td>
-        <td><ZoomImg src="image-10.png"/></td>
-    </tr>
-    <tr>
-        <td><ZoomImg src="image-11.png"/></td>
-        <td><ZoomImg src="image-12.png"/></td>
-    </tr>
-    <tr>
-        <td><ZoomImg src="image-13.png"/></td>
-        <td><ZoomImg src="image-14.png"/></td>
-    </tr>
-    <tr>
-        <td><ZoomImg src="image-15.png"/></td>
-        <td><ZoomImg src="image-16.png"/></td>
-    </tr>
-    <tr>
-        <td><ZoomImg src="image-17.png"/></td>
-        <td><ZoomImg src="image-18.png"/></td>
-    </tr>
-    <tr>
-        <td><ZoomImg src="image-19.png"/></td>
-        <td><ZoomImg src="image-20.png"/></td>
-    </tr>
-    <tr>
-        <td><ZoomImg src="image-21.png"/></td>
-        <td><ZoomImg src="image-22.png"/></td>
-    </tr>
-    <tr>
-        <td><ZoomImg src="image-23.png"/></td>
-        <td><ZoomImg src="image-24.png"/></td>
-    </tr>
-    <tr>
-        <td><ZoomImg src="image-25.png"/></td>
-        <td><ZoomImg src="image-26.png"/></td>
-    </tr>
-    <tr>
-        <td><ZoomImg src="image-27.png"/></td>
-        <td><ZoomImg src="image-28.png"/></td>
-    </tr>
-    <tr>
-        <td><ZoomImg src="image-29.png"/></td>
-        <td><ZoomImg src="image-30.png"/></td>
-    </tr>
-    <tr>
-        <td><ZoomImg src="image-31.png"/></td>
-        <td><ZoomImg src="image-32.png"/></td>
-    </tr>
-</table>
-
-<!-- <table>
-    <tr>
-        <td><img src="1.png" data-fancybox="gallery"/></td>
-        <td><img src="2.png" data-fancybox="gallery"/></td>
-    </tr>
-    <tr>
-        <td><img src="3.png" data-fancybox="gallery"/></td>
-        <td><img src="4.png" data-fancybox="gallery"/></td>
-    </tr>
-    <tr>
-        <td><img src="5.png" data-fancybox="gallery"/></td>
-        <td><img src="6.png" data-fancybox="gallery"/></td>
-    </tr>
-    <tr>
-        <td><img src="7.png" data-fancybox="gallery"/></td>
-        <td><img src="8.png" data-fancybox="gallery"/></td>
-    </tr>
-    <tr>
-        <td><img src="9.png" data-fancybox="gallery"/></td>
-        <td><img src="10.png" data-fancybox="gallery"/></td>
-    </tr>
-    <tr>
-        <td><img src="11.png" data-fancybox="gallery"/></td>
-        <td><img src="12.png" data-fancybox="gallery"/></td>
-    </tr>
-    <tr>
-        <td><img src="13.png" data-fancybox="gallery"/></td>
-        <td><img src="14.png" data-fancybox="gallery"/></td>
-    </tr>
-    <tr>
-        <td><img src="15.png" data-fancybox="gallery"/></td>
-        <td><img src="16.png" data-fancybox="gallery"/></td>
-    </tr>
-    <tr>
-        <td><img src="17.png" data-fancybox="gallery"/></td>
-        <td><img src="18.png" data-fancybox="gallery"/></td>
-    </tr>
-    <tr>
-        <td><img src="19.png" data-fancybox="gallery"/></td>
-        <td><img src="20.png" data-fancybox="gallery"/></td>
-    </tr>
-    <tr>
-        <td><img src="21.png" data-fancybox="gallery"/></td>
-        <td><img src="22.png" data-fancybox="gallery"/></td>
-    </tr>
-</table> -->
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-11.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-13.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-14.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-15.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-16.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-17.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-18.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-19.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-20.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-21.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-22.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-23.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-24.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-25.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-26.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-27.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-28.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-29.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-30.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-31.png">
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-32.png">
 
 ## 参与贡献
 
@@ -294,13 +174,13 @@ Sakura Automation Platform 是一站式持续自动化平台，涵盖 APP 自动
 - 和众多大佬互相 (huá shuǐ) 交流 (mō yú)
 
 > 扫码加微信，邀请入群
-<div st="left">
-  <img src="./wx.png" alt="个人微信" width="230px" />
+<div align="left">
+  <img src="https://sakura.hk.cn/assets/wx.B5trhZqZ.png" alt="个人微信" width="230px" />
 </div>
 
 > 官方 QQ 群
 <div align="left">
-  <img src="./qq.png" alt="QQ群" width="230px" />
+  <img src="https://sakura.hk.cn/assets/qq.CnADLzHX.png" alt="QQ群" width="230px" />
 </div>
 
 <div style="display: flex;margin-top: 5px;gap: 5px;">
@@ -308,41 +188,20 @@ Sakura Automation Platform 是一站式持续自动化平台，涵盖 APP 自动
   <a href="https://qm.qq.com/cgi-bin/qm/qr?k=b8he45MJqnEPzDjQUemTT86E0tLwnG1N&jump_from=webapi&authKey=HdZIaQGhK4BjebajkAJ5wwDzZKBnSrXtq6jEM8g/LcR+0kaZcqLQGfKNl1d8Wwip" target="_blank"><img src="https://img.shields.io/badge/未满-126325130-blue.svg" alt="加入QQ群"></a>
 </div>
 
-<!-- [![加入QQ群](https://img.shields.io/badge/已满-104180207-blue.svg)](https://jq.qq.com/?_wv=1027&k=51G72yr) 
-[![加入QQ群](https://img.shields.io/badge/138988063-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=XIzkm_mV2xTsUtFxo63bmicYoDBA6Ifm&authKey=dDW%2F4qsmw3x9govoZY9w%2FoWAoC4wbHqGal%2BbqLzoS6VBarU8EBptIgPKN%2FviyC8j&noverify=0&group_code=138988063) 点击按钮入群。 -->
-<!-- <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=b8he45MJqnEPzDjQUemTT86E0tLwnG1N&jump_from=webapi&authKey=HdZIaQGhK4BjebajkAJ5wwDzZKBnSrXtq6jEM8g/LcR+0kaZcqLQGfKNl1d8Wwip"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="软件测试开发交流群" title="软件测试开发交流群"></a> -->
-
-<!-- ## 特别鸣谢
-
-<a href="https://github.com/SakuraTechy/Sakura.Automation.Platform.Api/graphs/contributors">
-  <img src="https://opencollective.com/continew-admin/contributors.svg?width=890&button=false" alt="contributors" />
-</a>
-
-- 感谢参与贡献的每一位小伙伴🥰
-- 感谢 <a href="https://www.jetbrains.com/" target="_blank">JetBrains</a> 提供的 <a href="https://jb.gg/OpenSourceSupport" target="_blank">非商业开源软件开发授权</a>
-- 感谢 <a href="https://github.com/baomidou/mybatis-plus" target="_blank">MyBatis Plus</a>、<a href="https://github.com/dromara/sa-token" target="_blank">Sa-Token</a> 、<a href="https://github.com/alibaba/jetcache" target="_blank">JetCache</a>、<a href="https://github.com/opengoofy/crane4j" target="_blank">Crane4j</a>、<a href="https://github.com/xiaoymin/knife4j" target="_blank">Knife4j</a>、<a href="https://github.com/dromara/hutool" target="_blank">Hutool</a> 等开源组件作者为国内开源世界作出的贡献
-- 感谢项目使用或未使用到的每一款开源组件，致敬各位开源先驱 :fire: 🔥 -->
-
 ## 问卷调查
 
 - 大家可根据自己的使用体验感受，填写在线问卷调查，帮助我们改善产品，谢谢！
-- 填写地址：https://jsj.top/f/yCnEjx
+- 填写地址：[https://jsj.top/f/yCnEjx](https://jsj.top/f/yCnEjx)
 
-![alt text](image-33.png)
+<img alt="logo" src="https://sakura.hk.cn/1.%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/1.%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B/image-33.png">
 
 ## 特别鸣谢
 
 感谢参与贡献的每一位小伙伴🥰
 
-<a href="https://github.com/SakuraTechy/Sakura.Automation.Platform.Api/graphs/contributors">
-  <!-- <img src="https://github.com/SakuraTechy/Sakura.Automation.Platform.Api/contributors.svg?width=890&button=false" alt="contributors" /> -->
-  <img src="https://avatars.githubusercontent.com/u/24785603?s=60&v=4" alt="contributors" />
+<a sthref="https://github.com/SakuraTechy/Sakura.Automation.Platform.Api/graphs/contributors">
+  <img style="display:initial" src="https://avatars.githubusercontent.com/u/24785603?s=60&v=4" alt="contributors" />
 </a>
-
-<!-- - 感谢 <a href="https://github.com/baomidou/mybatis-plus" target="_blank">MyBatis Plus</a>、<a href="https://github.com/dromara/sa-token" target="_blank">Sa-Token</a> 、<a href="https://github.com/alibaba/jetcache" target="_blank">JetCache</a>、<a href="https://github.com/opengoofy/crane4j" target="_blank">Crane4j</a>、<a href="https://github.com/xiaoymin/knife4j" target="_blank">Knife4j</a>、<a href="https://github.com/dromara/hutool" target="_blank">Hutool</a> 等开源组件作者为国内开源世界作出的贡献
-- 感谢 [JetBrains](https://www.jetbrains.com/) 提供的 [非商业开源软件开发授权](https://www.jetbrains.com/community/opensource/?utm_campaign=opensource&utm_content=approved&utm_medium=email&utm_source=newsletter&utm_term=jblogo#support)
-- 感谢 [Gi Demo](https://gitee.com/lin0716/gi-demo)、[Arco Design Pro](https://pro.arco.design/) 开箱即用的 Vue 中后台管理系统前端模板
-- 感谢项目使用或未使用到的每一款开源组件，致敬各位开源先驱 🔥 -->
 
 ## License
 
