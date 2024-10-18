@@ -168,7 +168,7 @@ public class SysAutomationServiceImpl extends BaseServiceImpl<SysAutomationMappe
                 } else if (sysScene.getExecuteResultType().equals("report")) {
                     filterPredicate = record -> {
                         boolean testPlanIdCondition = (StringUtils.isEmpty(sysScene.getTestPlanId()) || StringUtils.isEmpty(record.getTestPlanId()) || record.getTestPlanId().equals(sysScene.getTestPlanId()));
-                        boolean buildNumberCondition = (sysScene.getBuildNumber() == null || record.getBuildNumber() == null || Objects.equals(record.getBuildNumber(), sysScene.getBuildNumber()));
+                        boolean buildNumberCondition = (sysScene.getBuildNumber() != null && record.getBuildNumber() != null && Objects.equals(record.getBuildNumber(), sysScene.getBuildNumber()));
                         boolean executeResultCondition = (StringUtils.containsAnyIgnoreCase(record.getExecuteResult(),sysScene.getExecuteResult().split(", ")) || record.getExecuteResult().equals(sysScene.getExecuteResult()));
                         return testPlanIdCondition && buildNumberCondition && executeResultCondition;
                     };
