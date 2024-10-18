@@ -255,9 +255,9 @@ public class TestPlanController extends BaseController {
                                     break;
                                 }
                             }
-                            if (testRecordUiList.removeIf(record -> record.getTestPlanId().equals(executeConfig.getTestPlanId()))) {
-                                sysScene.setTestRecord(JSON.toJSONString(testRecordUiList));
-                            }
+//                            if (testRecordUiList.removeIf(record -> record.getTestPlanId().equals(executeConfig.getTestPlanId()))) {
+//                                sysScene.setTestRecord(JSON.toJSONString(testRecordUiList));
+//                            }
                         } else {
                             testPlan.setTestProgress(String.valueOf(total - sceneIdList.size()));
                         }

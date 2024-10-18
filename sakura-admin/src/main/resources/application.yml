@@ -1,7 +1,7 @@
 # 项目相关配置
 sakura:
   # 名称
-  name: Sakura
+  name: Ankki
   # 版本
   version: v1.0.0
   # 版权年份
@@ -27,8 +27,8 @@ spring:
   # 环境配置
   profiles: 
     # 默认启动环境，dev开发，test测试，druid生产
-    active: dev
-#    active: test
+#    active: dev
+    active: test
 #    active: druid
 
 #  quartz:
@@ -105,14 +105,14 @@ spring:
       enabled: true
   # redis 配置
   redis:
-    # 地址，在docker中可使用默认网关172.17.0.1来代表宿主机IP
-    host: 172.17.0.1
+    # 地址
+    host: 172.19.5.222
     # 端口，6380 开发和测试，6379 生产
     port: 6380
     # 数据库索引
     database: 0
     # 密码
-    password: 3edc%RFV
+    password: 3edc$RFV
     # 连接超时时间
     timeout: 10s
     lettuce:
