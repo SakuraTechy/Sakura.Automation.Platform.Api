@@ -131,7 +131,9 @@ public class SysAutomationServiceImpl extends BaseServiceImpl<SysAutomationMappe
     public PageInfo<SysScene> findPage(SysScene sysScene) {
         sysScene.setPageNum(null);
         sysScene.setPageSize(null);
-        List<SysScene> sysSceneList = super.findList(sysScene);
+        SysScene sysScene1 = sysScene;
+        sysScene1.setTestPlanId("");
+        List<SysScene> sysSceneList = super.findList(sysScene1);
         List<SysScene> sysSceneList1 = new ArrayList<>();
         sysSceneList.forEach((e) -> {
             List<TestReport.StatisticAnalysis.UI> recordUiList;
@@ -176,9 +178,9 @@ public class SysAutomationServiceImpl extends BaseServiceImpl<SysAutomationMappe
                             .filter(filterPredicate)
                             .collect(Collectors.toList());
                     if (!recordUiList.isEmpty()) {
+                        e.setTestRecord(JSON.toJSONString(recordUiList));
                         sysSceneList1.add(e);
                     }
-//                    e.setTestRecord(JSON.toJSONString(recordUiList));
                 } else if (sysScene.getExecuteResultType().equals("debug")) {
                     filterPredicate = record -> {
                         boolean testPlanIdCondition = (StringUtils.isEmpty(sysScene.getTestPlanId()) || StringUtils.isEmpty(record.getTestPlanId()) || record.getTestPlanId().equals(sysScene.getTestPlanId()));
