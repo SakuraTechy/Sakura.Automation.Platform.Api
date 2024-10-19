@@ -131,11 +131,16 @@ public class SysAutomationServiceImpl extends BaseServiceImpl<SysAutomationMappe
     public PageInfo<SysScene> findPage(SysScene sysScene) {
         sysScene.setPageNum(null);
         sysScene.setPageSize(null);
-        SysScene sysScene1 = sysScene;
-        sysScene1.setTestPlanId("");
-        List<SysScene> sysSceneList = super.findList(sysScene1);
+        List<SysScene> sysSceneList;
         List<SysScene> sysSceneList1 = new ArrayList<>();
+        if (sysScene.getExecuteResultType().equals("report")) {
+            sysScene.setTestPlanId("");
+            sysSceneList = super.findList(sysScene);
+        }else{
+            sysSceneList = super.findList(sysScene);
+        }
         sysSceneList.forEach((e) -> {
+            e.setCaseMsg("");
             List<TestReport.StatisticAnalysis.UI> recordUiList;
             if (sysScene.getExecuteResultType().equals("debug")) {
                 recordUiList = JSON.parseArray(e.getDebugRecord(), TestReport.StatisticAnalysis.UI.class);
