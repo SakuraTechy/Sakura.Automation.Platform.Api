@@ -1,0 +1,59 @@
+/*
+ * Copyright (c) 2022-present Charles7c Authors. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.sakura.system.service;
+
+import com.sakura.system.model.entity.DeptDO;
+import com.sakura.system.model.query.DeptQuery;
+import com.sakura.system.model.req.DeptReq;
+import com.sakura.system.model.resp.DeptResp;
+import com.sakura.starter.data.mp.service.IService;
+import com.sakura.starter.extension.crud.service.BaseService;
+
+import java.util.List;
+
+/**
+ * 部门业务接口
+ *
+ * @author hagyao520
+ * @since 2023/1/22 17:54
+ */
+public interface DeptService extends BaseService<DeptResp, DeptResp, DeptQuery, DeptReq>, IService<DeptDO> {
+
+    /**
+     * 查询子部门列表
+     *
+     * @param id ID
+     * @return 子部门列表
+     */
+    List<DeptDO> listChildren(Long id);
+
+    /**
+     * 通过名称查询部门
+     *
+     * @param list 名称列表
+     * @return 部门列表
+     */
+    List<DeptDO> listByNames(List<String> list);
+
+    /**
+     * 通过名称查询部门数量
+     *
+     * @param deptNames 名称列表
+     * @return 部门数量
+     */
+    int countByNames(List<String> deptNames);
+}

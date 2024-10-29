@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.sakura</groupId>
+        <artifactId>sakura-starter</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>sakura-starter-cache</artifactId>
+    <packaging>pom</packaging>
+    <description>SakurA Starter 缓存模块</description>
+
+    <modules>
+        <module>sakura-starter-cache-redisson</module>
+        <module>sakura-starter-cache-springcache</module>
+        <module>sakura-starter-cache-jetcache</module>
+    </modules>
+
+    <dependencies>
+        <!-- 核心模块 -->
+        <dependency>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-core</artifactId>
+        </dependency>
+    </dependencies>
+</project>

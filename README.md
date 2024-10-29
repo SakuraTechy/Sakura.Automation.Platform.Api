@@ -18,16 +18,16 @@
   <!-- <a href="https://app.codacy.com/gh/SakuraTechy/Sakura.Automation.Platform.Api/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade" target="_blank">
     <img src="https://app.codacy.com/project/badge/Grade/19e3e2395d554efe902c3822e65db30e" alt="Codacy Badge" />
   </a>
-  <a href="https://sonarcloud.io/summary/new_code?id=Charles7c_continew-admin" target="_blank">
-    <img src="https://sonarcloud.io/api/project_badges/measure?project=Charles7c_continew-admin&metric=alert_status" alt="Sonar Status" />
+  <a href="https://sonarcloud.io/summary/new_code?id=Charles7c_sakura" target="_blank">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=Charles7c_sakura&metric=alert_status" alt="Sonar Status" />
   </a>
-  <a href="https://github.com/Charles7c/continew-starter" target="_blank">
-    <img src="https://img.shields.io/badge/ContiNew Starter-2.0.0-%236CB52D.svg" alt="ContiNew Starter" />
+  <a href="https://github.com/Charles7c/sakura-starter" target="_blank">
+    <img src="https://img.shields.io/badge/SakurA Starter-2.0.0-%236CB52D.svg" alt="SakurA Starter" />
   </a>
   <a href="https://spring.io/projects/spring-boot" target="_blank">
     <img src="https://img.shields.io/badge/Spring Boot-3.1.10-%236CB52D.svg?logo=Spring-Boot" alt="Spring Boot" />
   </a>
-  <a href="https://github.com/Charles7c/continew-starter" target="_blank">
+  <a href="https://github.com/Charles7c/sakura-starter" target="_blank">
     <img src="https://img.shields.io/badge/Open JDK-17-%236CB52D.svg?logo=OpenJDK&logoColor=FFF" alt="Open JDK" /> 
   </a>-->
   <a href="https://github.com/SakuraTechy/Sakura.Automation.Platform.Api" target="_blank">
@@ -36,11 +36,11 @@
   <a href="https://github.com/SakuraTechy/Sakura.Automation.Platform.Api" target="_blank">
     <img src="https://img.shields.io/github/forks/SakuraTechy/Sakura.Automation.Platform.Api?style=social" alt="GitHub forks" />
   </a>
-  <!-- <a href="https://gitee.com/continew/continew-admin" target="_blank">
-    <img src="https://gitee.com/continew/continew-admin/badge/star.svg?theme=white" alt="Gitee stars" />
+  <!-- <a href="https://gitee.com/continew/sakura" target="_blank">
+    <img src="https://gitee.com/continew/sakura/badge/star.svg?theme=white" alt="Gitee stars" />
   </a>
-  <a href="https://gitee.com/continew/continew-admin" target="_blank">
-    <img src="https://gitee.com/continew/continew-admin/badge/fork.svg?theme=white" alt="Gitee forks" />
+  <a href="https://gitee.com/continew/sakura" target="_blank">
+    <img src="https://gitee.com/continew/sakura/badge/fork.svg?theme=white" alt="Gitee forks" />
   </a> -->
   <a href="https://gitee.com/SakuraTech/Sakura.Automation.Platform.Api">
     <img src="https://gitee.com/SakuraTech/Sakura.Automation.Platform.Api/badge/star.svg?theme=dark" alt="Gitee star">
@@ -277,7 +277,7 @@ Sakura Automation Platform 是一站式持续自动化平台，涵盖 APP 自动
 > [!IMPORTANT]
 > 欢迎大家贡献代码，我们非常感谢您的支持！为了更好地管理项目，维护者有一些要求：
 >
-> 1. 请确保代码、配置文件的结构和命名规范良好，完善的代码注释甚至包括接口文档参数示例，并遵循阿里巴巴的 <a href="https://github.com/continew-org/continew-admin/blob/dev/.style/Java%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C(%E9%BB%84%E5%B1%B1%E7%89%88).pdf" target="_blank">《Java开发手册(黄山版)》</a> 中的代码规范，保证代码质量和可维护性
+> 1. 请确保代码、配置文件的结构和命名规范良好，完善的代码注释甚至包括接口文档参数示例，并遵循阿里巴巴的 <a href="https://github.com/continew-org/sakura/blob/dev/.style/Java%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C(%E9%BB%84%E5%B1%B1%E7%89%88).pdf" target="_blank">《Java开发手册(黄山版)》</a> 中的代码规范，保证代码质量和可维护性
 > 2. 在提交代码前，请按照 [Angular 提交规范](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular) 编写 commit 的 message（建议在 IntelliJ IDEA 中下载并安装 Git Commit Template 插件，以便按照规范进行 commit）
 > 3. 提交代码之前，请关闭所有代码窗口，执行 `mvn compile` 命令（代码格式化插件会在项目编译时对全局代码进行格式修正），编译通过后，不要再打开查看任何代码窗口，直接提交即可，以免不同的 IDE 配置会自动进行代码格式化
 
@@ -314,7 +314,7 @@ Sakura Automation Platform 是一站式持续自动化平台，涵盖 APP 自动
 <!-- ## 特别鸣谢
 
 <a href="https://github.com/SakuraTechy/Sakura.Automation.Platform.Api/graphs/contributors">
-  <img src="https://opencollective.com/continew-admin/contributors.svg?width=890&button=false" alt="contributors" />
+  <img src="https://opencollective.com/sakura/contributors.svg?width=890&button=false" alt="contributors" />
 </a>
 
 - 感谢参与贡献的每一位小伙伴🥰

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sakura.system.mapper.NoticeMapper">
+
+    <select id="selectDashboardList"
+            resultType="com.sakura.system.model.resp.dashboard.DashboardNoticeResp">
+        SELECT
+            id, title, type
+        FROM sys_notice
+        WHERE (effective_time IS NULL OR NOW() > effective_time)
+          AND (terminate_time IS NULL OR terminate_time > NOW())
+        ORDER BY sort ASC, effective_time DESC
+        LIMIT 5
+    </select>
+</mapper>

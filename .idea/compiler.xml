@@ -7,21 +7,207 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="sakura-framework" />
-        <module name="sakura-controller" />
-        <module name="sakura-system" />
+        <module name="sakura-starter-security-crypto" />
+        <module name="sakura-starter-data-mp" />
+        <module name="sakura-starter-captcha-behavior" />
+        <module name="sakura-starter-extension-datapermission-mp" />
         <module name="sakura-common" />
-        <module name="sakura-quartz" />
-        <module name="sakura-admin" />
+        <module name="sakura-starter-extension-tenant-mp" />
+        <module name="sakura-starter-log-core" />
+        <module name="sakura-webapi" />
+        <module name="sakura-starter-security-password" />
+        <module name="sakura-starter-core" />
+        <module name="sakura-starter-auth-justauth" />
+        <module name="sakura-starter-log-interceptor" />
+        <module name="sakura-starter-messaging-mail" />
+        <module name="sakura-starter-messaging-websocket" />
+        <module name="sakura-starter-api-doc" />
+        <module name="sakura-starter-extension-crud-mp" />
+        <module name="sakura-starter-extension-tenant-core" />
+        <module name="sakura-starter-cache-jetcache" />
+        <module name="sakura-starter-cache-redisson" />
+        <module name="sakura-starter-data-core" />
+        <module name="sakura-starter-json-jackson" />
+        <module name="sakura-starter-security-mask" />
+        <module name="sakura-system" />
+        <module name="sakura-starter-extension-datapermission-core" />
+        <module name="sakura-starter-storage-local" />
         <module name="sakura-generator" />
+        <module name="sakura-starter-extension-crud-mf" />
+        <module name="sakura-job" />
+        <module name="sakura-starter-cache-springcache" />
+        <module name="sakura-starter-file-excel" />
+        <module name="sakura-starter-captcha-graphic" />
+        <module name="sakura-starter-security-limiter" />
+        <module name="sakura-starter-auth-satoken" />
+        <module name="sakura-starter-web" />
+        <module name="sakura-starter-data-mf" />
+        <module name="sakura-starter-extension-crud-core" />
+        <module name="sakura-job-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="ankki" target="1.8" />
-      <module name="ankki-framework" target="1.8" />
-      <module name="ankki-generator" target="1.8" />
-      <module name="ankki-quartz" target="1.8" />
-      <module name="ankki-system" target="1.8" />
+      <module name="com.sakura" target="17" />
+      <module name="continew-admin" target="17" />
+      <module name="continew-admin-extension" target="17" />
+      <module name="continew-admin-generator" target="17" />
+      <module name="continew-admin-job" target="17" />
+      <module name="continew-admin-job-server" target="17" />
+      <module name="continew-admin-plugins" target="17" />
+      <module name="continew-admin-system" target="17" />
+      <module name="continew-admin-webapi" target="17" />
+      <module name="continew-starter" target="17" />
+      <module name="continew-starter-api-doc" target="17" />
+      <module name="continew-starter-auth" target="17" />
+      <module name="continew-starter-auth-justauth" target="17" />
+      <module name="continew-starter-auth-satoken" target="17" />
+      <module name="continew-starter-cache" target="17" />
+      <module name="continew-starter-cache-jetcache" target="17" />
+      <module name="continew-starter-cache-redisson" target="17" />
+      <module name="continew-starter-cache-springcache" target="17" />
+      <module name="continew-starter-captcha" target="17" />
+      <module name="continew-starter-captcha-behavior" target="17" />
+      <module name="continew-starter-captcha-graphic" target="17" />
+      <module name="continew-starter-core" target="17" />
+      <module name="continew-starter-data" target="17" />
+      <module name="continew-starter-data-core" target="17" />
+      <module name="continew-starter-data-mf" target="17" />
+      <module name="continew-starter-dependencies" target="1.5" />
+      <module name="continew-starter-extension" target="17" />
+      <module name="continew-starter-extension-crud" target="17" />
+      <module name="continew-starter-extension-crud-core" target="17" />
+      <module name="continew-starter-extension-crud-mf" target="17" />
+      <module name="continew-starter-extension-crud-mp" target="17" />
+      <module name="continew-starter-extension-tenant" target="1.5" />
+      <module name="continew-starter-extension-tenant-core" target="1.5" />
+      <module name="continew-starter-extension-tenant-mp" target="1.5" />
+      <module name="continew-starter-file" target="17" />
+      <module name="continew-starter-file-excel" target="17" />
+      <module name="continew-starter-json" target="17" />
+      <module name="continew-starter-json-jackson" target="1.5" />
+      <module name="continew-starter-log" target="17" />
+      <module name="continew-starter-log-core" target="17" />
+      <module name="continew-starter-log-interceptor" target="17" />
+      <module name="continew-starter-messaging" target="17" />
+      <module name="continew-starter-messaging-mail" target="17" />
+      <module name="continew-starter-messaging-websocket" target="17" />
+      <module name="continew-starter-security" target="17" />
+      <module name="continew-starter-security-crypto" target="17" />
+      <module name="continew-starter-security-limiter" target="17" />
+      <module name="continew-starter-security-mask" target="17" />
+      <module name="continew-starter-security-password" target="17" />
+      <module name="continew-starter-storage" target="17" />
+      <module name="continew-starter-storage-local" target="17" />
+      <module name="continew-starter-web" target="17" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="continew-admin" options="-parameters" />
+      <module name="continew-admin-extension" options="-parameters" />
+      <module name="continew-admin-generator" options="-parameters" />
+      <module name="continew-admin-job" options="-parameters" />
+      <module name="continew-admin-job-server" options="-parameters" />
+      <module name="continew-admin-plugins" options="-parameters" />
+      <module name="continew-admin-system" options="-parameters" />
+      <module name="continew-admin-webapi" options="-parameters" />
+      <module name="continew-starter" options="-parameters" />
+      <module name="continew-starter-api-doc" options="-parameters" />
+      <module name="continew-starter-auth" options="-parameters" />
+      <module name="continew-starter-auth-justauth" options="-parameters" />
+      <module name="continew-starter-auth-satoken" options="-parameters" />
+      <module name="continew-starter-cache" options="-parameters" />
+      <module name="continew-starter-cache-jetcache" options="-parameters" />
+      <module name="continew-starter-cache-redisson" options="-parameters" />
+      <module name="continew-starter-cache-springcache" options="-parameters" />
+      <module name="continew-starter-captcha" options="-parameters" />
+      <module name="continew-starter-captcha-behavior" options="-parameters" />
+      <module name="continew-starter-captcha-graphic" options="-parameters" />
+      <module name="continew-starter-core" options="-parameters" />
+      <module name="continew-starter-data" options="-parameters" />
+      <module name="continew-starter-data-core" options="-parameters" />
+      <module name="continew-starter-data-mf" options="-parameters" />
+      <module name="continew-starter-extension" options="-parameters" />
+      <module name="continew-starter-extension-crud" options="-parameters" />
+      <module name="continew-starter-extension-crud-core" options="-parameters" />
+      <module name="continew-starter-extension-crud-mf" options="-parameters" />
+      <module name="continew-starter-extension-crud-mp" options="-parameters" />
+      <module name="continew-starter-extension-tenant" options="" />
+      <module name="continew-starter-extension-tenant-core" options="" />
+      <module name="continew-starter-extension-tenant-mp" options="" />
+      <module name="continew-starter-file" options="-parameters" />
+      <module name="continew-starter-file-excel" options="-parameters" />
+      <module name="continew-starter-json" options="-parameters" />
+      <module name="continew-starter-json-jackson" options="" />
+      <module name="continew-starter-log" options="-parameters" />
+      <module name="continew-starter-log-core" options="-parameters" />
+      <module name="continew-starter-log-interceptor" options="-parameters" />
+      <module name="continew-starter-messaging" options="-parameters" />
+      <module name="continew-starter-messaging-mail" options="-parameters" />
+      <module name="continew-starter-messaging-websocket" options="-parameters" />
+      <module name="continew-starter-security" options="-parameters" />
+      <module name="continew-starter-security-crypto" options="-parameters" />
+      <module name="continew-starter-security-limiter" options="-parameters" />
+      <module name="continew-starter-security-mask" options="-parameters" />
+      <module name="continew-starter-security-password" options="-parameters" />
+      <module name="continew-starter-storage" options="-parameters" />
+      <module name="continew-starter-storage-local" options="-parameters" />
+      <module name="continew-starter-web" options="-parameters" />
+      <module name="sakura" options="-parameters" />
+      <module name="sakura-common" options="-parameters" />
+      <module name="sakura-extension" options="-parameters" />
+      <module name="sakura-generator" options="-parameters" />
+      <module name="sakura-job" options="-parameters" />
+      <module name="sakura-job-server" options="-parameters" />
+      <module name="sakura-plugins" options="-parameters" />
+      <module name="sakura-starter" options="-parameters" />
+      <module name="sakura-starter-api-doc" options="-parameters" />
+      <module name="sakura-starter-auth" options="-parameters" />
+      <module name="sakura-starter-auth-justauth" options="-parameters" />
+      <module name="sakura-starter-auth-satoken" options="-parameters" />
+      <module name="sakura-starter-cache" options="-parameters" />
+      <module name="sakura-starter-cache-jetcache" options="-parameters" />
+      <module name="sakura-starter-cache-redisson" options="-parameters" />
+      <module name="sakura-starter-cache-springcache" options="-parameters" />
+      <module name="sakura-starter-captcha" options="-parameters" />
+      <module name="sakura-starter-captcha-behavior" options="-parameters" />
+      <module name="sakura-starter-captcha-graphic" options="-parameters" />
+      <module name="sakura-starter-core" options="-parameters" />
+      <module name="sakura-starter-data" options="-parameters" />
+      <module name="sakura-starter-data-core" options="-parameters" />
+      <module name="sakura-starter-data-mf" options="-parameters" />
+      <module name="sakura-starter-data-mp" options="-parameters" />
+      <module name="sakura-starter-extension" options="-parameters" />
+      <module name="sakura-starter-extension-crud" options="-parameters" />
+      <module name="sakura-starter-extension-crud-core" options="-parameters" />
+      <module name="sakura-starter-extension-crud-mf" options="-parameters" />
+      <module name="sakura-starter-extension-crud-mp" options="-parameters" />
+      <module name="sakura-starter-extension-datapermission" options="-parameters" />
+      <module name="sakura-starter-extension-datapermission-core" options="-parameters" />
+      <module name="sakura-starter-extension-datapermission-mp" options="-parameters" />
+      <module name="sakura-starter-extension-tenant" options="-parameters" />
+      <module name="sakura-starter-extension-tenant-core" options="-parameters" />
+      <module name="sakura-starter-extension-tenant-mp" options="-parameters" />
+      <module name="sakura-starter-file" options="-parameters" />
+      <module name="sakura-starter-file-excel" options="-parameters" />
+      <module name="sakura-starter-json" options="-parameters" />
+      <module name="sakura-starter-json-jackson" options="-parameters" />
+      <module name="sakura-starter-log" options="-parameters" />
+      <module name="sakura-starter-log-core" options="-parameters" />
+      <module name="sakura-starter-log-interceptor" options="-parameters" />
+      <module name="sakura-starter-messaging" options="-parameters" />
+      <module name="sakura-starter-messaging-mail" options="-parameters" />
+      <module name="sakura-starter-messaging-websocket" options="-parameters" />
+      <module name="sakura-starter-security" options="-parameters" />
+      <module name="sakura-starter-security-crypto" options="-parameters" />
+      <module name="sakura-starter-security-limiter" options="-parameters" />
+      <module name="sakura-starter-security-mask" options="-parameters" />
+      <module name="sakura-starter-security-password" options="-parameters" />
+      <module name="sakura-starter-storage" options="-parameters" />
+      <module name="sakura-starter-storage-local" options="-parameters" />
+      <module name="sakura-starter-web" options="-parameters" />
+      <module name="sakura-system" options="-parameters" />
+      <module name="sakura-webapi" options="-parameters" />
+    </option>
   </component>
 </project>

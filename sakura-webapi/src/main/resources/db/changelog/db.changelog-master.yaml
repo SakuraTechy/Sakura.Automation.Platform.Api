@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/mysql/sakura_table.sql
+  - include:
+      file: db/changelog/mysql/sakura_column.sql
+  - include:
+      file: db/changelog/mysql/sakura_data.sql
+# PostgreSQL
+#  - include:
+#      file: db/changelog/postgresql/sakura_table.sql
+#  - include:
+#      file: db/changelog/postgresql/sakura_column.sql
+#  - include:
+#      file: db/changelog/postgresql/sakura_data.sql

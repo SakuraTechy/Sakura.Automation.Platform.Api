@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sakura.system.mapper.LogMapper">
+    <select id="selectLogPage" resultType="com.sakura.system.model.resp.log.LogResp">
+        SELECT
+            t1.id,
+            t1.description,
+            t1.module,
+            t1.time_taken,
+            t1.ip,
+            t1.address,
+            t1.browser,
+            t1.os,
+            t1.status,
+            t1.error_msg,
+            t1.create_user,
+            t1.create_time,
+            t2.nickname AS createUserString
+        FROM sys_log AS t1
+        LEFT JOIN sys_user AS t2 ON t2.id = t1.create_user
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="selectLogList" resultType="com.sakura.system.model.resp.log.LogResp">
+        SELECT
+            t1.id,
+            t1.description,
+            t1.module,
+            t1.time_taken,
+            t1.ip,
+            t1.address,
+            t1.browser,
+            t1.os,
+            t1.status,
+            t1.error_msg,
+            t1.create_user,
+            t1.create_time,
+            t2.nickname AS createUserString
+        FROM sys_log AS t1
+        LEFT JOIN sys_user AS t2 ON t2.id = t1.create_user
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="selectDashboardOverviewPv" resultType="com.sakura.system.model.resp.dashboard.DashboardOverviewCommonResp">
+        SELECT
+            (SELECT COUNT(*) FROM sys_log) AS total,
+            (SELECT COUNT(*) FROM sys_log WHERE DATE(create_time) = CURRENT_DATE) AS today,
+            (SELECT COUNT(*) FROM sys_log WHERE DATE(create_time) = CURRENT_DATE - 1) AS yesterday
+    </select>
+
+    <select id="selectDashboardOverviewIp" resultType="com.sakura.system.model.resp.dashboard.DashboardOverviewCommonResp">
+        SELECT
+            (SELECT COUNT(DISTINCT ip) FROM sys_log) AS total,
+            (SELECT COUNT(DISTINCT ip) FROM sys_log WHERE DATE(create_time) = CURRENT_DATE) AS today,
+            (SELECT COUNT(DISTINCT ip) FROM sys_log WHERE DATE(create_time) = CURRENT_DATE - 1) AS yesterday
+    </select>
+
+    <select id="selectListDashboardAnalysisPv"
+            resultType="com.sakura.system.model.resp.dashboard.DashboardChartCommonResp">
+        SELECT
+            DATE_FORMAT(create_time, '%Y-%m') AS name,
+            COUNT(*) AS value
+        FROM sys_log
+        WHERE DATE_FORMAT(create_time, '%Y-%m' ) IN
+        <foreach collection="months" item="month" separator="," open="(" close=")">
+            #{month}
+        </foreach>
+        GROUP BY name
+        ORDER BY name
+    </select>
+
+    <select id="selectListDashboardAnalysisIp"
+            resultType="com.sakura.system.model.resp.dashboard.DashboardChartCommonResp">
+        SELECT
+            DATE_FORMAT(create_time, '%Y-%m') AS name,
+            COUNT(DISTINCT ip) AS value
+        FROM sys_log
+        WHERE DATE_FORMAT(create_time, '%Y-%m' ) IN
+        <foreach collection="months" item="month" separator="," open="(" close=")">
+            #{month}
+        </foreach>
+        GROUP BY name
+        ORDER BY name
+    </select>
+
+    <select id="selectListDashboardAccessTrend"
+            resultType="com.sakura.system.model.resp.dashboard.DashboardAccessTrendResp">
+        SELECT
+            DATE(create_time) AS date,
+            COUNT(*) AS pvCount,
+            COUNT(DISTINCT ip) AS ipCount
+        FROM sys_log
+        WHERE create_time BETWEEN #{startTime} AND #{endTime}
+        GROUP BY date
+        ORDER BY date
+    </select>
+
+    <select id="selectListDashboardAnalysisTimeslot"
+            resultType="com.sakura.system.model.resp.dashboard.DashboardChartCommonResp">
+        SELECT
+            LPAD(CONCAT(FLOOR(HOUR(create_time) / 2) * 2, ':00'), 5, '0') AS name,
+            COUNT(*) AS value
+        FROM sys_log
+        GROUP BY name
+        ORDER BY name
+    </select>
+
+    <select id="selectListDashboardAnalysisGeo" resultType="com.sakura.system.model.resp.dashboard.DashboardChartCommonResp">
+        SELECT
+            CASE
+                WHEN POSITION(' ' IN address) > 0 THEN SUBSTRING(address FROM 1 FOR POSITION(' ' IN address) - 1)
+                ELSE address
+            END AS name,
+            COUNT(DISTINCT ip) AS value
+        FROM sys_log
+        GROUP BY name
+        ORDER BY value DESC
+        LIMIT #{top}
+    </select>
+
+    <select id="selectListDashboardAnalysisModule"
+            resultType="com.sakura.system.model.resp.dashboard.DashboardChartCommonResp">
+        SELECT
+            module AS name,
+            COUNT(*) AS value
+        FROM sys_log
+        WHERE module != '验证码' AND module != '登录'
+        GROUP BY name
+        ORDER BY value DESC
+        LIMIT #{top}
+    </select>
+
+    <select id="selectListDashboardAnalysisOs"
+            resultType="com.sakura.system.model.resp.dashboard.DashboardChartCommonResp">
+        SELECT
+            os AS name,
+            COUNT(*) AS value
+        FROM sys_log
+        WHERE os IS NOT NULL
+        GROUP BY name
+        ORDER BY value DESC
+        LIMIT #{top}
+    </select>
+
+    <select id="selectListDashboardAnalysisBrowser"
+            resultType="com.sakura.system.model.resp.dashboard.DashboardChartCommonResp">
+        SELECT
+            SUBSTRING_INDEX(browser, ' ', 1) AS name,
+            COUNT(*) AS value
+        FROM sys_log
+        WHERE browser IS NOT NULL
+        GROUP BY name
+        ORDER BY value DESC
+        LIMIT #{top}
+    </select>
+</mapper>

@@ -1,0 +1,7 @@
+{
+  "com.sakura.starter.security.limiter.annotation.RateLimiter@key":{
+    "method":{
+      "parameters": true
+    }
+  }
+}

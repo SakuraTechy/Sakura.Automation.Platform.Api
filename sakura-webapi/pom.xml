@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.sakura</groupId>
+        <artifactId>sakura</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>sakura-webapi</artifactId>
+    <description>API 及打包部署模块</description>
+
+    <properties>
+        <!-- ### 打包配置相关 ### -->
+        <!-- 启动类 -->
+        <main-class>com.sakura.ContiNewAdminApplication</main-class>
+        <!-- 程序 jar 输出目录 -->
+        <bin-path>bin/</bin-path>
+        <!-- 配置文件输出目录 -->
+        <config-path>config/</config-path>
+        <!-- 依赖 jar 输出目录 -->
+        <lib-path>lib/</lib-path>
+    </properties>
+
+    <dependencies>
+        <!-- SakurA Starter 日志模块 - 拦截器版（Spring Boot Actuator HttpTrace 增强版） -->
+        <dependency>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-log-interceptor</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <!-- 系统管理模块（存放系统管理模块相关功能，例如：部门管理、角色管理、用户管理等） -->
+        <dependency>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-system</artifactId>
+        </dependency>
+
+        <!-- 任务调度插件（后续会改造为独立插件） -->
+        <dependency>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-job</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <!-- 代码生成器插件（后续会改造为独立插件） -->
+        <dependency>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-generator</artifactId>
+        </dependency>
+
+        <!-- Liquibase（用于管理数据库版本，跟踪、管理和应用数据库变化） -->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- 设置构建的 jar 包名 -->
+        <finalName>${project.parent.name}</finalName>
+        <plugins>
+            <!-- Maven 打包插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <!-- 排除配置文件 -->
+                    <excludes>
+                        <exclude>${config-path}</exclude>
+                        <exclude>db/</exclude>
+                        <exclude>templates/</exclude>
+                        <exclude>logback-spring.xml</exclude>
+                    </excludes>
+                    <archive>
+                        <manifest>
+                            <mainClass>${main-class}</mainClass>
+                            <!-- 为 MANIFEST.MF 中的 Class-Path 加入依赖 jar 目录前缀 -->
+                            <classpathPrefix>../${lib-path}</classpathPrefix>
+                            <addClasspath>true</addClasspath>
+                            <!-- jar 包不包含唯一版本标识 -->
+                            <useUniqueVersions>false</useUniqueVersions>
+                        </manifest>
+                        <manifestEntries>
+                            <!--为 MANIFEST.MF 中的 Class-Path 加入配置文件目录前缀 -->
+                            <Class-Path>../${config-path}</Class-Path>
+                        </manifestEntries>
+                    </archive>
+                    <outputDirectory>${project.build.directory}/app/${bin-path}</outputDirectory>
+                </configuration>
+            </plugin>
+            <!-- 拷贝依赖 jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/app/${lib-path}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- 拷贝配置文件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources/${config-path}</directory>
+                                </resource>
+                                <resource>
+                                    <directory>src/main/resources</directory>
+                                    <includes>
+                                        <include>db/</include>
+                                        <include>templates/</include>
+                                        <include>logback-spring.xml</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                            <outputDirectory>${project.build.directory}/app/${config-path}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>16</source>
+                    <target>16</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,4 @@
+com.sakura.starter.core.autoconfigure.project.ProjectAutoConfiguration
+com.sakura.starter.core.autoconfigure.ValidatorAutoConfiguration
+com.sakura.starter.core.autoconfigure.threadpool.ThreadPoolAutoConfiguration
+com.sakura.starter.core.autoconfigure.threadpool.AsyncAutoConfiguration

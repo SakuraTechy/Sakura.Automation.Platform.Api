@@ -1,0 +1,4 @@
+com.sakura.starter.web.autoconfigure.mvc.WebMvcAutoConfiguration
+com.sakura.starter.web.autoconfigure.cors.CorsAutoConfiguration
+com.sakura.starter.web.autoconfigure.trace.TraceAutoConfiguration
+com.sakura.starter.web.autoconfigure.xss.XssAutoConfiguration

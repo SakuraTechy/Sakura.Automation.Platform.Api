@@ -1,0 +1,2 @@
+com.sakura.starter.captcha.behavior.autoconfigure.BehaviorCaptchaAutoConfiguration
+com.sakura.starter.captcha.behavior.autoconfigure.cache.BehaviorCaptchaCacheAutoConfiguration

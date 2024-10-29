@@ -1,0 +1,315 @@
+--- ### 项目配置
+project:
+  # URL（跨域配置默认放行此 URL，第三方登录回调默认使用此 URL 为前缀，请注意更改为你实际的前端 URL）
+  url: https://admin.continew.top
+  # 是否为生产环境
+  production: true
+
+--- ### 服务器配置
+server:
+  # HTTP 端口（默认 8080）
+  port: 18000
+
+--- ### 数据源配置
+spring.datasource:
+  type: com.zaxxer.hikari.HikariDataSource
+  url: jdbc:mysql://${DB_HOST:127.0.0.1}:${DB_PORT:3306}/${DB_NAME:continew_admin}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&autoReconnect=true&maxReconnects=10&failOverReadOnly=false
+  username: ${DB_USER:root}
+  password: ${DB_PWD:123456}
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  # PostgreSQL 配置
+#  postgresql:
+#    url: jdbc:postgresql://${DB_HOST:127.0.0.1}:${DB_PORT:5432}/${DB_NAME:continew_admin}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&rewriteBatchedStatements=true&autoReconnect=true&maxReconnects=10&failOverReadOnly=false
+#    username: ${DB_USER:root}
+#    password: ${DB_PWD:123456}
+#    driver-class-name: org.postgresql.Driver
+  # Hikari 连接池配置（完整配置请参阅：https://github.com/brettwooldridge/HikariCP）
+  hikari:
+    # 最大连接数量（默认 10，根据实际环境调整）
+    # 注意：当连接达到上限，并且没有空闲连接可用时，获取连接将在超时前阻塞最多 connectionTimeout 毫秒
+    maximum-pool-size: 20
+    # 获取连接超时时间（默认 30000 毫秒，30 秒）
+    connection-timeout: 30000
+    # 空闲连接最大存活时间（默认 600000 毫秒，10 分钟）
+    idle-timeout: 600000
+    # 保持连接活动的频率，以防止它被数据库或网络基础设施超时。该值必须小于 maxLifetime（默认 0，禁用）
+    keepaliveTime: 30000
+    # 连接最大生存时间（默认 1800000 毫秒，30 分钟）
+    max-lifetime: 1800000
+## Liquibase 配置
+spring.liquibase:
+  # 是否启用
+  enabled: true
+  # 配置文件路径
+  change-log: classpath:/db/changelog/db.changelog-master.yaml
+
+--- ### 缓存配置
+spring.data:
+  ## Redis 配置（单机模式）
+  redis:
+    # 地址
+    host: ${REDIS_HOST:127.0.0.1}
+    # 端口（默认 6379）
+    port: ${REDIS_PORT:6379}
+    # 密码（未设置密码时请注释掉）
+    password: ${REDIS_PWD:123456}
+    # 数据库索引
+    database: ${REDIS_DB:0}
+    # 连接超时时间
+    timeout: 10s
+    # 是否开启 SSL
+    ssl:
+      enabled: false
+  ## Redisson 配置
+  redisson:
+    enabled: true
+    mode: SINGLE
+## JetCache 配置
+jetcache:
+  # 统计间隔（默认 0，表示不统计）
+  statIntervalMinutes: 0
+  ## 本地/进程级/一级缓存配置
+  local:
+    default:
+      # 缓存类型
+      type: caffeine
+      # key 转换器的全局配置
+      keyConvertor: jackson
+      # 以毫秒为单位指定超时时间的全局配置
+      expireAfterWriteInMillis: 7200000
+      # 每个缓存实例的最大元素的全局配置，仅 local 类型的缓存需要指定
+      limit: 1000
+  ## 远程/分布式/二级缓存配置
+  remote:
+    default:
+      # 缓存类型
+      type: redisson
+      # key 转换器的全局配置（用于将复杂的 KEY 类型转换为缓存实现可以接受的类型）
+      keyConvertor: jackson
+      # 以毫秒为单位指定超时时间的全局配置
+      expireAfterWriteInMillis: 7200000
+      # 2.7+ 支持两级缓存更新以后失效其他 JVM 中的 local cache，但多个服务共用 Redis 同一个 channel 可能会造成广播风暴，需要在这里指定channel。
+      # 你可以决定多个不同的服务是否共用同一个 channel，如果没有指定则不开启。
+      broadcastChannel: ${spring.application.name}
+      # 序列化器的全局配置，仅 remote 类型的缓存需要指定
+      valueEncoder: java
+      valueDecoder: java
+
+--- ### 验证码配置
+sakura-starter.captcha:
+  ## 行为验证码
+  behavior:
+    enabled: true
+    cache-type: REDIS
+    water-mark:
+    # 一分钟内接口请求次数限制开关（默认：0，关闭，开启后下方失败锁定配置才会生效）
+    req-frequency-limit-enable: 0
+    # 一分钟内验证码最多失败次数限制（默认：5次）
+    req-get-lock-limit: 5
+    # 一分钟内验证码最多失败次数限制达标后锁定时间（默认：300秒）
+    req-get-lock-seconds: 300
+  ## 图形验证码
+  graphic:
+    # 类型
+    type: SPEC
+    # 内容长度
+    length: 4
+    # 过期时间
+    expirationInMinutes: 2
+## 其他验证码配置
+captcha:
+  ## 邮箱验证码配置
+  mail:
+    # 内容长度
+    length: 6
+    # 过期时间
+    expirationInMinutes: 5
+    # 模板路径
+    templatePath: mail/captcha.ftl
+  ## 短信验证码配置
+  sms:
+    # 内容长度
+    length: 4
+    # 过期时间
+    expirationInMinutes: 5
+    # 模板 ID
+    templateId: 1
+
+--- ### 日志配置
+sakura-starter.log:
+  # 是否打印日志，开启后可打印访问日志（类似于 Nginx access log）
+  is-print: false
+## 项目日志配置（配置重叠部分，优先级高于 logback-spring.xml 中的配置）
+logging:
+  level:
+    com.sakura: INFO
+    com.sakura.starter: INFO
+  file:
+    path: ../logs
+
+--- ### 跨域配置
+sakura-starter.web.cors:
+  enabled: true
+  # 配置允许跨域的域名
+  allowed-origins:
+    - ${project.url}
+  # 配置允许跨域的请求方式
+  allowed-methods: '*'
+  # 配置允许跨域的请求头
+  allowed-headers: '*'
+  # 配置允许跨域的响应头
+  exposed-headers: '*'
+
+--- ### 接口文档配置
+## 接口文档增强配置
+knife4j:
+  # 开启生产环境屏蔽
+  production: ${project.production}
+
+--- ### WebSocket 配置
+sakura-starter.messaging.websocket:
+  enabled: true
+  path: /websocket
+  # 配置允许跨域的域名
+  allowed-origins:
+    - ${project.url}
+
+--- ### 短信配置
+sms:
+  # 从 YAML 读取配置
+  config-type: YAML
+  is-print: false
+  blends:
+    cloopen:
+      # 短信厂商
+      supplier: cloopen
+      base-url: https://app.cloopen.com:8883/2013-12-26
+      access-key-id: 你的Access Key
+      access-key-secret: 你的Access Key Secret
+      sdk-app-id: 你的应用ID
+
+--- ### 邮件配置
+spring.mail:
+  # 根据需要更换
+  host: smtp.126.com
+  port: 465
+  username: 你的邮箱
+  password: 你的邮箱授权码
+  properties:
+    mail:
+      smtp:
+        auth: true
+        socketFactory:
+          class: javax.net.ssl.SSLSocketFactory
+          port: 465
+
+--- ### Just Auth 配置
+justauth:
+  enabled: true
+  type:
+    GITEE:
+      client-id: 5d271b7f638941812aaf8bfc2e2f08f06d6235ef934e0e39537e2364eb8452c4
+      client-secret: 1f7d08**********5b7**********29e
+      redirect-uri: ${project.url}/social/callback?source=gitee
+    GITHUB:
+      client-id: 38080dad08cfbdfacca9
+      client-secret: 1f7d08**********5b7**********29e
+      redirect-uri: ${project.url}/social/callback?source=github
+  cache:
+    type: REDIS
+
+--- ### Sa-Token 扩展配置
+sa-token.extension:
+  # 安全配置：排除（放行）路径配置
+  security.excludes:
+    - /error
+    # 静态资源
+    - /*.html
+    - /*/*.html
+    - /*/*.css
+    - /*/*.js
+    - /websocket/**
+    # 本地存储资源
+    - /file/**
+
+--- ### 安全配置
+sakura-starter.security:
+  ## 字段加/解密配置
+  crypto:
+    enabled: true
+    # 对称加密算法密钥
+    password: abcdefghijklmnop
+    # 非对称加密算法密钥（在线生成 RSA 密钥对：http://web.chacuo.net/netrsakeypair）
+    public-key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAM51dgYtMyF+tTQt80sfFOpSV27a7t9uaUVeFrdGiVxscuizE7H8SMntYqfn9lp8a5GH5P1/GGehVjUD2gF/4kcCAwEAAQ==
+    private-key: MIIBVQIBADANBgkqhkiG9w0BAQEFAASCAT8wggE7AgEAAkEAznV2Bi0zIX61NC3zSx8U6lJXbtru325pRV4Wt0aJXGxy6LMTsfxIye1ip+f2WnxrkYfk/X8YZ6FWNQPaAX/iRwIDAQABAkEAk/VcAusrpIqA5Ac2P5Tj0VX3cOuXmyouaVcXonr7f+6y2YTjLQuAnkcfKKocQI/juIRQBFQIqqW/m1nmz1wGeQIhAO8XaA/KxzOIgU0l/4lm0A2Wne6RokJ9HLs1YpOzIUmVAiEA3Q9DQrpAlIuiT1yWAGSxA9RxcjUM/1kdVLTkv0avXWsCIE0X8woEjK7lOSwzMG6RpEx9YHdopjViOj1zPVH61KTxAiBmv/dlhqkJ4rV46fIXELZur0pj6WC3N7a4brR8a+CLLQIhAMQyerWl2cPNVtE/8tkziHKbwW3ZUiBXU24wFxedT9iV
+  ## 密码编码器配置
+  password:
+    enabled: true
+    # BCryptPasswordEncoder
+    encoding-id: bcrypt
+  ## 限流器配置
+  limiter:
+    enabled: true
+    key-prefix: RateLimiter
+
+--- ### 文件上传配置
+spring.servlet:
+  multipart:
+    enabled: true
+    # 单文件上传大小限制
+    max-file-size: 10MB
+    # 单次总上传文件大小限制
+    max-request-size: 20MB
+## 头像支持格式配置
+avatar:
+  support-suffix: jpg,jpeg,png,gif
+
+--- ### Snail Job 配置
+snail-job:
+  # 客户端地址（默认自动获取本机 IP）
+  #host: 127.0.0.1
+  # 客户端端口（默认：1789）
+  port: 1789
+  # 命名空间 ID
+  namespace: 764d604ec6fc45f68cd92514c40e9e1a
+  # 分组名
+  group: sakura
+  # 令牌
+  token: SJ_Wyz3dmsdbDOkDujOTSSoBjGQP1BMsVnj
+  ## 服务端配置（任务调度中心）
+  server:
+    # 服务端地址，若服务端集群部署则此处配置域名
+    host: 127.0.0.1
+    # Netty 端口号
+    port: 1788
+    # API 配置
+    api:
+      # URL
+      url: http://127.0.0.1:8001/snail-job
+      # 用户名
+      username: admin
+      # 密码
+      password: admin
+  ## 重试数据批量上报滑动窗口配置
+  retry:
+    reportSlidingWindow:
+      # 窗口期单位
+      chrono-unit: SECONDS
+      # 窗口期时间长度
+      duration: 10
+      # 总量窗口期阈值
+      total-threshold: 50
+      # 窗口数量预警
+      window-total-threshold: 150
+  ## 调度线程池配置
+  dispatcherThreadPool:
+    # 核心线程数
+    corePoolSize: 16
+    # 最大线程数
+    maximumPoolSize: 16
+    # 线程存活时间
+    keepAliveTime: 1
+    # 时间单位
+    timeUnit: SECONDS
+    # 队列容量
+    queueCapacity: 10000

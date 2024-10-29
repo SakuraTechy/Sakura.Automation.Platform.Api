@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.sakura</groupId>
+        <artifactId>sakura-starter-log</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>sakura-starter-log-interceptor</artifactId>
+    <description>SakurA Starter 日志模块 - 拦截器版（Spring Boot Actuator HttpTrace 增强版）</description>
+
+    <dependencies>
+        <!-- Swagger 注解 -->
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations-jakarta</artifactId>
+        </dependency>
+
+        <!-- TTL（线程间传递 ThreadLocal，异步执行时上下文传递的解决方案） -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>transmittable-thread-local</artifactId>
+        </dependency>
+
+        <!-- 日志模块 - 核心模块 -->
+        <dependency>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-log-core</artifactId>
+            <version>${revision}</version>
+        </dependency>
+    </dependencies>
+</project>

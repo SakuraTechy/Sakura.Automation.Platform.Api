@@ -1,35 +1,63 @@
 {
   "groups": [
     {
-      "name": "sakura",
-      "type": "com.sakura.common.config.SakuraConfig",
-      "sourceType": "com.sakura.common.config.SakuraConfig"
+      "name": "captcha",
+      "type": "com.sakura.common.config.properties.CaptchaProperties",
+      "sourceType": "com.sakura.common.config.properties.CaptchaProperties"
+    },
+    {
+      "name": "captcha.mail",
+      "type": "com.sakura.common.config.properties.CaptchaProperties$CaptchaMail",
+      "sourceType": "com.sakura.common.config.properties.CaptchaProperties"
+    },
+    {
+      "name": "captcha.sms",
+      "type": "com.sakura.common.config.properties.CaptchaProperties$CaptchaSms",
+      "sourceType": "com.sakura.common.config.properties.CaptchaProperties"
     }
   ],
   "properties": [
     {
-      "name": "sakura.captcha-type",
-      "type": "java.lang.String",
-      "description": "验证码类型",
-      "sourceType": "com.sakura.common.config.SakuraConfig"
+      "name": "captcha.expiration-in-minutes",
+      "type": "java.lang.Long",
+      "description": "图形验证码过期时间",
+      "sourceType": "com.sakura.common.config.properties.CaptchaProperties"
     },
     {
-      "name": "sakura.copyright-year",
-      "type": "java.lang.String",
-      "description": "版权年份",
-      "sourceType": "com.sakura.common.config.SakuraConfig"
+      "name": "captcha.mail.expiration-in-minutes",
+      "type": "java.lang.Long",
+      "description": "过期时间",
+      "sourceType": "com.sakura.common.config.properties.CaptchaProperties$CaptchaMail"
     },
     {
-      "name": "sakura.demo-enabled",
-      "type": "java.lang.Boolean",
-      "description": "实例演示开关",
-      "sourceType": "com.sakura.common.config.SakuraConfig"
+      "name": "captcha.mail.length",
+      "type": "java.lang.Integer",
+      "description": "内容长度",
+      "sourceType": "com.sakura.common.config.properties.CaptchaProperties$CaptchaMail"
     },
     {
-      "name": "sakura.version",
+      "name": "captcha.mail.template-path",
       "type": "java.lang.String",
-      "description": "版本",
-      "sourceType": "com.sakura.common.config.SakuraConfig"
+      "description": "模板路径",
+      "sourceType": "com.sakura.common.config.properties.CaptchaProperties$CaptchaMail"
+    },
+    {
+      "name": "captcha.sms.expiration-in-minutes",
+      "type": "java.lang.Long",
+      "description": "过期时间",
+      "sourceType": "com.sakura.common.config.properties.CaptchaProperties$CaptchaSms"
+    },
+    {
+      "name": "captcha.sms.length",
+      "type": "java.lang.Integer",
+      "description": "内容长度",
+      "sourceType": "com.sakura.common.config.properties.CaptchaProperties$CaptchaSms"
+    },
+    {
+      "name": "captcha.sms.template-id",
+      "type": "java.lang.String",
+      "description": "模板 ID",
+      "sourceType": "com.sakura.common.config.properties.CaptchaProperties$CaptchaSms"
     }
   ],
   "hints": []

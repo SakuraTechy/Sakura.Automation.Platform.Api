@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.sakura</groupId>
+        <artifactId>sakura-starter-extension-datapermission</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>sakura-starter-extension-datapermission-mp</artifactId>
+    <description>SakurA Starter 扩展模块 - 数据权限 - MyBatis Plus ORM 模块</description>
+
+    <dependencies>
+        <!-- MyBatis Plus（MyBatis 的增强工具，在 MyBatis 的基础上只做增强不做改变，简化开发、提高效率） -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+        </dependency>
+
+        <!-- 核心模块 -->
+        <dependency>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-extension-datapermission-core</artifactId>
+            <version>${revision}</version>
+        </dependency>
+    </dependencies>
+</project>

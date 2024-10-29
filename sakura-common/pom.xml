@@ -1,281 +1,186 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
     <parent>
-        <artifactId>sakura</artifactId>
         <groupId>com.sakura</groupId>
-        <version>3.4.0</version>
+        <artifactId>sakura</artifactId>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>sakura-common</artifactId>
-
-    <description>common通用工具</description>
-
-    <properties>
-        <!-- add 2021-01-28 -->
-        <lombok.version>1.18.16</lombok.version>
-        <org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
-    </properties>
+    <description>公共模块（存放公共工具类，公共配置等）</description>
 
     <dependencies>
-        <!-- Spring框架基本的核心工具 -->
+        <!-- CosId（通用、灵活、高性能的分布式 ID 生成器） -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-        </dependency>
-
-        <!-- SpringWeb模块 -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-        </dependency>
-
-        <!-- spring security 安全认证 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        
-        <!-- swagger2-->
-        <!-- <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
+            <groupId>me.ahoo.cosid</groupId>
+            <artifactId>cosid-spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>swagger-bootstrap-ui</artifactId>
-            <version>1.9.6</version>
-        </dependency> -->
-        
-        <!-- swagger3 -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-            <version>3.0.0</version>
+            <groupId>me.ahoo.cosid</groupId>
+            <artifactId>cosid-spring-redis</artifactId>
         </dependency>
 
+        <!-- SMS4J（短信聚合框架，轻松集成多家短信服务，解决接入多个短信 SDK 的繁琐流程） -->
         <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>1.6.2</version>
-            <scope>compile</scope>
+            <groupId>org.dromara.sms4j</groupId>
+            <artifactId>sms4j-spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- knife4j -->
-        <!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-spring-boot-starter -->
+        <!-- X File Storage（一行代码将文件存储到本地、FTP、SFTP、WebDAV、阿里云 OSS、华为云 OBS...等其它兼容 S3 协议的存储平台） -->
         <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>3.0.3</version>
+            <groupId>org.dromara.x-file-storage</groupId>
+            <artifactId>x-file-storage-spring</artifactId>
         </dependency>
-        
-        <!-- pagehelper 分页插件 -->
+        <!-- Amazon S3（Amazon Simple Storage Service，亚马逊简单存储服务，通用存储协议 S3，兼容主流云厂商对象存储） -->
         <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
         </dependency>
 
-        <!-- 自定义验证注解 -->
+        <!-- FreeMarker（模板引擎） -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
         </dependency>
 
-        <!-- 注解配置处理器 -->
+        <!-- MySQL Java 驱动 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
         </dependency>
 
-        <!--常用工具类 -->
+        <!-- SakurA Starter API 文档模块 -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-  
-        <!-- JSON工具类 -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-api-doc</artifactId>
+<!--            <version>${revision}</version>-->
         </dependency>
 
-        <!-- 阿里JSON解析器 -->
+        <!-- SakurA Starter 扩展模块 - CURD（增删改查） -->
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-extension-crud-mp</artifactId>
+            <version>${revision}</version>
         </dependency>
 
-        <!-- io常用工具类 -->
+        <!-- SakurA Starter 认证模块 - JustAuth -->
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-auth-justauth</artifactId>
+            <version>${revision}</version>
         </dependency>
 
-        <!-- 文件上传工具类 -->
+        <!-- SakurA Starter 数据权限模块 - MyBatis Plus -->
         <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-extension-datapermission-mp</artifactId>
+            <version>${revision}</version>
         </dependency>
 
-        <!-- excel工具 -->
+        <!-- SakurA Starter 数据访问模块 - MyBatis Plus -->
         <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-data-mp</artifactId>
+            <version>${revision}</version>
         </dependency>
 
-        <!-- yml解析器 -->
+        <!-- SakurA Starter 缓存模块 - JetCache -->
         <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-cache-jetcache</artifactId>
+            <version>${revision}</version>
         </dependency>
 
-        <!-- eo-yaml解析器 -->
+        <!-- SakurA Starter 消息模块 - WebSocket -->
         <dependency>
-            <groupId>com.amihaiemil.web</groupId>
-            <artifactId>eo-yaml</artifactId>
-            <version>7.0.1</version>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-messaging-websocket</artifactId>
+            <version>${revision}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
-        <!-- Token生成与解析 -->
+        <!-- SakurA Starter 消息模块 - 邮件 -->
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-messaging-mail</artifactId>
+            <version>${revision}</version>
         </dependency>
 
-        <!-- Jaxb -->
+        <!-- SakurA Starter 验证码模块 - 图形验证码 -->
         <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-captcha-graphic</artifactId>
+            <version>${revision}</version>
         </dependency>
 
-        <!-- redis 缓存操作 -->
+        <!-- SakurA Starter 验证码模块 - 行为验证码 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-captcha-behavior</artifactId>
+            <version>${revision}</version>
         </dependency>
 
-        <!-- pool 对象池 -->
+        <!-- SakurA Starter 文件处理模块 - Excel -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-pool2</artifactId>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-file-excel</artifactId>
+            <version>${revision}</version>
         </dependency>
 
-        <!-- 解析客户端操作系统、浏览器等 -->
+        <!-- SakurA Starter 安全模块 - 限流器 -->
         <dependency>
-            <groupId>eu.bitwalker</groupId>
-            <artifactId>UserAgentUtils</artifactId>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-security-limiter</artifactId>
+            <version>${revision}</version>
         </dependency>
 
-        <!-- servlet包 -->
+        <!-- SakurA Starter 安全模块 - 加密 -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-security-crypto</artifactId>
+            <version>${revision}</version>
         </dependency>
 
-        <!--  引入lombok 2020-01-28  -->
+        <!-- SakurA Starter 安全模块 - 脱敏 -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-security-mask</artifactId>
+            <version>${revision}</version>
         </dependency>
 
-        <!--  引入mapstruct 2020-01-28  -->
+        <!-- SakurA Starter 安全模块 - 密码编码器 -->
         <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${org.mapstruct.version}</version>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-security-password</artifactId>
+            <version>${revision}</version>
         </dependency>
 
+        <!-- SakurA Starter JSON 模块 - Jackson -->
         <dependency>
-            <groupId>com.belerweb</groupId>
-            <artifactId>pinyin4j</artifactId>
-            <version>${pinyin4j.version}</version>
-        </dependency>
-
-        <!-- 远程连接Linux -->
-<!--        <dependency>-->
-<!--            <groupId>commons-io</groupId>-->
-<!--            <artifactId>commons-io</artifactId>-->
-<!--            <version>2.6</version>-->
-<!--        </dependency>-->
-
-        <!-- SFTP -->
-        <dependency>
-            <groupId>com.jcraft</groupId>
-            <artifactId>jsch</artifactId>
-            <version>0.1.54</version>
-        </dependency>
-
-        <!-- SSH -->
-        <!-- https://mvnrepository.com/artifact/ch.ethz.ganymed/ganymed-ssh2 -->
-        <dependency>
-            <groupId>ch.ethz.ganymed</groupId>
-            <artifactId>ganymed-ssh2</artifactId>
-            <version>262</version>
-        </dependency>
-
-        <!-- JavaPoet 生成.java源文件 -->
-        <dependency>
-            <groupId>com.squareup</groupId>
-            <artifactId>javapoet</artifactId>
-            <version>1.13.0</version>
-        </dependency>
-
-        <!-- Jenkins工具-->
-        <!-- https://mvnrepository.com/artifact/com.offbytwo.jenkins/jenkins-client -->
-        <dependency>
-            <groupId>com.offbytwo.jenkins</groupId>
-            <artifactId>jenkins-client</artifactId>
-            <version>0.3.8</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>4.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-xml</artifactId>
-            <version>2.12.3</version>
+            <groupId>com.sakura</groupId>
+            <artifactId>sakura-starter-json-jackson</artifactId>
+            <version>${revision}</version>
         </dependency>
     </dependencies>
-<build>
-    <resources>
-        <resource>
-            <directory>src/main/java</directory>
-            <excludes>
-                <exclude>**/*.java</exclude>
-                <exclude>**/.svn/*</exclude>
-            </excludes>
-        </resource>
-        <resource>
-            <directory>src/main/resources</directory>
-            <includes>
-                <include>**/*.zzh</include>
-            </includes>
-        </resource>
-    </resources>
-<!--    <plugins>-->
-<!--        <plugin>-->
-<!--            <groupId>org.apache.maven.plugins</groupId>-->
-<!--            <artifactId>maven-compiler-plugin</artifactId>-->
-<!--            <configuration>-->
-<!--                <source>11</source>-->
-<!--                <target>11</target>-->
-<!--            </configuration>-->
-<!--        </plugin>-->
-<!--    </plugins>-->
-</build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>16</source>
+                    <target>16</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -1,0 +1,52 @@
+name: Deploy
+
+on:
+  # 推送时执行
+  push:
+    branches: [dev]
+  # 可手动执行
+  workflow_dispatch:
+
+jobs:
+  deploy-server:
+    runs-on: ubuntu-latest
+    steps:
+      # 1、检出源码
+      - name: Checkout
+        uses: actions/checkout@v4
+      # 2、安装 Java 环境
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "adopt"
+          java-version: 17
+          cache: "maven"
+      # 3、打包
+      - name: Build
+        run: |
+          sed -i.bak '/<repositories>/,/<\/repositories>/d' pom.xml
+          sed -i.bak '/<pluginRepositories>/,/<\/pluginRepositories>/d' pom.xml
+          mvn -B package --file pom.xml
+      # 4、拷贝到服务器
+      - name: Copy
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          port: ${{ secrets.SERVER_PORT }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          source: ./sakura-webapi/target/app/*
+          target: /docker/sakura
+          strip_components: 3
+      # 5、启动
+      - name: Start
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          port: ${{ secrets.SERVER_PORT }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            cd /docker
+            docker-compose up --force-recreate --build -d sakura-server
+            docker images | grep none | awk '{print $3}' | xargs docker rmi

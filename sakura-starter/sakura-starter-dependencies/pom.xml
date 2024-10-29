@@ -1,0 +1,802 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>3.2.10</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.sakura</groupId>
+    <artifactId>sakura-starter-dependencies</artifactId>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+    <description>SakurA Starter 依赖模块</description>
+    <url>https://github.com/continew-org/sakura-starter</url>
+    <licenses>
+        <license>
+            <name>GNU LESSER GENERAL PUBLIC LICENSE</name>
+            <url>https://www.gnu.org/licenses/lgpl.html</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>charles7c</id>
+            <name>Charles7c</name>
+            <email>charles7c@126.com</email>
+            <roles>
+                <role>Creator</role>
+                <role>Java Development Engineer</role>
+            </roles>
+            <timezone>+8</timezone>
+            <url>https://github.com/Charles7c</url>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git@github.com:continew-org/sakura-starter.git</connection>
+        <developerConnection>scm:git:git@github.com:continew-org/sakura-starter.git</developerConnection>
+        <url>https://github.com/continew-org/sakura-starter</url>
+    </scm>
+
+    <properties>
+        <!-- 项目版本号 -->
+        <revision>1.0.0</revision>
+        <snail-job.version>1.1.2</snail-job.version>
+        <sa-token.version>1.39.0</sa-token.version>
+        <just-auth.version>1.16.6</just-auth.version>
+        <mybatis-plus.version>3.5.8</mybatis-plus.version>
+        <mybatis-flex.version>1.9.7</mybatis-flex.version>
+        <dynamic-datasource.version>4.3.1</dynamic-datasource.version>
+        <p6spy.version>3.9.1</p6spy.version>
+        <jetcache.version>2.7.6</jetcache.version>
+        <redisson.version>3.36.0</redisson.version>
+        <cosid.version>2.9.8</cosid.version>
+        <sms4j.version>3.3.3</sms4j.version>
+        <aj-captcha.version>1.3.0</aj-captcha.version>
+        <easy-captcha.version>1.6.2</easy-captcha.version>
+        <easy-excel.version>3.3.4</easy-excel.version>
+        <nashorn.version>15.4</nashorn.version>
+        <x-file-storage.version>2.2.1</x-file-storage.version>
+        <aws-s3.version>1.12.771</aws-s3.version>
+        <graceful-response.version>5.0.0-boot3</graceful-response.version>
+        <crane4j.version>2.9.0</crane4j.version>
+        <knife4j.version>4.5.0</knife4j.version>
+        <tlog.version>1.5.2</tlog.version>
+        <snakeyaml.version>2.3</snakeyaml.version>
+        <okhttp.version>4.12.0</okhttp.version>
+        <ttl.version>2.14.5</ttl.version>
+        <ip2region.version>3.2.6</ip2region.version>
+        <hutool.version>5.8.32</hutool.version>
+        <!-- Maven Plugin Versions -->
+        <flatten.version>1.6.0</flatten.version>
+        <spotless.version>2.43.0</spotless.version>
+        <sonar.version>3.8.0.2131</sonar.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- SnailJob（灵活，可靠和快速的分布式任务重试和分布式任务调度平台） -->
+            <dependency>
+                <groupId>com.aizuda</groupId>
+                <artifactId>snail-job-client-starter</artifactId>
+                <version>${snail-job.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aizuda</groupId>
+                <artifactId>snail-job-client-retry-core</artifactId>
+                <version>${snail-job.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aizuda</groupId>
+                <artifactId>snail-job-client-job-core</artifactId>
+                <version>${snail-job.version}</version>
+            </dependency>
+
+            <!-- Sa-Token（轻量级 Java 权限认证框架，让鉴权变得简单、优雅） -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot3-starter</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+            <!-- Sa-Token 整合 JWT -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-jwt</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+
+            <!-- Just Auth（开箱即用的整合第三方登录的开源组件，脱离繁琐的第三方登录 SDK，让登录变得 So easy!） -->
+            <dependency>
+                <groupId>me.zhyd.oauth</groupId>
+                <artifactId>JustAuth</artifactId>
+                <version>${just-auth.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xkcoding.justauth</groupId>
+                <artifactId>justauth-spring-boot-starter</artifactId>
+                <version>1.4.0</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>me.zhyd.oauth</groupId>
+                        <artifactId>JustAuth</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- MyBatis Plus（MyBatis 的增强工具，在 MyBatis 的基础上只做增强不做改变，简化开发、提高效率） -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-core</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!-- MyBatis Flex（MyBatis 的增强工具，在 MyBatis 的基础上只做增强不做改变，简化开发、提高效率） -->
+            <dependency>
+                <groupId>com.mybatis-flex</groupId>
+                <artifactId>mybatis-flex-spring-boot3-starter</artifactId>
+                <version>${mybatis-flex.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mybatis-flex</groupId>
+                <artifactId>mybatis-flex-processor</artifactId>
+                <version>${mybatis-flex.version}</version>
+            </dependency>
+
+            <!-- Dynamic Datasource（基于 Spring Boot 的快速集成多数据源的启动器） -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
+                <version>${dynamic-datasource.version}</version>
+            </dependency>
+
+            <!-- P6Spy（SQL 性能分析组件） -->
+            <dependency>
+                <groupId>p6spy</groupId>
+                <artifactId>p6spy</artifactId>
+                <version>${p6spy.version}</version>
+            </dependency>
+
+            <!-- JetCache（一个基于 Java 的缓存系统封装，提供统一的 API 和注解来简化缓存的使用。提供了比 SpringCache 更加强大的注解，可以原生的支持 TTL、两级缓存、分布式自动刷新，还提供了 Cache 接口用于手工缓存操作） -->
+            <dependency>
+                <groupId>com.alicp.jetcache</groupId>
+                <artifactId>jetcache-autoconfigure</artifactId>
+                <version>${jetcache.version}</version>
+            </dependency>
+            <!-- JetCache 注解 -->
+            <dependency>
+                <groupId>com.alicp.jetcache</groupId>
+                <artifactId>jetcache-anno</artifactId>
+                <version>${jetcache.version}</version>
+            </dependency>
+            <!-- JetCache Redisson 适配 -->
+            <dependency>
+                <groupId>com.alicp.jetcache</groupId>
+                <artifactId>jetcache-redisson</artifactId>
+                <version>${jetcache.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.redisson</groupId>
+                        <artifactId>redisson</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- Redisson（不仅仅是一个 Redis Java 客户端） -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+
+            <!-- CosId（通用、灵活、高性能的分布式 ID 生成器） -->
+            <dependency>
+                <groupId>me.ahoo.cosid</groupId>
+                <artifactId>cosid-spring-boot-starter</artifactId>
+                <version>${cosid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>me.ahoo.cosid</groupId>
+                <artifactId>cosid-spring-redis</artifactId>
+                <version>${cosid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>me.ahoo.cosid</groupId>
+                <artifactId>cosid-jdbc</artifactId>
+                <version>${cosid.version}</version>
+            </dependency>
+
+            <!-- SMS4J（短信聚合框架，轻松集成多家短信服务，解决接入多个短信 SDK 的繁琐流程） -->
+            <dependency>
+                <groupId>org.dromara.sms4j</groupId>
+                <artifactId>sms4j-spring-boot-starter</artifactId>
+                <version>${sms4j.version}</version>
+            </dependency>
+
+            <!-- AJ-Captcha（行为验证码，包含滑动拼图、文字点选两种方式，UI支持弹出和嵌入两种方式） -->
+            <dependency>
+                <groupId>com.anji-plus</groupId>
+                <artifactId>captcha</artifactId>
+                <version>${aj-captcha.version}</version>
+            </dependency>
+
+            <!-- Easy Captcha（Java 图形验证码，支持 gif、中文、算术等类型，可用于 Java Web、JavaSE 等项目） -->
+            <dependency>
+                <groupId>com.github.whvcse</groupId>
+                <artifactId>easy-captcha</artifactId>
+                <version>${easy-captcha.version}</version>
+            </dependency>
+
+            <!-- JS 引擎（一个纯编译的 JavaScript 引擎） -->
+            <dependency>
+                <groupId>org.openjdk.nashorn</groupId>
+                <artifactId>nashorn-core</artifactId>
+                <version>${nashorn.version}</version>
+            </dependency>
+
+            <!-- Easy Excel（一个基于 Java 的、快速、简洁、解决大文件内存溢出的 Excel 处理工具） -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easy-excel.version}</version>
+            </dependency>
+
+            <!-- X File Storage（一行代码将文件存储到本地、FTP、SFTP、WebDAV、阿里云 OSS、华为云 OBS...等其它兼容 S3 协议的存储平台） -->
+            <dependency>
+                <groupId>org.dromara.x-file-storage</groupId>
+                <artifactId>x-file-storage-spring</artifactId>
+                <version>${x-file-storage.version}</version>
+            </dependency>
+
+            <!-- Amazon S3（Amazon Simple Storage Service，亚马逊简单存储服务，通用存储协议 S3，兼容主流云厂商对象存储） -->
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-s3</artifactId>
+                <version>${aws-s3.version}</version>
+            </dependency>
+
+            <!-- Graceful Response（一个Spring Boot技术栈下的优雅响应处理组件，可以帮助开发者完成响应数据封装、异常处理、错误码填充等过程，提高开发效率，提高代码质量） -->
+            <dependency>
+                <groupId>com.feiniaojin</groupId>
+                <artifactId>graceful-response</artifactId>
+                <version>${graceful-response.version}</version>
+            </dependency>
+
+            <!-- Crane4j（一个基于注解的，用于完成一切 “根据 A 的 key 值拿到 B，再把 B 的属性映射到 A” 这类需求的字段填充框架） -->
+            <dependency>
+                <groupId>cn.crane4j</groupId>
+                <artifactId>crane4j-spring-boot-starter</artifactId>
+                <version>${crane4j.version}</version>
+            </dependency>
+
+            <!-- Knife4j（前身是 swagger-bootstrap-ui，集 Swagger2 和 OpenAPI3 为一体的增强解决方案） -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-dependencies</artifactId>
+                <version>${knife4j.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- TLog（轻量级的分布式日志标记追踪神器） -->
+            <dependency>
+                <groupId>com.yomahub</groupId>
+                <artifactId>tlog-web-spring-boot-starter</artifactId>
+                <version>${tlog.version}</version>
+            </dependency>
+
+            <!-- SnakeYAML（适用于 Java 的 YAML 1.1 解析器和发射器） -->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>${snakeyaml.version}</version>
+            </dependency>
+
+            <!-- OkHTTP（一个默认高效的 HTTP 客户端） -->
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+
+            <!-- TTL（线程间传递 ThreadLocal，异步执行时上下文传递的解决方案） -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${ttl.version}</version>
+            </dependency>
+
+            <!-- 第三方封装 Ip2region（离线 IP 数据管理框架和定位库，支持亿级别的数据段，10 微秒级别的查询性能，提供了许多主流编程语言的 xdb 数据管理引擎的实现） -->
+            <dependency>
+                <groupId>net.dreamlu</groupId>
+                <artifactId>mica-ip2region</artifactId>
+                <version>${ip2region.version}</version>
+            </dependency>
+
+            <!-- Hutool（小而全的 Java 工具类库，通过静态方法封装，降低相关 API 的学习成本，提高工作效率，使 Java 拥有函数式语言般的优雅，让 Java 语言也可以“甜甜的”） -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-bom</artifactId>
+                <version>${hutool.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <!-- SakurA Starter 依赖 -->
+            <!-- 扩展模块 - CRUD - 核心模块 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-extension-crud-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <!-- 扩展模块 - CRUD - MyBatis Plus ORM 模块 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-extension-crud-mp</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <!-- 扩展模块 - CRUD - MyBatis Flex ORM 模块 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-extension-crud-mf</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 扩展模块 - 数据权限 - 核心模块 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-extension-datapermission-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <!-- 扩展模块 - 数据权限 - MyBatis Plus ORM 模块 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-extension-datapermission-mp</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 扩展模块 - 多租户 - 核心模块 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-extension-tenant-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <!-- 扩展模块 - 多租户 - MyBatis Plus ORM 模块 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-extension-tenant-mp</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 认证模块 - JustAuth -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-auth-justauth</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 认证模块 - SaToken -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-auth-satoken</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 数据访问模块 - MyBatis Plus -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-data-mp</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 数据访问模块 - MyBatis Flex -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-data-mf</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 数据访问模块 - 核心模块 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-data-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 缓存模块 - JetCache -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-cache-jetcache</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 缓存模块 - Spring Cache -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-cache-springcache</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 缓存模块 - Redisson -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-cache-redisson</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 消息模块 - WebSocket -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-messaging-websocket</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 消息模块 - 邮件 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-messaging-mail</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 验证码模块 - 行为验证码 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-captcha-behavior</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 验证码模块 - 图形验证码 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-captcha-graphic</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 文件处理模块 - Excel -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-file-excel</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 存储模块 - 本地存储 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-storage-local</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 日志模块 - 拦截器版（Spring Boot Actuator HttpTrace 增强版） -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-log-interceptor</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 日志模块 - 核心模块 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-log-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- Web 模块 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-web</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 安全模块 - 加密 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-security-crypto</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 安全模块 - 脱敏 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-security-mask</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 安全模块 - 密码编码器 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-security-password</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 安全模块 - 限流 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-security-limiter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- API 文档模块 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-api-doc</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- JSON 模块 - Jackson -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-json-jackson</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 核心模块 -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-starter-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <!-- 统一版本号插件 -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <!-- Create an effective POM (with versions expanded) for the CLI and documentation -->
+                        <id>flatten-effective-pom</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                        <configuration>
+                            <updatePomFile>false</updatePomFile>
+                            <outputDirectory>${project.build.directory}/effective-pom</outputDirectory>
+                            <flattenedPomFilename>sakura-starter-dependencies.xml</flattenedPomFilename>
+                            <flattenMode>oss</flattenMode>
+                            <pomElements>
+                                <dependencyManagement>expand</dependencyManagement>
+                                <pluginManagement>expand</pluginManagement>
+                                <properties>remove</properties>
+                                <repositories>remove</repositories>
+                            </pomElements>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <!-- Flatten and simplify our own POM for install/deploy -->
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                        <configuration>
+                            <updatePomFile>true</updatePomFile>
+                            <flattenMode>bom</flattenMode>
+                            <pomElements>
+                                <parent>expand</parent>
+                                <properties>keep</properties>
+                                <pluginManagement>keep</pluginManagement>
+                                <repositories>remove</repositories>
+                            </pomElements>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>flatten-clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <!-- Cleanup the effective POM -->
+                        <id>post-process-effective-pom</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>transform</goal>
+                        </goals>
+                        <configuration>
+                            <transformationSets>
+                                <transformationSet>
+                                    <dir>${project.build.directory}/effective-pom</dir>
+                                    <outputDir>${project.build.directory}/effective-pom</outputDir>
+                                    <stylesheet>src/main/xslt/post-process-flattened-pom.xsl</stylesheet>
+                                    <outputProperties>
+                                        <outputProperty>
+                                            <name>indent</name>
+                                            <value>yes</value>
+                                        </outputProperty>
+                                    </outputProperties>
+                                </transformationSet>
+                            </transformationSets>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <!-- Cleanup the flattened project POM -->
+                        <id>post-process-flattened-pom</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>transform</goal>
+                        </goals>
+                        <configuration>
+                            <transformationSets>
+                                <transformationSet>
+                                    <dir>${project.basedir}</dir>
+                                    <outputDir>${project.basedir}</outputDir>
+                                    <includes>.flattened-pom.xml</includes>
+                                    <stylesheet>src/main/xslt/post-process-flattened-pom.xsl</stylesheet>
+                                    <outputProperties>
+                                        <outputProperty>
+                                            <name>indent</name>
+                                            <value>yes</value>
+                                        </outputProperty>
+                                    </outputProperties>
+                                </transformationSet>
+                            </transformationSets>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <!-- Attach effective POM -->
+                        <id>attach-artifacts</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>${project.build.directory}/effective-pom/sakura-starter-dependencies.xml</file>
+                                    <type>effective-pom</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <!-- 统一版本号插件 -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>flatten-maven-plugin</artifactId>
+                    <version>${flatten.version}</version>
+                </plugin>
+                <!-- 代码格式化插件 -->
+                <plugin>
+                    <groupId>com.diffplug.spotless</groupId>
+                    <artifactId>spotless-maven-plugin</artifactId>
+                    <version>${spotless.version}</version>
+                </plugin>
+                <!-- Sonar 代码质量分析插件 -->
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>${sonar.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.4.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <tokenAuth>true</tokenAuth>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- Sonar 代码质量分析 -->
+        <profile>
+            <id>sonar</id>
+            <properties>
+                <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+                <sonar.organization>charles7c</sonar.organization>
+                <sonar.projectKey>Charles7c_sakura-starter</sonar.projectKey>
+                <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>${sonar.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sonar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
