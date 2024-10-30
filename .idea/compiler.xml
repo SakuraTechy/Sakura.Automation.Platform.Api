@@ -44,6 +44,7 @@
         <module name="sakura-starter-data-mf" />
         <module name="sakura-starter-extension-crud-core" />
         <module name="sakura-job-server" />
+        <module name="sakura-open" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -159,6 +160,7 @@
       <module name="sakura-generator" options="-parameters" />
       <module name="sakura-job" options="-parameters" />
       <module name="sakura-job-server" options="-parameters" />
+      <module name="sakura-open" options="-parameters" />
       <module name="sakura-plugins" options="-parameters" />
       <module name="sakura-starter" options="-parameters" />
       <module name="sakura-starter-api-doc" options="-parameters" />

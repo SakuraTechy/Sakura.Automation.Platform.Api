@@ -14,8 +14,9 @@
     <description>插件模块（存放代码生成、任务调度等扩展模块）</description>
 
     <modules>
-        <module>sakura-generator</module>
         <module>sakura-job</module>
+        <module>sakura-open</module>
+        <module>sakura-generator</module>
     </modules>
 
     <dependencies>

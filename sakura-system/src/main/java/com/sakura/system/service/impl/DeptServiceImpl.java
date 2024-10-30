@@ -17,12 +17,19 @@
 package com.sakura.system.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.lang.tree.Tree;
+import cn.hutool.core.lang.tree.TreeNodeConfig;
+import cn.hutool.core.lang.tree.TreeUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.ReflectUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.sakura.common.enums.DisEnableStatusEnum;
+import com.sakura.system.model.query.UserQuery;
+import com.sakura.system.model.resp.UserResp;
 import com.sakura.system.mapper.DeptMapper;
 import com.sakura.system.model.entity.DeptDO;
 import com.sakura.system.model.query.DeptQuery;
@@ -31,16 +38,19 @@ import com.sakura.system.model.resp.DeptResp;
 import com.sakura.system.service.DeptService;
 import com.sakura.system.service.RoleDeptService;
 import com.sakura.system.service.UserService;
+import com.sakura.starter.core.util.ReflectUtils;
+import com.sakura.starter.extension.crud.annotation.TreeField;
+import com.sakura.starter.extension.crud.model.query.SortQuery;
+import com.sakura.starter.extension.crud.util.TreeUtils;
 import com.sakura.starter.core.util.validate.CheckUtils;
 import com.sakura.starter.data.core.enums.DatabaseType;
 import com.sakura.starter.data.core.util.MetaUtils;
 import com.sakura.starter.extension.crud.service.impl.BaseServiceImpl;
 
 import javax.sql.DataSource;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.lang.reflect.Field;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 部门业务实现
@@ -78,6 +88,75 @@ public class DeptServiceImpl extends BaseServiceImpl<DeptMapper, DeptDO, DeptRes
             return 0;
         }
         return (int)this.count(Wrappers.<DeptDO>lambdaQuery().in(DeptDO::getName, deptNames));
+    }
+
+    @Override
+    public List<Tree<String>> treeWithUsers(DeptQuery query, SortQuery sortQuery, boolean isSimple) {
+        List<DeptResp> list = this.list(query, sortQuery);
+        if (CollUtil.isEmpty(list)) {
+            return new ArrayList<>(0);
+        } else {
+            TreeNodeConfig treeNodeConfig = TreeUtils.DEFAULT_CONFIG;
+            TreeField treeField = this.getListClass().getDeclaredAnnotation(TreeField.class);
+            if (!isSimple) {
+                treeNodeConfig = TreeUtils.genTreeNodeConfig(treeField);
+            }
+
+            // 创建一个部门ID到用户的映射
+            UserQuery userQuery = new UserQuery();
+            userQuery.setStatus(DisEnableStatusEnum.ENABLE);
+            Map<Long, List<UserResp>> userMap = userService.list(userQuery, null)
+                .stream()
+                .collect(Collectors.groupingBy(UserResp::getDeptId));
+
+            String rootId = "dept_0";
+
+            return TreeUtil.build(list, rootId, treeNodeConfig, (node, tree) -> {
+                Long departmentId = ReflectUtil.invoke(node, CharSequenceUtil.genGetter(treeField
+                    .value()), new Object[0]);
+                String uniqueDeptId = "dept_" + departmentId;
+                tree.setId(uniqueDeptId);
+                Long parentId = ReflectUtil.invoke(node, CharSequenceUtil.genGetter(treeField
+                    .parentIdKey()), new Object[0]);
+                tree.setParentId(parentId != null ? "dept_" + parentId : null);
+                tree.setName(ReflectUtil.invoke(node, CharSequenceUtil.genGetter(treeField.nameKey()), new Object[0]));
+                tree.setWeight(ReflectUtil.invoke(node, CharSequenceUtil.genGetter(treeField
+                    .weightKey()), new Object[0]));
+                tree.putExtra("origId", departmentId);
+                tree.putExtra("isUser", false);
+
+                // 添加用户信息到树节点
+                if (userMap.containsKey(departmentId)) {
+                    List<UserResp> userList = userMap.get(departmentId);
+                    List<Tree<String>> userTrees = userList.stream().map(user -> {
+                        Tree<String> userTree = new Tree<>();
+                        String uniqueUserId = "user_" + user.getId();
+                        String userAliasName = user.getUsername() + "(" + user.getNickname() + ")";
+                        userTree.setId(uniqueUserId);
+                        userTree.setParentId(uniqueDeptId);
+                        userTree.setName(userAliasName);
+                        userTree.setWeight(0);
+                        userTree.putExtra("origId", user.getId()); // 添加原始用户ID
+                        userTree.putExtra("isUser", true); // 添加原始用户ID
+                        return userTree;
+                    }).collect(Collectors.toList());
+                    tree.setChildren(userTrees);
+                }
+
+                if (!isSimple) {
+                    List<Field> fieldList = ReflectUtils.getNonStaticFields(this.getListClass());
+                    fieldList.removeIf((f) -> {
+                        return CharSequenceUtil.equalsAnyIgnoreCase(f.getName(), new CharSequence[] {treeField.value(),
+                            treeField.parentIdKey(), treeField.nameKey(), treeField.weightKey(), treeField
+                                .childrenKey()});
+                    });
+                    fieldList.forEach((f) -> {
+                        tree.putExtra(f.getName(), ReflectUtil.invoke(node, CharSequenceUtil.genGetter(f
+                            .getName()), new Object[0]));
+                    });
+                }
+            });
+        }
     }
 
     @Override

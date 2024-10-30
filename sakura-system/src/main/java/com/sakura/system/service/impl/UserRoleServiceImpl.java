@@ -22,10 +22,12 @@ import cn.hutool.core.collection.CollUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.sakura.common.constant.SysConstants;
 import com.sakura.common.constant.ContainerConstants;
 import com.sakura.system.mapper.UserRoleMapper;
 import com.sakura.system.model.entity.UserRoleDO;
 import com.sakura.system.service.UserRoleService;
+import com.sakura.starter.core.util.validate.CheckUtils;
 
 import java.util.List;
 
@@ -59,6 +61,29 @@ public class UserRoleServiceImpl implements UserRoleService {
         baseMapper.lambdaUpdate().eq(UserRoleDO::getUserId, userId).remove();
         // 保存最新关联
         List<UserRoleDO> userRoleList = roleIds.stream().map(roleId -> new UserRoleDO(userId, roleId)).toList();
+        return baseMapper.insertBatch(userRoleList);
+    }
+
+    @Override
+    public boolean bindUserIds(Long roleId, List<Long> userIds) {
+        // 检查是否有变更
+        List<Long> oldRoleIdList = baseMapper.lambdaQuery()
+            .select(UserRoleDO::getUserId)
+            .eq(UserRoleDO::getRoleId, roleId)
+            .list()
+            .stream()
+            .map(UserRoleDO::getRoleId)
+            .toList();
+        if (CollUtil.isEmpty(CollUtil.disjunction(userIds, oldRoleIdList))) {
+            return false;
+        }
+        if (SysConstants.SUPER_ROLE_ID.equals(roleId) && !userIds.contains(SysConstants.SUPER_ADMIN_ID)) {
+            CheckUtils.throwIf(true, "不能移除管理员默认超管角色组");
+        }
+        // 删除原有关联
+        baseMapper.lambdaUpdate().eq(UserRoleDO::getRoleId, roleId).remove();
+        // 保存最新关联
+        List<UserRoleDO> userRoleList = userIds.stream().map(userId -> new UserRoleDO(userId, roleId)).toList();
         return baseMapper.insertBatch(userRoleList);
     }
 

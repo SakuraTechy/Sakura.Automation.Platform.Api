@@ -16,9 +16,13 @@
 
 package com.sakura.controller.system;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
+import com.sakura.system.service.UserRoleService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-import org.springframework.web.bind.annotation.RestController;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 import com.sakura.system.model.query.RoleQuery;
 import com.sakura.system.model.req.RoleReq;
@@ -29,6 +33,8 @@ import com.sakura.starter.extension.crud.annotation.CrudRequestMapping;
 import com.sakura.starter.extension.crud.controller.BaseController;
 import com.sakura.starter.extension.crud.enums.Api;
 
+import java.util.List;
+
 /**
  * 角色管理 API
  *
@@ -37,6 +43,22 @@ import com.sakura.starter.extension.crud.enums.Api;
  */
 @Tag(name = "角色管理 API")
 @RestController
+@RequiredArgsConstructor
 @CrudRequestMapping(value = "/system/role", api = {Api.PAGE, Api.GET, Api.ADD, Api.UPDATE, Api.DELETE})
 public class RoleController extends BaseController<RoleService, RoleResp, RoleDetailResp, RoleQuery, RoleReq> {
+
+    private final UserRoleService userRoleService;
+
+    @Operation(summary = "查询角色关联用户", description = "查询角色组绑定的关联用户")
+    @GetMapping("/listRoleUsers/{id}")
+    public List<Long> listUsers(@PathVariable("id") Long roleId) {
+        return userRoleService.listUserIdByRoleId(roleId);
+    }
+
+    @Operation(summary = "关联用户", description = "批量关联用户")
+    @SaCheckPermission("system:role:bindUsers")
+    @PostMapping("/bindUsers/{id}")
+    public void bindUsers(@PathVariable("id") Long roleId, @RequestBody List<Long> userIds) {
+        userRoleService.bindUserIds(roleId, userIds);
+    }
 }

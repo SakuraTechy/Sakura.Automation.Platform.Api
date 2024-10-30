@@ -83,19 +83,19 @@ COMMENT ON COLUMN "sys_dept"."update_time" IS '修改时间';
 COMMENT ON TABLE  "sys_dept"               IS '部门表';
 
 CREATE TABLE IF NOT EXISTS "sys_role" (
-    "id"          int8         NOT NULL,
-    "name"        varchar(30)  NOT NULL,
-    "code"        varchar(30)  NOT NULL,
-    "data_scope"  int2         NOT NULL DEFAULT 4,
-    "description" varchar(200) DEFAULT NULL,
-    "sort"        int4         NOT NULL DEFAULT 999,
-    "is_system"   bool         NOT NULL DEFAULT false,
+    "id"                  int8         NOT NULL,
+    "name"                varchar(30)  NOT NULL,
+    "code"                varchar(30)  NOT NULL,
+    "data_scope"          int2         NOT NULL DEFAULT 4,
+    "description"         varchar(200) DEFAULT NULL,
+    "sort"                int4         NOT NULL DEFAULT 999,
+    "is_system"           bool         NOT NULL DEFAULT false,
     "menu_check_strictly" bool DEFAULT false,
     "dept_check_strictly" bool DEFAULT false,
-    "create_user" int8         NOT NULL,
-    "create_time" timestamp    NOT NULL,
-    "update_user" int8         DEFAULT NULL,
-    "update_time" timestamp    DEFAULT NULL,
+    "create_user"         int8         NOT NULL,
+    "create_time"         timestamp    NOT NULL,
+    "update_user"         int8         DEFAULT NULL,
+    "update_time"         timestamp    DEFAULT NULL,
     PRIMARY KEY ("id")
 );
 CREATE UNIQUE INDEX "uk_role_name"  ON "sys_role" ("name");
@@ -177,14 +177,17 @@ COMMENT ON COLUMN "sys_user_password_history"."create_time" IS '创建时间';
 COMMENT ON TABLE  "sys_user_password_history"               IS '用户历史密码表';
 
 CREATE TABLE IF NOT EXISTS "sys_user_social" (
+    "id"              int8         NOT NULL,
     "source"          varchar(255) NOT NULL,
     "open_id"         varchar(255) NOT NULL,
     "user_id"         int8         NOT NULL,
     "meta_json"       text         DEFAULT NULL,
     "last_login_time" timestamp    DEFAULT NULL,
-    "create_time"     timestamp    NOT NULL
+    "create_time"     timestamp    NOT NULL,
+    PRIMARY KEY ("id")
 );
 CREATE UNIQUE INDEX "uk_user_source_open_id" ON "sys_user_social" ("source", "open_id");
+COMMENT ON COLUMN "sys_user_social"."id"              IS 'ID';
 COMMENT ON COLUMN "sys_user_social"."source"          IS '来源';
 COMMENT ON COLUMN "sys_user_social"."open_id"         IS '开放ID';
 COMMENT ON COLUMN "sys_user_social"."user_id"         IS '用户ID';
@@ -486,62 +489,3 @@ COMMENT ON COLUMN "sys_file"."update_user"    IS '修改人';
 COMMENT ON COLUMN "sys_file"."update_time"    IS '修改时间';
 COMMENT ON TABLE  "sys_file"                  IS '文件表';
 
-CREATE TABLE IF NOT EXISTS "gen_config" (
-    "table_name"    varchar(64)  NOT NULL,
-    "module_name"   varchar(60)  NOT NULL,
-    "package_name"  varchar(60)  NOT NULL,
-    "business_name" varchar(50)  NOT NULL,
-    "author"        varchar(100) NOT NULL,
-    "table_prefix"  varchar(20)  DEFAULT NULL,
-    "is_override"   bool         NOT NULL DEFAULT false,
-    "create_time"   timestamp    NOT NULL,
-    "update_time"   timestamp    DEFAULT NULL,
-    PRIMARY KEY ("table_name")
-);
-COMMENT ON COLUMN "gen_config"."table_name"    IS '表名称';
-COMMENT ON COLUMN "gen_config"."module_name"   IS '模块名称';
-COMMENT ON COLUMN "gen_config"."package_name"  IS '包名称';
-COMMENT ON COLUMN "gen_config"."business_name" IS '业务名称';
-COMMENT ON COLUMN "gen_config"."author"        IS '作者';
-COMMENT ON COLUMN "gen_config"."table_prefix"  IS '表前缀';
-COMMENT ON COLUMN "gen_config"."is_override"   IS '是否覆盖';
-COMMENT ON COLUMN "gen_config"."create_time"   IS '创建时间';
-COMMENT ON COLUMN "gen_config"."update_time"   IS '修改时间';
-COMMENT ON TABLE  "gen_config"                 IS '生成配置表';
-
-CREATE TABLE IF NOT EXISTS "gen_field_config" (
-    "table_name"    varchar(64)  NOT NULL,
-    "column_name"   varchar(64)  NOT NULL,
-    "column_type"   varchar(25)  NOT NULL,
-    "column_size"   int8         DEFAULT NULL,
-    "field_name"    varchar(64)  NOT NULL,
-    "field_type"    varchar(25)  NOT NULL,
-    "field_sort"    int4         NOT NULL DEFAULT 999,
-    "comment"       varchar(512) DEFAULT NULL,
-    "is_required"   bool         NOT NULL DEFAULT true,
-    "show_in_list"  bool         NOT NULL DEFAULT true,
-    "show_in_form"  bool         NOT NULL DEFAULT true,
-    "show_in_query" bool         NOT NULL DEFAULT true,
-    "form_type"     int2         DEFAULT NULL,
-    "query_type"    int2         DEFAULT NULL,
-    "dict_code"     varchar(30)  DEFAULT NULL,
-    "create_time"   timestamp    NOT NULL
-);
-CREATE INDEX "idx_field_config_table_name" ON "gen_field_config" ("table_name");
-COMMENT ON COLUMN "gen_field_config"."table_name"    IS '表名称';
-COMMENT ON COLUMN "gen_field_config"."column_name"   IS '列名称';
-COMMENT ON COLUMN "gen_field_config"."column_type"   IS '列类型';
-COMMENT ON COLUMN "gen_field_config"."column_size"   IS '列大小';
-COMMENT ON COLUMN "gen_field_config"."field_name"    IS '字段名称';
-COMMENT ON COLUMN "gen_field_config"."field_type"    IS '字段类型';
-COMMENT ON COLUMN "gen_field_config"."field_sort"    IS '字段排序';
-COMMENT ON COLUMN "gen_field_config"."comment"       IS '注释';
-COMMENT ON COLUMN "gen_field_config"."is_required"   IS '是否必填';
-COMMENT ON COLUMN "gen_field_config"."show_in_list"  IS '是否在列表中显示';
-COMMENT ON COLUMN "gen_field_config"."show_in_form"  IS '是否在表单中显示';
-COMMENT ON COLUMN "gen_field_config"."show_in_query" IS '是否在查询中显示';
-COMMENT ON COLUMN "gen_field_config"."form_type"     IS '表单类型';
-COMMENT ON COLUMN "gen_field_config"."query_type"    IS '查询方式';
-COMMENT ON COLUMN "gen_field_config"."dict_code"     IS '字典编码';
-COMMENT ON COLUMN "gen_field_config"."create_time"   IS '创建时间';
-COMMENT ON TABLE  "gen_field_config"                 IS '字段配置表';

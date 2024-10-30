@@ -16,9 +16,10 @@
 
 package com.sakura.system.service.impl;
 
-import com.sakura.system.model.resp.dashboard.DashboardNoticeResp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.sakura.common.context.UserContextHolder;
+import com.sakura.system.model.resp.dashboard.DashboardNoticeResp;
 import com.sakura.system.mapper.NoticeMapper;
 import com.sakura.system.model.entity.NoticeDO;
 import com.sakura.system.model.query.NoticeQuery;
@@ -42,6 +43,7 @@ public class NoticeServiceImpl extends BaseServiceImpl<NoticeMapper, NoticeDO, N
 
     @Override
     public List<DashboardNoticeResp> listDashboard() {
-        return baseMapper.selectDashboardList();
+        Long userId = UserContextHolder.isAdmin() ? null : UserContextHolder.getUserId();
+        return baseMapper.selectDashboardList(userId);
     }
 }

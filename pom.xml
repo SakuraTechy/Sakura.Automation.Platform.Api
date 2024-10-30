@@ -82,6 +82,13 @@
                 <version>${revision}</version>
             </dependency>
 
+            <!-- 能力开放模块（后续会改造为独立插件） -->
+            <dependency>
+                <groupId>com.sakura</groupId>
+                <artifactId>sakura-open</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
             <!-- 代码生成器插件（后续会改造为独立插件） -->
             <dependency>
                 <groupId>com.sakura</groupId>

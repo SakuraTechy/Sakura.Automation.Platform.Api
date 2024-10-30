@@ -25,6 +25,7 @@ import com.sakura.system.service.DictItemService;
 import com.sakura.starter.extension.crud.annotation.CrudRequestMapping;
 import com.sakura.starter.extension.crud.controller.BaseController;
 import com.sakura.starter.extension.crud.enums.Api;
+import com.sakura.starter.log.core.annotation.Log;
 
 /**
  * 字典项管理 API
@@ -32,6 +33,7 @@ import com.sakura.starter.extension.crud.enums.Api;
  * @author hagyao520
  * @since 2023/9/11 21:29
  */
+@Log(module = "字典管理")
 @Tag(name = "字典项管理 API")
 @RestController
 @CrudRequestMapping(value = "/system/dict/item", api = {Api.PAGE, Api.GET, Api.ADD, Api.UPDATE, Api.DELETE})

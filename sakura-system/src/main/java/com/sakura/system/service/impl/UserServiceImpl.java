@@ -41,9 +41,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sakura.system.model.req.*;
-import com.sakura.system.model.req.*;
-import com.sakura.system.service.*;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -127,6 +124,13 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, UserDO, UserRes
         PageResp<UserResp> pageResp = PageResp.build(page, super.getListClass());
         pageResp.getList().forEach(this::fill);
         return pageResp;
+    }
+
+    @Override
+    public List<UserResp> list(UserQuery query, SortQuery sortQuery) {
+        QueryWrapper<UserDO> queryWrapper = this.buildQueryWrapper(query);
+        List<UserDetailResp> entityList = baseMapper.selectUserList(queryWrapper);
+        return BeanUtil.copyToList(entityList, UserResp.class);
     }
 
     @Override
@@ -491,6 +495,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, UserDO, UserRes
         DisEnableStatusEnum status = query.getStatus();
         List<Date> createTimeList = query.getCreateTime();
         Long deptId = query.getDeptId();
+        List<Long> userIdList = query.getUserIds();
         return new QueryWrapper<UserDO>().and(StrUtil.isNotBlank(description), q -> q.like("t1.username", description)
             .or()
             .like("t1.nickname", description)
@@ -506,7 +511,8 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, UserDO, UserRes
                     .collect(Collectors.toList());
                 deptIdList.add(deptId);
                 q.in("t1.dept_id", deptIdList);
-            });
+            })
+            .in(CollUtil.isNotEmpty(userIdList), "t1.id", userIdList);
     }
 
     @Override
