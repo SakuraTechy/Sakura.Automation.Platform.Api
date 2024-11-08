@@ -42,6 +42,12 @@
       "sourceType": "com.sakura.common.config.properties.CaptchaProperties$CaptchaMail"
     },
     {
+      "name": "captcha.sms.code",
+      "type": "java.lang.String",
+      "description": "万能验证码",
+      "sourceType": "com.sakura.common.config.properties.CaptchaProperties$CaptchaSms"
+    },
+    {
       "name": "captcha.sms.expiration-in-minutes",
       "type": "java.lang.Long",
       "description": "过期时间",

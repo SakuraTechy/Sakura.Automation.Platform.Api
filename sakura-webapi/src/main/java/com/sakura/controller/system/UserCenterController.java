@@ -16,12 +16,14 @@
 
 package com.sakura.controller.system;
 
+import com.sakura.common.config.properties.CaptchaProperties;
 import com.xkcoding.justauth.AuthRequestFactory;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotNull;
+import jodd.util.StringUtil;
 import lombok.RequiredArgsConstructor;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
@@ -68,6 +70,7 @@ public class UserCenterController {
     private final UserService userService;
     private final UserSocialService userSocialService;
     private final AuthRequestFactory authRequestFactory;
+    private final CaptchaProperties captchaProperties;
 
     @Operation(summary = "修改头像", description = "用户修改个人头像")
     @PostMapping("/avatar")
@@ -98,29 +101,36 @@ public class UserCenterController {
     @Operation(summary = "修改手机号", description = "修改手机号")
     @PatchMapping("/phone")
     public void updatePhone(@Validated @RequestBody UserPhoneUpdateReq updateReq) {
-        String rawOldPassword = ExceptionUtils.exToNull(() -> SecureUtils.decryptByRsaPrivateKey(updateReq
-            .getOldPassword()));
+        String phone = updateReq.getPhone();
+        String captcha = updateReq.getCaptcha();
+        if(!StringUtil.equals(captcha,captchaProperties.getSms().getCode())){
+            String captchaKey = CacheConstants.CAPTCHA_KEY_PREFIX + phone;
+            String captcha1 = RedisUtils.get(captchaKey);
+            ValidationUtils.throwIfBlank(captcha1, CAPTCHA_EXPIRED);
+            ValidationUtils.throwIfNotEqualIgnoreCase(updateReq.getCaptcha(), captcha1, "验证码错误");
+            RedisUtils.delete(captchaKey);
+        }
+        String rawOldPassword = ExceptionUtils.exToNull(() -> SecureUtils.decryptByRsaPrivateKey(updateReq.getOldPassword()));
         ValidationUtils.throwIfBlank(rawOldPassword, DECRYPT_FAILED);
-        String captchaKey = CacheConstants.CAPTCHA_KEY_PREFIX + updateReq.getPhone();
-        String captcha = RedisUtils.get(captchaKey);
-        ValidationUtils.throwIfBlank(captcha, CAPTCHA_EXPIRED);
-        ValidationUtils.throwIfNotEqualIgnoreCase(updateReq.getCaptcha(), captcha, "验证码错误");
-        RedisUtils.delete(captchaKey);
-        userService.updatePhone(updateReq.getPhone(), rawOldPassword, UserContextHolder.getUserId());
+        userService.updatePhone(phone, rawOldPassword, UserContextHolder.getUserId());
     }
 
     @Operation(summary = "修改邮箱", description = "修改用户邮箱")
     @PatchMapping("/email")
     public void updateEmail(@Validated @RequestBody UserEmailUpdateRequest updateReq) {
+        String email = updateReq.getEmail();
+        String captcha = updateReq.getCaptcha();
+        if(!StringUtil.equals(captcha,captchaProperties.getSms().getCode())){
+            String captchaKey = CacheConstants.CAPTCHA_KEY_PREFIX + email;
+            String captcha1 = RedisUtils.get(captchaKey);
+            ValidationUtils.throwIfBlank(captcha1, CAPTCHA_EXPIRED);
+            ValidationUtils.throwIfNotEqualIgnoreCase(captcha, captcha1, "验证码错误");
+            RedisUtils.delete(captchaKey);
+        }
         String rawOldPassword = ExceptionUtils.exToNull(() -> SecureUtils.decryptByRsaPrivateKey(updateReq
-            .getOldPassword()));
+                .getOldPassword()));
         ValidationUtils.throwIfBlank(rawOldPassword, DECRYPT_FAILED);
-        String captchaKey = CacheConstants.CAPTCHA_KEY_PREFIX + updateReq.getEmail();
-        String captcha = RedisUtils.get(captchaKey);
-        ValidationUtils.throwIfBlank(captcha, CAPTCHA_EXPIRED);
-        ValidationUtils.throwIfNotEqualIgnoreCase(updateReq.getCaptcha(), captcha, "验证码错误");
-        RedisUtils.delete(captchaKey);
-        userService.updateEmail(updateReq.getEmail(), rawOldPassword, UserContextHolder.getUserId());
+        userService.updateEmail(email, rawOldPassword, UserContextHolder.getUserId());
     }
 
     @Operation(summary = "查询绑定的三方账号", description = "查询绑定的三方账号")
