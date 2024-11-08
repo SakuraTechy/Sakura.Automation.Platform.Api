@@ -35,9 +35,9 @@ public class RegexConstants {
     public static final String PASSWORD_TEMPLATE = "^(?=.*\\d)(?=.*[a-z]).{%s,%s}$";
 
     /**
-     * 密码正则（密码长度为 8-32 个字符，支持大小写字母、数字、特殊字符，至少包含字母和数字）
+     * 密码正则（密码长度为 6-32 个字符，支持大小写字母、数字、特殊字符，至少包含字母和数字）
      */
-    public static final String PASSWORD = "^(?=.*\\d)(?=.*[a-z]).{8,32}$";
+    public static final String PASSWORD = "^(?=.*\\d)(?=.*[a-z]).{6,32}$";
 
     /**
      * 特殊字符正则

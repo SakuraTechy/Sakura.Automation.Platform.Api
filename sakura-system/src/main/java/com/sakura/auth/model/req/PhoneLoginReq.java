@@ -52,6 +52,6 @@ public class PhoneLoginReq implements Serializable {
      */
     @Schema(description = "验证码", example = "8888")
     @NotBlank(message = "验证码不能为空")
-    @Length(max = 4, message = "验证码非法")
+    @Length(max = 6, message = "验证码非法")
     private String captcha;
 }

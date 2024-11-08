@@ -1,115 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/sakura-common/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-common/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-extension/sakura-job-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-extension/sakura-job-server/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-extension/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-extension/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-plugins/sakura-generator/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-plugins/sakura-generator/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-plugins/sakura-job/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-plugins/sakura-job/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-plugins/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-plugins/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-api-doc/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-api-doc/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-auth/sakura-starter-auth-justauth/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-auth/sakura-starter-auth-justauth/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-auth/sakura-starter-auth-satoken/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-auth/sakura-starter-auth-satoken/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-auth/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-auth/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-cache/sakura-starter-cache-jetcache/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-cache/sakura-starter-cache-jetcache/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-cache/sakura-starter-cache-redisson/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-cache/sakura-starter-cache-redisson/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-cache/sakura-starter-cache-springcache/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-cache/sakura-starter-cache-springcache/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-cache/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-cache/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-captcha/sakura-starter-captcha-behavior/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-captcha/sakura-starter-captcha-behavior/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-captcha/sakura-starter-captcha-graphic/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-captcha/sakura-starter-captcha-graphic/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-captcha/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-captcha/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-data/sakura-starter-data-core/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-data/sakura-starter-data-core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-data/sakura-starter-data-mf/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-data/sakura-starter-data-mf/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-data/sakura-starter-data-mp/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-data/sakura-starter-data-mp/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-data/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-data/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-crud/sakura-starter-extension-crud-core/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-crud/sakura-starter-extension-crud-core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-crud/sakura-starter-extension-crud-mf/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-crud/sakura-starter-extension-crud-mf/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-crud/sakura-starter-extension-crud-mp/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-crud/sakura-starter-extension-crud-mp/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-crud/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-crud/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-datapermission/sakura-starter-extension-datapermission-core/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-datapermission/sakura-starter-extension-datapermission-core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-datapermission/sakura-starter-extension-datapermission-mp/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-datapermission/sakura-starter-extension-datapermission-mp/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-datapermission/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-datapermission/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-tenant/sakura-starter-extension-tenant-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-tenant/sakura-starter-extension-tenant-core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-tenant/sakura-starter-extension-tenant-mp/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-tenant/sakura-starter-extension-tenant-mp/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-tenant/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/sakura-starter-extension-tenant/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-extension/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-file/sakura-starter-file-excel/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-file/sakura-starter-file-excel/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-file/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-file/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-json/sakura-starter-json-jackson/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-json/sakura-starter-json-jackson/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-json/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-json/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-log/sakura-starter-log-core/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-log/sakura-starter-log-core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-log/sakura-starter-log-interceptor/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-log/sakura-starter-log-interceptor/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-log/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-log/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-messaging/sakura-starter-messaging-mail/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-messaging/sakura-starter-messaging-mail/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-messaging/sakura-starter-messaging-websocket/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-messaging/sakura-starter-messaging-websocket/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-messaging/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-messaging/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-security/sakura-starter-security-crypto/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-security/sakura-starter-security-crypto/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-security/sakura-starter-security-limiter/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-security/sakura-starter-security-limiter/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-security/sakura-starter-security-mask/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-security/sakura-starter-security-mask/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-security/sakura-starter-security-password/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-security/sakura-starter-security-password/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-security/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-security/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-storage/sakura-starter-storage-local/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-storage/sakura-starter-storage-local/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-storage/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-storage/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-web/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-starter/sakura-starter-web/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/sakura-starter/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-system/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-system/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-webapi/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sakura-webapi/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>
 </project>

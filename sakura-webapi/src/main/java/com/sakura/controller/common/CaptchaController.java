@@ -143,9 +143,9 @@ public class CaptchaController {
     public R getMailCaptcha(@NotBlank(message = "邮箱不能为空") @Pattern(regexp = RegexPool.EMAIL, message = "邮箱格式错误") String email,
                             CaptchaVO captchaReq) throws MessagingException {
         // 行为验证码校验
-        ResponseModel verificationRes = behaviorCaptchaService.verification(captchaReq);
-        ValidationUtils.throwIfNotEqual(verificationRes.getRepCode(), RepCodeEnum.SUCCESS.getCode(), verificationRes
-            .getRepMsg());
+//        ResponseModel verificationRes = behaviorCaptchaService.verification(captchaReq);
+//        ValidationUtils.throwIfNotEqual(verificationRes.getRepCode(), RepCodeEnum.SUCCESS.getCode(), verificationRes
+//            .getRepMsg());
         // 生成验证码
         CaptchaProperties.CaptchaMail captchaMail = captchaProperties.getMail();
         String captcha = RandomUtil.randomNumbers(captchaMail.getLength());

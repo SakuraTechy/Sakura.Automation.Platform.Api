@@ -11,10 +11,13 @@ server:
 --- ### 数据源配置
 spring.datasource:
   type: com.zaxxer.hikari.HikariDataSource
-  url: jdbc:mysql://${DB_HOST:172.19.5.227}:${DB_PORT:3306}/${DB_NAME:sakura_test}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&autoReconnect=true&maxReconnects=10&failOverReadOnly=false
+  driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+  url: jdbc:p6spy:mysql://${DB_HOST:172.19.5.227}:${DB_PORT:3306}/${DB_NAME:sakura_test}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&rewriteBatchedStatements=true&autoReconnect=true&maxReconnects=10&failOverReadOnly=false
+#  driver-class-name: com.mysql.cj.jdbc.Driver
+#  url: jdbc:mysql://${DB_HOST:172.19.5.227}:${DB_PORT:3306}/${DB_NAME:sakura_test}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&autoReconnect=true&maxReconnects=10&failOverReadOnly=false
   username: ${DB_USER:root}
   password: ${DB_PWD:3edc%RFV}
-  driver-class-name: com.mysql.cj.jdbc.Driver
+
   # PostgreSQL 配置
 #  url: jdbc:p6spy:postgresql://${DB_HOST:127.0.0.1}:${DB_PORT:5432}/${DB_NAME:continew_admin}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&rewriteBatchedStatements=true&autoReconnect=true&maxReconnects=10&failOverReadOnly=false
 #  username: ${DB_USER:root}
@@ -125,8 +128,10 @@ captcha:
     templatePath: mail/captcha.ftl
   ## 短信验证码配置
   sms:
+    # 万能验证码（限调试时使用）
+    code: 111111
     # 内容长度
-    length: 4
+    length: 6
     # 过期时间
     expirationInMinutes: 5
     # 模板 ID
@@ -231,6 +236,8 @@ sa-token.extension:
     - /swagger-ui/**
     - /swagger-resources/**
     - /*/api-docs/**
+    - /system/user/signup
+    - /system/user/password
     # 本地存储资源
     - /file/**
 

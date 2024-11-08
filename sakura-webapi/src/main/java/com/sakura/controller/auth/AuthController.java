@@ -19,11 +19,13 @@ package com.sakura.controller.auth;
 import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.bean.BeanUtil;
+import com.sakura.common.config.properties.CaptchaProperties;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
+import jodd.util.StringUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -64,6 +66,23 @@ public class AuthController {
     private static final String CAPTCHA_ERROR = "验证码错误";
     private final LoginService loginService;
     private final UserService userService;
+    private final CaptchaProperties captchaProperties;
+
+    @SaIgnore
+    @Operation(summary = "账号注册", description = "根据账号和密码进行注册")
+    @PostMapping("/signup")
+    public LoginResp signup(@Validated @RequestBody AccountLoginReq loginReq, HttpServletRequest request) {
+        String captchaKey = CacheConstants.CAPTCHA_KEY_PREFIX + loginReq.getUuid();
+        String captcha = RedisUtils.get(captchaKey);
+        ValidationUtils.throwIfBlank(captcha, CAPTCHA_EXPIRED);
+        RedisUtils.delete(captchaKey);
+        ValidationUtils.throwIfNotEqualIgnoreCase(loginReq.getCaptcha(), captcha, CAPTCHA_ERROR);
+        // 用户登录
+        String rawPassword = ExceptionUtils.exToNull(() -> SecureUtils.decryptByRsaPrivateKey(loginReq.getPassword()));
+        ValidationUtils.throwIfBlank(rawPassword, "密码解密失败");
+        String token = loginService.accountLogin(loginReq.getUsername(), rawPassword, request);
+        return LoginResp.builder().token(token).build();
+    }
 
     @SaIgnore
     @Operation(summary = "账号登录", description = "根据账号和密码进行登录认证")
@@ -86,11 +105,14 @@ public class AuthController {
     @PostMapping("/phone")
     public LoginResp phoneLogin(@Validated @RequestBody PhoneLoginReq loginReq) {
         String phone = loginReq.getPhone();
-        String captchaKey = CacheConstants.CAPTCHA_KEY_PREFIX + phone;
-        String captcha = RedisUtils.get(captchaKey);
-        ValidationUtils.throwIfBlank(captcha, CAPTCHA_EXPIRED);
-        ValidationUtils.throwIfNotEqualIgnoreCase(loginReq.getCaptcha(), captcha, CAPTCHA_ERROR);
-        RedisUtils.delete(captchaKey);
+        String captcha = loginReq.getCaptcha();
+        if(!StringUtil.equals(captcha,captchaProperties.getSms().getCode())){
+            String captchaKey = CacheConstants.CAPTCHA_KEY_PREFIX + phone;
+            String captcha1 = RedisUtils.get(captchaKey);
+            ValidationUtils.throwIfBlank(captcha1, CAPTCHA_EXPIRED);
+            ValidationUtils.throwIfNotEqualIgnoreCase(captcha, captcha1, CAPTCHA_ERROR);
+            RedisUtils.delete(captchaKey);
+        }
         String token = loginService.phoneLogin(phone);
         return LoginResp.builder().token(token).build();
     }
@@ -100,11 +122,14 @@ public class AuthController {
     @PostMapping("/email")
     public LoginResp emailLogin(@Validated @RequestBody EmailLoginReq loginReq) {
         String email = loginReq.getEmail();
-        String captchaKey = CacheConstants.CAPTCHA_KEY_PREFIX + email;
-        String captcha = RedisUtils.get(captchaKey);
-        ValidationUtils.throwIfBlank(captcha, CAPTCHA_EXPIRED);
-        ValidationUtils.throwIfNotEqualIgnoreCase(loginReq.getCaptcha(), captcha, CAPTCHA_ERROR);
-        RedisUtils.delete(captchaKey);
+        String captcha = loginReq.getCaptcha();
+        if(!StringUtil.equals(captcha,captchaProperties.getSms().getCode())) {
+            String captchaKey = CacheConstants.CAPTCHA_KEY_PREFIX + email;
+            String captcha1 = RedisUtils.get(captchaKey);
+            ValidationUtils.throwIfBlank(captcha, CAPTCHA_EXPIRED);
+            ValidationUtils.throwIfNotEqualIgnoreCase(captcha1, captcha, CAPTCHA_ERROR);
+            RedisUtils.delete(captchaKey);
+        }
         String token = loginService.emailLogin(email);
         return LoginResp.builder().token(token).build();
     }

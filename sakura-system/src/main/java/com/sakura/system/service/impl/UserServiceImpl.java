@@ -411,11 +411,13 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, UserDO, UserRes
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updatePassword(String oldPassword, String newPassword, Long id) {
-        CheckUtils.throwIfEqual(newPassword, oldPassword, "新密码不能与当前密码相同");
         UserDO user = super.getById(id);
         String password = user.getPassword();
-        if (StrUtil.isNotBlank(password)) {
-            CheckUtils.throwIf(!passwordEncoder.matches(oldPassword, password), "当前密码错误");
+        if (StrUtil.isNotBlank(oldPassword)) {
+            CheckUtils.throwIfEqual(newPassword, oldPassword, "新密码不能与当前密码相同");
+            if (StrUtil.isNotBlank(password)) {
+                CheckUtils.throwIf(!passwordEncoder.matches(oldPassword, password), "当前密码错误");
+            }
         }
         // 校验密码合法性
         int passwordRepetitionTimes = this.checkPassword(newPassword, user);
@@ -433,10 +435,12 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, UserDO, UserRes
 
     @Override
     public void updatePhone(String newPhone, String oldPassword, Long id) {
-        UserDO user = super.getById(id);
-        CheckUtils.throwIf(!passwordEncoder.matches(oldPassword, user.getPassword()), "当前密码错误");
         CheckUtils.throwIf(this.isPhoneExists(newPhone, id), "手机号已绑定其他账号，请更换其他手机号");
-        CheckUtils.throwIfEqual(newPhone, user.getPhone(), "新手机号不能与当前手机号相同");
+        if (StrUtil.isNotBlank(oldPassword)) {
+            UserDO user = super.getById(id);
+            CheckUtils.throwIf(!passwordEncoder.matches(oldPassword, user.getPassword()), "当前密码错误");
+            CheckUtils.throwIfEqual(newPhone, user.getPhone(), "新手机号不能与当前手机号相同");
+        }
         // 更新手机号
         baseMapper.lambdaUpdate().set(UserDO::getPhone, newPhone).eq(UserDO::getId, id).update();
     }
@@ -644,11 +648,9 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, UserDO, UserRes
         // 密码最小长度
         PASSWORD_MIN_LENGTH.validate(password, MapUtil.getInt(passwordPolicy, PASSWORD_MIN_LENGTH.name()), user);
         // 密码是否必须包含特殊字符
-        PASSWORD_REQUIRE_SYMBOLS.validate(password, MapUtil.getInt(passwordPolicy, PASSWORD_REQUIRE_SYMBOLS
-            .name()), user);
+        PASSWORD_REQUIRE_SYMBOLS.validate(password, MapUtil.getInt(passwordPolicy, PASSWORD_REQUIRE_SYMBOLS.name()), user);
         // 密码是否允许包含正反序账号名
-        PASSWORD_ALLOW_CONTAIN_USERNAME.validate(password, MapUtil
-            .getInt(passwordPolicy, PASSWORD_ALLOW_CONTAIN_USERNAME.name()), user);
+        PASSWORD_ALLOW_CONTAIN_USERNAME.validate(password, MapUtil.getInt(passwordPolicy, PASSWORD_ALLOW_CONTAIN_USERNAME.name()), user);
         // 密码重复使用次数
         int passwordRepetitionTimes = MapUtil.getInt(passwordPolicy, PASSWORD_REPETITION_TIMES.name());
         PASSWORD_REPETITION_TIMES.validate(password, passwordRepetitionTimes, user);

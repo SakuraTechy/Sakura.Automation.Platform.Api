@@ -82,7 +82,7 @@ public enum PasswordPolicyEnum {
     /**
      * 密码最小长度
      */
-    PASSWORD_MIN_LENGTH("密码最小长度取值范围为 %d-%d", 8, 32, "密码最小长度为 %d 个字符") {
+    PASSWORD_MIN_LENGTH("密码最小长度取值范围为 %d-%d", 6, 32, "密码最小长度为 %d 个字符") {
         @Override
         public void validate(String password, int value, UserDO user) {
             // 最小长度校验

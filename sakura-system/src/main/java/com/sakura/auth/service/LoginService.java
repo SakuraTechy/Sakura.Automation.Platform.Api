@@ -30,6 +30,16 @@ import java.util.List;
  */
 public interface LoginService {
 
+//    /**
+//     * 用户注册
+//     *
+//     * @param username 用户名
+//     * @param password 密码
+//     * @param request  请求对象
+//     * @return 令牌
+//     */
+//    String signup(String username, String password, HttpServletRequest request);
+
     /**
      * 账号登录
      *

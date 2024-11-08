@@ -11,12 +11,12 @@
 <body tabindex="0">
 <div style="background-color: #ECECEC; padding: 25px;">
     <div style="margin: 0 auto; text-align: left; position: relative; border-radius: 5px; border-collapse: collapse; box-shadow: rgb(153, 153, 153) 0px 0px 5px; background: #fff; font-family: 微软雅黑, 黑体, sans-serif; font-size: 14px; line-height: 1.5;">
-        <div style="height: 29px; line-height: 25px; padding: 15px 30px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #307AF2; background: #00308f; border-radius: 5px 5px 0 0;">
+        <div style="display: flex;height: 29px; line-height: 25px; padding: 15px 30px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #307AF2; background: #00308f; border-radius: 5px 5px 0 0;">
             <div style="font-size: 24px; font-weight: bolder; color: #fff; display: inline-flex; align-items: center;">
                 <a href="${siteUrl}">
-                    <img src="https://admin.continew.top/logo.svg" alt="${siteTitle}" style="vertical-align: middle;">
+                    <img src="https://sakura.hk.cn/logo.svg" alt="${siteTitle}" style="margin-left: -20px;width: 70px;vertical-align: middle;">
                 </a>
-                <a href="${siteUrl}" style="margin-left: 4px; text-decoration: none; color: #fff;">${siteTitle}</a>
+                <a href="${siteUrl}" style="margin-left: -4px; text-decoration: none; color: #fff;">${siteTitle}</a>
             </div>
         </div>
         <div style="word-break: break-word;">

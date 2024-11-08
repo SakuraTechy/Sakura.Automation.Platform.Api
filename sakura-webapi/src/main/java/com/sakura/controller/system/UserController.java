@@ -17,13 +17,22 @@
 package com.sakura.controller.system;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import cn.dev33.satoken.annotation.SaIgnore;
 import cn.hutool.core.util.ReUtil;
+import com.sakura.common.config.properties.CaptchaProperties;
+import com.sakura.common.constant.CacheConstants;
+import com.sakura.common.context.UserContextHolder;
+import com.sakura.starter.cache.redisson.util.RedisUtils;
+import com.sakura.starter.core.util.validate.CheckUtils;
+import com.sakura.system.model.entity.UserDO;
+import com.sakura.system.model.req.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
+import jodd.util.StringUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -32,10 +41,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sakura.common.constant.RegexConstants;
 import com.sakura.common.util.SecureUtils;
 import com.sakura.system.model.query.UserQuery;
-import com.sakura.system.model.req.UserImportReq;
-import com.sakura.system.model.req.UserPasswordResetReq;
-import com.sakura.system.model.req.UserReq;
-import com.sakura.system.model.req.UserRoleUpdateReq;
 import com.sakura.system.model.resp.*;
 import com.sakura.system.service.UserService;
 import com.sakura.starter.core.util.ExceptionUtils;
@@ -64,10 +69,48 @@ import java.util.List;
 public class UserController extends BaseController<UserService, UserResp, UserDetailResp, UserQuery, UserReq> {
 
     private final UserService userService;
+    private final CaptchaProperties captchaProperties;
 
     @Override
     public List<UserResp> list(UserQuery query, SortQuery sortQuery) {
         return super.list(query, sortQuery);
+    }
+
+    @Operation(summary = "用户注册", description = "用户注册")
+    @PostMapping(value = "/signup")
+    public BaseIdResp<Long> signup(@Validated(ValidateGroup.Crud.Add.class) @RequestBody UserReq req) {
+        String captcha = req.getCaptcha();
+        if(StringUtil.isNotEmpty(req.getPhone())&&!StringUtil.equals(captcha,captchaProperties.getSms().getCode())){
+            String captchaKey = CacheConstants.CAPTCHA_KEY_PREFIX + req.getPhone();
+            String captcha1 = RedisUtils.get(captchaKey);
+            ValidationUtils.throwIfBlank(captcha1, "验证码已失效");
+            ValidationUtils.throwIfNotEqualIgnoreCase(captcha, captcha1, "验证码错误");
+            RedisUtils.delete(captchaKey);
+        }
+        String rawPassword = ExceptionUtils.exToNull(() -> SecureUtils.decryptByRsaPrivateKey(req.getPassword()));
+        ValidationUtils.throwIfNull(rawPassword, "密码解密失败");
+        ValidationUtils.throwIf(!ReUtil.isMatch(RegexConstants.PASSWORD, rawPassword), "密码长度为 6-32 个字符，支持大小写字母、数字、特殊字符，至少包含字母和数字");
+        req.setPassword(rawPassword);
+        return BaseIdResp.<Long>builder().id(baseService.add(req)).build();
+    }
+
+    @Operation(summary = "修改密码", description = "修改用户登录密码")
+    @PostMapping("/password")
+    public void updatePassword(@Validated @RequestBody UserPasswordUpdateReq updateReq) {
+        String captcha = updateReq.getCaptcha();
+        if(!StringUtil.equals(captcha,captchaProperties.getSms().getCode())) {
+            String captchaKey = CacheConstants.CAPTCHA_KEY_PREFIX + updateReq.getEmail();
+            String captcha1 = RedisUtils.get(captchaKey);
+            ValidationUtils.throwIfBlank(captcha1, "验证码已失效");
+            ValidationUtils.throwIfNotEqualIgnoreCase(captcha, captcha1, "验证码错误");
+            RedisUtils.delete(captchaKey);
+        }
+        String newPassword = ExceptionUtils.exToNull(() -> SecureUtils.decryptByRsaPrivateKey(updateReq.getNewPassword()));
+        ValidationUtils.throwIfNull(newPassword, "新密码解密失败");
+        ValidationUtils.throwIf(!ReUtil.isMatch(RegexConstants.PASSWORD, newPassword), "密码长度为 6-32 个字符，支持大小写字母、数字、特殊字符，至少包含字母和数字");
+        UserDO user = userService.getByUsername(updateReq.getUsername());
+        ValidationUtils.throwIfEmpty(user,"用户名错误或不存在");
+        userService.updatePassword("", newPassword, user.getId());
     }
 
     @Override
@@ -75,7 +118,7 @@ public class UserController extends BaseController<UserService, UserResp, UserDe
         String rawPassword = ExceptionUtils.exToNull(() -> SecureUtils.decryptByRsaPrivateKey(req.getPassword()));
         ValidationUtils.throwIfNull(rawPassword, "密码解密失败");
         ValidationUtils.throwIf(!ReUtil
-            .isMatch(RegexConstants.PASSWORD, rawPassword), "密码长度为 8-32 个字符，支持大小写字母、数字、特殊字符，至少包含字母和数字");
+            .isMatch(RegexConstants.PASSWORD, rawPassword), "密码长度为 6-32 个字符，支持大小写字母、数字、特殊字符，至少包含字母和数字");
         req.setPassword(rawPassword);
         return super.add(req);
     }
@@ -110,7 +153,7 @@ public class UserController extends BaseController<UserService, UserResp, UserDe
         String rawNewPassword = ExceptionUtils.exToNull(() -> SecureUtils.decryptByRsaPrivateKey(req.getNewPassword()));
         ValidationUtils.throwIfNull(rawNewPassword, "新密码解密失败");
         ValidationUtils.throwIf(!ReUtil
-            .isMatch(RegexConstants.PASSWORD, rawNewPassword), "密码长度为 8-32 个字符，支持大小写字母、数字、特殊字符，至少包含字母和数字");
+            .isMatch(RegexConstants.PASSWORD, rawNewPassword), "密码长度为 6-32 个字符，支持大小写字母、数字、特殊字符，至少包含字母和数字");
         req.setNewPassword(rawNewPassword);
         baseService.resetPassword(req, id);
     }

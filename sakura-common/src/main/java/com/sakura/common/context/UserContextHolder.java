@@ -22,6 +22,7 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.extra.spring.SpringUtil;
 import com.sakura.starter.core.util.ExceptionUtils;
 import com.sakura.starter.extension.crud.service.CommonUserService;
+import org.apache.ibatis.jdbc.Null;
 
 import java.util.Optional;
 
@@ -142,7 +143,11 @@ public class UserContextHolder {
      * @return 用户 ID
      */
     public static Long getUserId() {
-        return Optional.ofNullable(getContext()).map(UserContext::getId).orElse(null);
+        try {
+            return Optional.ofNullable(getContext()).map(UserContext::getId).orElse(null);
+        }catch ( Exception e){
+            return 0L;
+        }
     }
 
     /**

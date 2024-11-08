@@ -74,6 +74,13 @@ public class CaptchaProperties {
      */
     @Data
     public static class CaptchaSms {
+
+        /**
+         * 万能验证码
+         */
+        private String code;
+
+
         /**
          * 内容长度
          */

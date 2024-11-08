@@ -204,6 +204,7 @@ auth:
       - /auth/user/info
       - /auth/logout
       - /system/user/password
+#      - /system/user/signup
 
 --- ### 服务器配置
 server:
