@@ -200,7 +200,11 @@ public class SceneXmlUtils {
                             f.setAccessible(true);
                             try {
                                 if("web-getcode".equals(f.get(step).toString())){
-                                    aCase.remove(stepElement);
+                                    stepElement.addAttribute("name", "点击登录");
+                                    stepElement.addAttribute("operationType", "点击操作");
+                                    stepElement.addAttribute("operationName", "元素点击");
+                                    stepElement.addAttribute("action", "web-click");
+                                    stepElement.addAttribute("locator", "xpath=(//button[contains(text(),'登录')])[1]");
                                     break;
                                 }else if (f.get(step) != null && StringUtils.isNotBlank(f.get(step).toString()) && !"config".equals(f.getName()) && !"pid".equals(f.getName()) && !"order".equals(f.getName()) && !"id".equals(f.getName())) {
                                     stepElement.addAttribute(f.getName(), f.get(step).toString());
@@ -210,7 +214,6 @@ public class SceneXmlUtils {
                                     if("exe-shell".equals(f.get(step).toString())){
                                         action = f.get(step).toString();
                                     }
-
                                 } else if (f.get(step) != null && StringUtils.isNotBlank(f.get(step).toString()) && "config".equals(f.getName())) {
                                     List<Config> configList = step.getConfig();
                                     for (Config config : configList) {
