@@ -207,6 +207,9 @@ public class SceneXmlUtils {
                                     if("exe-shell".equals(f.get(step).toString())){
                                         action = f.get(step).toString();
                                     }
+                                    if("web-getcode".equals(f.get(step).toString())){
+                                        break;
+                                    }
                                 } else if (f.get(step) != null && StringUtils.isNotBlank(f.get(step).toString()) && "config".equals(f.getName())) {
                                     List<Config> configList = step.getConfig();
                                     for (Config config : configList) {
