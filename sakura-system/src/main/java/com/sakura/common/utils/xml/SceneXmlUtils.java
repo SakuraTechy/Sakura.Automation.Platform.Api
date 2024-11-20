@@ -199,7 +199,7 @@ public class SceneXmlUtils {
                         for (Field f : step.getClass().getDeclaredFields()) {
                             f.setAccessible(true);
                             try {
-                                if("web-getcode".equals(f.get(step).toString())){
+                                if(f.get(step) != null && StringUtils.isNotBlank(f.get(step).toString()) && "web-getcode".equals(f.get(step).toString())){
                                     stepElement.addAttribute("name", "点击登录");
                                     stepElement.addAttribute("operationType", "点击操作");
                                     stepElement.addAttribute("operationName", "元素点击");
