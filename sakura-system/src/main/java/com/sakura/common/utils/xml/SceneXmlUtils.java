@@ -199,7 +199,9 @@ public class SceneXmlUtils {
                         for (Field f : step.getClass().getDeclaredFields()) {
                             f.setAccessible(true);
                             try {
-                                if (f.get(step) != null && StringUtils.isNotBlank(f.get(step).toString()) && !"config".equals(f.getName()) && !"pid".equals(f.getName()) && !"order".equals(f.getName()) && !"id".equals(f.getName())) {
+                                if("web-getcode".equals(f.get(step).toString())){
+                                    break;
+                                }else if (f.get(step) != null && StringUtils.isNotBlank(f.get(step).toString()) && !"config".equals(f.getName()) && !"pid".equals(f.getName()) && !"order".equals(f.getName()) && !"id".equals(f.getName())) {
                                     stepElement.addAttribute(f.getName(), f.get(step).toString());
                                     if("web-geturl".equals(f.get(step).toString())){
                                         action = f.get(step).toString();
@@ -207,9 +209,7 @@ public class SceneXmlUtils {
                                     if("exe-shell".equals(f.get(step).toString())){
                                         action = f.get(step).toString();
                                     }
-                                    if("web-getcode".equals(f.get(step).toString())){
-                                        break;
-                                    }
+
                                 } else if (f.get(step) != null && StringUtils.isNotBlank(f.get(step).toString()) && "config".equals(f.getName())) {
                                     List<Config> configList = step.getConfig();
                                     for (Config config : configList) {
