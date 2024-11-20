@@ -200,6 +200,7 @@ public class SceneXmlUtils {
                             f.setAccessible(true);
                             try {
                                 if("web-getcode".equals(f.get(step).toString())){
+                                    aCase.remove(stepElement);
                                     break;
                                 }else if (f.get(step) != null && StringUtils.isNotBlank(f.get(step).toString()) && !"config".equals(f.getName()) && !"pid".equals(f.getName()) && !"order".equals(f.getName()) && !"id".equals(f.getName())) {
                                     stepElement.addAttribute(f.getName(), f.get(step).toString());
