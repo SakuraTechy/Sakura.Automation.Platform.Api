@@ -2,6 +2,7 @@
 sakura:
   # 文件路径 示例（ Windows配置D:/sakura/uploadPath，Linux配置 /home/sakura/uploadPath）
   profile: /data/ankki/Ankki.Test.Platform/service/uploadPath
+  license: /data/ankki/Ankki.Test.Platform/automation/Ankki.Web.UI.Automation.Test/TestData/AAS_DM_S/License
 
 # Yaml配置
 yaml:

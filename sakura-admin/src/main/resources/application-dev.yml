@@ -2,6 +2,7 @@
 sakura:
   # 文件路径 示例（ Windows配置D:/sakura/uploadPath，Linux配置 /home/sakura/uploadPath）
   profile: D:/King/IDEA/Sakura.Automation.Platform/Sakura.Automation.Platform.Api/sakura-admin/uploadPath
+  license: D:/King/IDEA/Sakura.Automation.Platform/Sakura.Automation.Platform.Api/TestData/AAS_DM_S/License
 
 # Yaml配置
 yaml:

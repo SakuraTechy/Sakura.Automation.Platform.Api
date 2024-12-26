@@ -38,7 +38,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        
+
         <!-- swagger2-->
         <!-- <dependency>
             <groupId>io.springfox</groupId>
@@ -250,6 +250,13 @@
             <artifactId>jackson-dataformat-xml</artifactId>
             <version>2.12.3</version>
         </dependency>
+
+        <dependency>
+            <groupId>space.shenmuyan.org</groupId>
+            <artifactId>ddddocr</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
     </dependencies>
 <build>
     <resources>

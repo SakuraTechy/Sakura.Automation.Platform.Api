@@ -1,14 +1,20 @@
 package com.sakura.web.controller.common;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sakura.common.core.domain.model.ParseCaptchaBody;
+import com.sakura.common.utils.ddddocrUtil;
+import com.sakura.common.utils.file.ImageUtils;
 import io.swagger.annotations.*;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 import com.google.code.kaptcha.Producer;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
@@ -26,9 +32,6 @@ import com.sakura.framework.cache.ConfigUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.FastByteArrayOutputStream;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 验证码操作处理
@@ -151,6 +154,19 @@ public class CaptchaController {
             JsonResult.error(e);
             e.printStackTrace();
         }
+        return JsonResult.success(data);
+    }
+
+    @ApiOperation(value = "解析图片验证码", notes = "解析图片验证码", position = 10, tags = "登录模块")
+    @PostMapping("/parseCaptcha")
+    public JsonResult parseCaptcha(@RequestBody ParseCaptchaBody parseCaptchaBody){
+        JSONObject data = new JSONObject();
+        String pythonPath = parseCaptchaBody.getPythonPath(),
+                pythonScript = parseCaptchaBody.getPythonScript(),
+                captchaUrl = parseCaptchaBody.getCaptchaUrl(),
+                captchaPath = parseCaptchaBody.getCaptchaPath(),
+                captchaSave = parseCaptchaBody.getCaptchaSave();
+        data.put("code",ddddocrUtil.getCode(pythonPath, pythonScript, captchaUrl, captchaPath, captchaSave));
         return JsonResult.success(data);
     }
 }
