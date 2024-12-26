@@ -1,21 +1,27 @@
 package com.sakura.common.utils.file;
 
+import lombok.Getter;
+
+import java.io.*;
+import java.nio.file.Paths;
+import java.util.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.http.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpHeaders;
 
 import com.sakura.common.config.SakuraConfig;
 import com.sakura.common.constant.Constants;
 import com.sakura.common.exception.file.FileNameLengthLimitExceededException;
 import com.sakura.common.exception.file.FileSizeLimitExceededException;
 import com.sakura.common.exception.file.InvalidExtensionException;
-import com.sakura.common.utils.date.DateUtils;
 import com.sakura.common.utils.StringUtils;
 import com.sakura.common.utils.uuid.IdUtils;
-import org.apache.commons.io.FilenameUtils;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.Objects;
 
 /**
  * 文件上传工具类
@@ -37,17 +43,8 @@ public class FileUploadUtils
     /**
      * 默认上传的地址
      */
-    private static String defaultBaseDir = SakuraConfig.getProfile();
-
-    public static void setDefaultBaseDir(String defaultBaseDir)
-    {
-        FileUploadUtils.defaultBaseDir = defaultBaseDir;
-    }
-
-    public static String getDefaultBaseDir()
-    {
-        return defaultBaseDir;
-    }
+    @Getter
+    private static final String defaultBaseDir = SakuraConfig.getProfile();
 
     /**
      * 以默认配置进行文件上传
@@ -56,7 +53,7 @@ public class FileUploadUtils
      * @return 文件名称
      * @throws Exception
      */
-    public static final String upload(MultipartFile file) throws IOException
+    public static String upload(MultipartFile file) throws IOException
     {
         try
         {
@@ -76,7 +73,7 @@ public class FileUploadUtils
      * @return 文件名称
      * @throws IOException
      */
-    public static final String upload(String baseDir, MultipartFile file) throws IOException
+    public static String upload(String baseDir, MultipartFile file) throws IOException
     {
         try
         {
@@ -100,7 +97,7 @@ public class FileUploadUtils
      * @throws IOException 比如读写文件出错时
      * @throws InvalidExtensionException 文件校验异常
      */
-    public static final String upload(String baseDir, MultipartFile file, String[] allowedExtension)
+    public static String upload(String baseDir, MultipartFile file, String[] allowedExtension)
             throws FileSizeLimitExceededException, IOException, FileNameLengthLimitExceededException,
             InvalidExtensionException
     {
@@ -117,6 +114,153 @@ public class FileUploadUtils
         String absPath = getAbsoluteFile(baseDir, fileName).getAbsolutePath();
         file.transferTo(Paths.get(absPath));
         return getPathFileName(baseDir, fileName);
+    }
+
+    /**
+     * 批量文件上传
+     *
+     * @param baseDir 相对应用的基目录
+     * @param files 上传的文件数组
+     * @return 返回上传成功的文件名列表
+     * @throws FileSizeLimitExceededException 如果超出最大大小
+     * @throws FileNameLengthLimitExceededException 文件名太长
+     * @throws IOException 比如读写文件出错时
+     */
+    public static List<String> batchUpload(MultipartFile[] files, String baseDir) throws IOException {
+        List<String> uploadedFileNames = new ArrayList<>();
+        for (MultipartFile file : files) {
+            String fileName = saveFile(file, baseDir);
+            uploadedFileNames.add(fileName);
+        }
+        return uploadedFileNames;
+    }
+
+    /**
+     * 保存文件到指定目录
+     *
+     * @param file       上传的文件
+     * @param uploadDir  上传目录
+     * @param overwrite  是否覆盖已存在的文件
+     * @return 文件保存的完整路径
+     * @throws IOException 如果文件保存失败
+     */
+    public static String saveFile(MultipartFile file, String uploadDir, boolean overwrite) throws IOException {
+        if (file.isEmpty()) {
+            throw new IllegalArgumentException("File is empty");
+        }
+        if (uploadDir.isEmpty()) {
+            throw new IllegalArgumentException("uploadDir is empty");
+        }
+        // 创建上传目录（如果不存在）
+        Path uploadPath = Paths.get(uploadDir);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        // 构建文件路径
+        Path filePath = uploadPath.resolve(Objects.requireNonNull(file.getOriginalFilename()));
+
+        // 检查文件是否已存在
+        if (Files.exists(filePath) && !overwrite) {
+            throw new IOException("File already exists: " + filePath);
+        }
+
+        // 保存文件
+        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+        return filePath.toString().replace("\\", "/");
+    }
+
+    /**
+     * 保存文件到指定目录，覆盖已存在的文件
+     *
+     * @param file       上传的文件
+     * @param uploadDir  上传目录
+     * @return 文件保存的完整路径
+     * @throws IOException 如果文件保存失败
+     */
+    public static String saveFile(MultipartFile file, String uploadDir) throws IOException {
+        return saveFile(file, uploadDir, true);
+    }
+
+    /**
+     * 保存文件到指定目录，使用唯一的文件名
+     *
+     * @param file       上传的文件
+     * @param uploadDir  上传目录
+     * @return 文件保存的完整路径
+     * @throws IOException 如果文件保存失败
+     */
+    public static String saveFileWithUniqueName(MultipartFile file, String uploadDir) throws IOException {
+        if (file.isEmpty()) {
+            throw new IllegalArgumentException("File is empty");
+        }
+
+        // 创建上传目录（如果不存在）
+        Path uploadPath = Paths.get(uploadDir);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        // 生成唯一的文件名
+        String uniqueFileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+        Path filePath = uploadPath.resolve(uniqueFileName);
+
+        // 保存文件
+        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+        return filePath.toString().replace("\\", "/");
+    }
+
+    /**
+     * 从网络下载文件流并保存到指定目录
+     *
+     * @param url           文件下载URL
+     * @param authToken     认证令牌
+     * @param targetDir     保存目标目录
+     * @param filename      文件名
+     * @return              保存的文件的绝对路径
+     * @throws IOException  如果下载或保存文件失败
+     */
+    public static String downloadFile(String url, String authToken, String targetDir, String filename) throws IOException {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", authToken);
+
+        ResponseEntity<byte[]> response = restTemplate.exchange(
+                url,
+                org.springframework.http.HttpMethod.GET,
+                new org.springframework.http.HttpEntity<>(headers),
+                byte[].class
+        );
+        if (response.getStatusCode() == HttpStatus.OK) {
+            byte[] fileData = response.getBody();
+            // 确保目标目录存在
+            Path dirPath = Paths.get(targetDir);
+            Files.createDirectories(dirPath);
+            // 构建文件路径并写入文件
+            Path filePath = dirPath.resolve(filename);
+            if (fileData != null) {
+                Files.write(filePath, fileData);
+            }
+            // 返回文件的绝对路径
+            return filePath.toAbsolutePath().toString().replace("\\", "/");
+        } else {
+            throw new IOException("下载失败: " + response.getStatusCode());
+        }
+    }
+
+    /**
+     * 删除指定路径的文件
+     *
+     * @param filePath 文件路径
+     * @throws IOException 如果文件删除失败
+     */
+    public static void deleteFile(String filePath) throws IOException {
+        Path path = Paths.get(filePath);
+        if (Files.exists(path)) {
+            Files.delete(path);
+        }
     }
 
     /**
@@ -232,8 +376,16 @@ public class FileUploadUtils
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
         if (StringUtils.isEmpty(extension))
         {
-            extension = MimeTypeUtils.getExtension(file.getContentType());
+            extension = MimeTypeUtils.getExtension(Objects.requireNonNull(file.getContentType()));
         }
         return extension;
+    }
+
+    public static void main(String[] args) throws IOException {
+        String BASE_URL = "http://172.23.1.230:8091/certificateApply/download?certificateId=27556";
+        String authorization = "cd7b32c6d2524088bea28bf354cc0d19";
+        String directoryPath = "D:/data/";
+        String filename = "product-AAS-DBSG5000系列.zip";
+        System.out.println(downloadFile(BASE_URL, authorization, directoryPath, filename));
     }
 }

@@ -132,6 +132,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                     "/demo/**",
                     "/common/captchaImage",
+                    "/common/parseCaptcha",
                     "/login", 
                     "/register", 
                     "/forgotPassword",
