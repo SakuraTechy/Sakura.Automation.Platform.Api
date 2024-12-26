@@ -131,9 +131,16 @@ public class SysAutomationServiceImpl extends BaseServiceImpl<SysAutomationMappe
     public PageInfo<SysScene> findPage(SysScene sysScene) {
         sysScene.setPageNum(null);
         sysScene.setPageSize(null);
-        List<SysScene> sysSceneList = super.findList(sysScene);
+        List<SysScene> sysSceneList;
         List<SysScene> sysSceneList1 = new ArrayList<>();
+        if (sysScene.getExecuteResultType().equals("report")) {
+            sysScene.setTestPlanId("");
+            sysSceneList = super.findList(sysScene);
+        }else{
+            sysSceneList = super.findList(sysScene);
+        }
         sysSceneList.forEach((e) -> {
+            e.setCaseMsg("");
             List<TestReport.StatisticAnalysis.UI> recordUiList;
             if (sysScene.getExecuteResultType().equals("debug")) {
                 recordUiList = JSON.parseArray(e.getDebugRecord(), TestReport.StatisticAnalysis.UI.class);
@@ -168,7 +175,7 @@ public class SysAutomationServiceImpl extends BaseServiceImpl<SysAutomationMappe
                 } else if (sysScene.getExecuteResultType().equals("report")) {
                     filterPredicate = record -> {
                         boolean testPlanIdCondition = (StringUtils.isEmpty(sysScene.getTestPlanId()) || StringUtils.isEmpty(record.getTestPlanId()) || record.getTestPlanId().equals(sysScene.getTestPlanId()));
-                        boolean buildNumberCondition = (sysScene.getBuildNumber() == null || record.getBuildNumber() == null || Objects.equals(record.getBuildNumber(), sysScene.getBuildNumber()));
+                        boolean buildNumberCondition = (sysScene.getBuildNumber() != null && record.getBuildNumber() != null && Objects.equals(record.getBuildNumber(), sysScene.getBuildNumber()));
                         boolean executeResultCondition = (StringUtils.containsAnyIgnoreCase(record.getExecuteResult(),sysScene.getExecuteResult().split(", ")) || record.getExecuteResult().equals(sysScene.getExecuteResult()));
                         return testPlanIdCondition && buildNumberCondition && executeResultCondition;
                     };
@@ -176,9 +183,9 @@ public class SysAutomationServiceImpl extends BaseServiceImpl<SysAutomationMappe
                             .filter(filterPredicate)
                             .collect(Collectors.toList());
                     if (!recordUiList.isEmpty()) {
+                        e.setTestRecord(JSON.toJSONString(recordUiList));
                         sysSceneList1.add(e);
                     }
-//                    e.setTestRecord(JSON.toJSONString(recordUiList));
                 } else if (sysScene.getExecuteResultType().equals("debug")) {
                     filterPredicate = record -> {
                         boolean testPlanIdCondition = (StringUtils.isEmpty(sysScene.getTestPlanId()) || StringUtils.isEmpty(record.getTestPlanId()) || record.getTestPlanId().equals(sysScene.getTestPlanId()));

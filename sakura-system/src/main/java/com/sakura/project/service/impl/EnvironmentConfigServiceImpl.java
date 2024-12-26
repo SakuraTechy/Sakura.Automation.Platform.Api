@@ -700,7 +700,7 @@ public class EnvironmentConfigServiceImpl extends BaseServiceImpl<EnvironmentCon
             int status = super.get(environmentConfig.getId()).getStatus();
             String projectId = super.get(environmentConfig.getId()).getProjectId();
             for (YamlConfig.Project.Environment.Version version : versionList) {
-                if (version.getName().equals(environmentConfig.getVersions().getName()) && version.getDelFlag()==0 && version.getStatus().equals(environmentConfig.getVersions().getStatus())) {
+                if (version.getName().equals(environmentConfig.getVersions().getName()) && version.getDescription().equals(environmentConfig.getVersions().getDescription()) && version.getDelFlag()==0 && version.getStatus().equals(environmentConfig.getVersions().getStatus())) {
                     throw new BizException(SysErrorCode.B_PROJECT_Environment_VersionNameAlreadyExist);
                 }
                 if (version.getId().equals(environmentConfig.getVersions().getId())) {
@@ -1107,6 +1107,7 @@ public class EnvironmentConfigServiceImpl extends BaseServiceImpl<EnvironmentCon
     @Transactional(readOnly = false)
     @Override
     public boolean editServer(EnvironmentConfig environmentConfig) {
+        ProjectConfig projectConfig = new ProjectConfig();
         String serverConfig = super.get(environmentConfig.getId()).getServerConfig();
         List<YamlConfig.Project.Environment.Server> serverList = JSON.parseArray(serverConfig, YamlConfig.Project.Environment.Server.class);
         for (YamlConfig.Project.Environment.Server server : serverList) {
@@ -1118,6 +1119,15 @@ public class EnvironmentConfigServiceImpl extends BaseServiceImpl<EnvironmentCon
                 server.setUserName(environmentConfig.getServers().getUserName());
                 server.setPassWord(environmentConfig.getServers().getPassWord());
                 server.setDescription(environmentConfig.getServers().getDescription());
+                List<YamlConfig.Project.Environment.Version.Config> configList = environmentConfig.getServers().getConfigList();
+                for (YamlConfig.Project.Environment.Version.Config config : configList) {
+                    if(config.getParamsName().equals("前端域名")){
+                        String projectId = super.get(environmentConfig.getId()).getProjectId();
+                        projectConfig.setId(projectId);
+                        projectConfig.setLastDomain(config.getParamsValue());
+                        environmentConfig.setLastDomain(config.getParamsValue());
+                    }
+                }
                 server.setConfigList(environmentConfig.getServers().getConfigList());
                 server.setStatus(environmentConfig.getServers().getStatus());
                 server.setUpdateByName(SecurityUtils.getLoginUser().getUser().getName());
@@ -1139,6 +1149,7 @@ public class EnvironmentConfigServiceImpl extends BaseServiceImpl<EnvironmentCon
 //            collect.sort((x, y) -> Integer.compare(x.getIndex(), y.getIndex()));
             collect.sort((x, y) -> x.getHost().compareTo(y.getHost()));
             environmentConfig.setServerList(collect);
+            projectConfigService.edit(projectConfig);
             return edit(environmentConfig);
         }
     }
