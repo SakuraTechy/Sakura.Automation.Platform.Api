@@ -20,12 +20,18 @@ public class WeChatMessage {
     @Data
     public static class Markdown {
         private String orderId;
-        private String name;
+        private String userName;
         private String productChName;
         private String productVersionNumber;
         private String typeName;
         private String machineCodeMd;
         private String uploadFileName;
+
+        private String makeUserName;
+        private String certificateState;
+        private String makeTime;
+        private String authorizationDeadlineTime;
+        private String maintenanceWarnDate;
         private String fileName;
     }
 
@@ -46,7 +52,7 @@ public class WeChatMessage {
 //            System.out.println("Sending message: " + content);
 //            content = Pattern.compile("&gt;").matcher(content).replaceAll(">");
             String content = "产品证书一键自动化制作成功，<font color=\\\"warning\\\">共1个</font>，详情如下，请相关同事注意。 \n" +
-                    ">申请姓名：<font color=\\\"info\\\">"+ message.getMarkdown().getName() + "</font>\n " +
+                    ">申请姓名：<font color=\\\"info\\\">"+ message.getMarkdown().getUserName() + "</font>\n " +
                     ">产品名称：<font color=\\\"comment\\\">"+ message.getMarkdown().getProductChName() + "</font>\n" +
                     ">产品版本：<font color=\\\"comment\\\">" + message.getMarkdown().getProductVersionNumber() + "</font>\n " +
                     ">产品型号：<font color=\\\"comment\\\">" + message.getMarkdown().getTypeName() + "</font>\n" +
@@ -120,14 +126,27 @@ public class WeChatMessage {
 
     private static void appendDynamicContentBlock(StringBuilder content, WeChatMessage.Markdown markdown) {
         content.append(">申请编号：<font color=\\\"info\\\">").append(markdown.getOrderId()).append("</font>\n");
-        content.append(">申请姓名：<font color=\\\"comment\\\">").append(markdown.getName()).append("</font>\n");
+        content.append(">申请姓名：<font color=\\\"comment\\\">").append(markdown.getUserName()).append("</font>\n");
         content.append(">产品名称：<font color=\\\"comment\\\">").append(markdown.getProductChName()).append("</font>\n");
         content.append(">产品版本：<font color=\\\"comment\\\">").append(markdown.getProductVersionNumber()).append("</font>\n");
         content.append(">产品型号：<font color=\\\"comment\\\">").append(markdown.getTypeName()).append("</font>\n");
         content.append(">证书编码：<font color=\\\"comment\\\">").append(markdown.getMachineCodeMd()).append("</font>\n");
         content.append(">机器码名：<font color=\\\"comment\\\">").append(markdown.getUploadFileName()).append("</font>\n");
-        content.append(">产品证书：[点击下载](").append(markdown.getFileName()).append(")\n");
-        content.append(">制作时间：<font color=\\\"comment\\\">").append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())).append("</font>\n");
+        content.append(">制作人名：<font color=\\\"comment\\\">").append(markdown.getMakeUserName()).append("</font>\n");
+        if(markdown.getCertificateState().equals("制作成功")){
+            content.append(">制作状态：<font color=\\\"info\\\">").append(markdown.getCertificateState()).append("</font>\n");
+        }else{
+            content.append(">制作状态：<font color=\\\"warning\\\">").append(markdown.getCertificateState()).append("</font>\n");
+        }
+        content.append(">制作时间：<font color=\\\"comment\\\">").append(markdown.getMakeTime()).append("</font>\n");
+        content.append(">授权期限：<font color=\\\"comment\\\">").append(markdown.getAuthorizationDeadlineTime()).append("</font>\n");
+        content.append(">维保期限：<font color=\\\"comment\\\">").append(markdown.getMaintenanceWarnDate()).append("</font>\n");
+        if(markdown.getCertificateState().equals("制作成功")){
+            content.append(">产品证书：[点击下载](").append(markdown.getFileName()).append(")\n");
+        }else{
+            content.append(">产品证书：<font color=\\\"warning\\\">").append("证书制作失败，请重新申请制作！").append("</font>\n");
+        }
+//        content.append(">制作时间：<font color=\\\"comment\\\">").append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())).append("</font>\n");
     }
 
     public static void main(String[] args) {
@@ -147,7 +166,7 @@ public class WeChatMessage {
         message.setUrl(WEBHOOK_URL);
         message.setMsgtype(msgtype);
         WeChatMessage.Markdown markdown = new WeChatMessage.Markdown();
-        markdown.setName("content");
+        markdown.setUserName("content");
         markdown.setProductChName("content");
         markdown.setProductVersionNumber("content");
         markdown.setTypeName("content");
