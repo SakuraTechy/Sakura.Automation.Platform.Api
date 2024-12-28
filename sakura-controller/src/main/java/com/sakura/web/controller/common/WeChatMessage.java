@@ -97,7 +97,7 @@ public class WeChatMessage {
             // 构建消息体
             StringBuilder content = new StringBuilder();
             List<WeChatMessage.Markdown> markdownList = message.getMarkdownList();
-            content.append("一键自动化制作产品证书成功，<font color=\\\"warning\\\">共").append(markdownList.size()).append("个</font>，详情如下，请相关同事注意。\n");
+            content.append("一键自动化制作产品证书成功，<font color=\\\"warning\\\">共").append(markdownList.size()).append("个</font>，详情如下，请相关同事查收下载。\n");
             for (WeChatMessage.Markdown markdown : markdownList) {
                 if(markdownList.size() > 1){
                     content.append("-------------------------------------------------------------------\n");
@@ -133,7 +133,7 @@ public class WeChatMessage {
         content.append(">证书编码：<font color=\\\"comment\\\">").append(markdown.getMachineCodeMd()).append("</font>\n");
         content.append(">机器码名：<font color=\\\"comment\\\">").append(markdown.getUploadFileName()).append("</font>\n");
         content.append(">制作人名：<font color=\\\"comment\\\">").append(markdown.getMakeUserName()).append("</font>\n");
-        if(markdown.getCertificateState().equals("制作成功")){
+        if(markdown.getCertificateState().equals("成功")){
             content.append(">制作状态：<font color=\\\"info\\\">").append(markdown.getCertificateState()).append("</font>\n");
         }else{
             content.append(">制作状态：<font color=\\\"warning\\\">").append(markdown.getCertificateState()).append("</font>\n");
@@ -141,7 +141,7 @@ public class WeChatMessage {
         content.append(">制作时间：<font color=\\\"comment\\\">").append(markdown.getMakeTime()).append("</font>\n");
         content.append(">授权期限：<font color=\\\"comment\\\">").append(markdown.getAuthorizationDeadlineTime()).append("</font>\n");
         content.append(">维保期限：<font color=\\\"comment\\\">").append(markdown.getMaintenanceWarnDate()).append("</font>\n");
-        if(markdown.getCertificateState().equals("制作成功")){
+        if(markdown.getCertificateState().equals("成功")){
             content.append(">产品证书：[点击下载](").append(markdown.getFileName()).append(")\n");
         }else{
             content.append(">产品证书：<font color=\\\"warning\\\">").append("证书制作失败，请重新申请制作！").append("</font>\n");

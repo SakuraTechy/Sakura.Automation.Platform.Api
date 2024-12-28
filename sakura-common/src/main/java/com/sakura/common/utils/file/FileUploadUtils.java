@@ -266,7 +266,7 @@ public class FileUploadUtils
     /**
      * 编码文件名
      */
-    public static final String extractFilename(MultipartFile file)
+    public static String extractFilename(MultipartFile file)
     {
         String fileName = file.getOriginalFilename();
         String extension = getExtension(file);
@@ -275,7 +275,7 @@ public class FileUploadUtils
         return fileName;
     }
 
-    public static final File getAbsoluteFile(String uploadDir, String fileName) throws IOException
+    public static File getAbsoluteFile(String uploadDir, String fileName) throws IOException
     {
         File desc = new File(uploadDir + File.separator + fileName);
 
@@ -289,12 +289,10 @@ public class FileUploadUtils
         return desc;
     }
 
-    public static final String getPathFileName(String uploadDir, String fileName) throws IOException
-    {
+    public static String getPathFileName(String uploadDir, String fileName) {
         int dirLastIndex = SakuraConfig.getProfile().length() + 1;
         String currentDir = StringUtils.substring(uploadDir, dirLastIndex);
-        String pathFileName = Constants.RESOURCE_PREFIX + "/" + currentDir + "/" + fileName;
-        return pathFileName;
+        return Constants.RESOURCE_PREFIX + "/" + currentDir + "/" + fileName;
     }
 
     /**
