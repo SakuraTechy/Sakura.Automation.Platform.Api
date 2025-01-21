@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.quartz.test.mapper.TimedTaskMapper">
+
+    <sql id="timedTaskColumns">
+        a.test_plan_id as "testPlanId",
+        a.type as "type",
+        a.id as "id",
+        a.name as "name",
+        a.description as "description",
+        a.cron_expression as "cronExpression",
+        a.misfire_policy as "misfirePolicy",
+        a.concurrent as "concurrent",
+        a.status as "status",
+        a.next_exec_time as "nextExecTime",
+        a.create_by as "createBy",
+        a.create_by_name as "createByName",
+        a.create_dept as "createDept",
+        a.create_time as "createTime",
+        a.update_by as "updateBy",
+        a.update_by_name as "updateByName",
+        a.update_time as "updateTime",
+        a.update_ip as "updateIp",
+        a.version as "version",
+        a.remark as "remark",
+        a.del_flag as "delFlag"
+    </sql>
+
+    <sql id="timedTaskJoins">
+
+    </sql>
+
+    <select id="get" resultType="TimedTask">
+        SELECT
+        <include refid="timedTaskColumns"/>
+        FROM timed_task a
+        <include refid="timedTaskJoins"/>
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="findList" resultType="TimedTask">
+        SELECT
+        <include refid="timedTaskColumns"/>
+        FROM timed_task a
+        <include refid="timedTaskJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test="testPlanId != null and testPlanId != ''">
+                and a.test_plan_id like concat('%', #{testPlanId}, '%')
+            </if>
+            <if test="type != null and type != ''">
+                and a.type like concat('%', #{type}, '%')
+            </if>
+            <if test="name != null and name != ''">
+                and a.name like concat('%', #{name}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                and a.status like concat('%', #{status}, '%')
+            </if>
+            <if test="description != null and description != ''">
+                and a.description like concat('%', #{description}, '%')
+            </if>
+            <if test="createByName != null and createByName != ''">
+                and a.create_by_name like concat('%', #{createByName}, '%')
+            </if>
+            <if test="createStartTime != null and createStartTime != '' and createEndTime != null and createEndTime != ''">
+                and a.create_time between #{createStartTime} and #{createEndTime}
+            </if>
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="getLogList" resultType="TimedTask">
+        SELECT
+            b.job_log_id as id,
+            a.test_plan_id as testPlanId,
+            a.type as type,
+            a.`name` as name,
+            b.`status` as status,
+            b.cron_expression as cronExpression,
+            b.create_time as createTime
+        FROM
+            timed_task a
+        INNER JOIN sys_job_log b
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            and a.`name` = b.job_name
+            <if test="id != null and id != ''">
+                and b.job_log_id like concat('%', #{id}, '%')
+            </if>
+            <if test="testPlanId != null and testPlanId != ''">
+                and a.test_plan_id like concat('%', #{testPlanId}, '%')
+            </if>
+            <if test="type != null and type != ''">
+                and a.type like concat('%', #{type}, '%')
+            </if>
+            <if test="name != null and name != ''">
+                and a.name like concat('%', #{name}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                and b.status like concat('%', #{status}, '%')
+            </if>
+            <if test="createStartTime != null and createStartTime != '' and createEndTime != null and createEndTime != ''">
+                and b.create_time between #{createStartTime} and #{createEndTime}
+            </if>
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findListWithUnique" resultType="TimedTask">
+        SELECT a.id FROM timed_task a
+        <include refid="timedTaskJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test="id != null and id != '' and id != 'null'">
+                AND a.id = #{id}
+            </if>
+            <if test="name != null and name != '' and name != 'null'">
+                AND a.name = #{name}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO timed_task(
+                              test_plan_id,
+                              type,
+                              id,
+                              name,
+                              description,
+                              cron_expression,
+                              misfire_policy,
+                              concurrent,
+                              status,
+                              create_by,
+                              create_by_name,
+                              create_dept,
+                              create_time,
+                              update_by,
+                              update_by_name,
+                              update_time,
+                              update_ip,
+                              version,
+                              remark,
+                              del_flag
+        )
+        VALUES (
+                #{testPlanId},
+                #{type},
+                #{id},
+                #{name},
+                #{description},
+                #{cronExpression},
+                #{misfirePolicy},
+                #{concurrent},
+                #{status},
+                #{createBy},
+                #{createByName},
+                #{createDept},
+                #{createTime},
+                #{updateBy},
+                #{updateByName},
+                #{updateTime},
+                #{updateIp},
+                #{version},
+                #{remark},
+                #{delFlag}
+               )
+    </insert>
+
+    <update id="update">
+        UPDATE timed_task
+        <set>
+            <if test="testPlanId != null and testPlanId != '' and testPlanId != 'null'">test_plan_id = #{testPlanId},</if>
+            <if test="type != null and type != '' and type != 'null'">type = #{type},</if>
+            <if test="name != null and name != '' and name != 'null'">name = #{name},</if>
+            <if test="description != null and description != '' and description != 'null'">description = #{description},</if>
+            <if test="cronExpression != null and cronExpression != '' and cronExpression != 'null'">cron_expression = #{cronExpression},</if>
+            <if test="misfirePolicy != null and misfirePolicy != '' and misfirePolicy != 'null'">misfire_policy = #{misfirePolicy},</if>
+            <if test="concurrent != null and concurrent != '' and concurrent != 'null'">concurrent = #{concurrent},</if>
+            <if test="status != null and status != '' and status != 'null'">status = #{status},</if>
+            <if test="nextExecTime != null and nextExecTime != '' and nextExecTime != 'null'">next_exec_time = #{nextExecTime},</if>
+            remark = #{remark},
+            update_by = #{updateBy},
+            update_by_name = #{updateByName},
+            update_time = #{updateTime},
+            update_ip = #{updateIp},
+            version = version + 1
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateStatus">
+        UPDATE timed_task
+        SET status         = #{status},
+            update_by      = #{updateBy},
+            update_by_name = #{updateByName},
+            update_time    = #{updateTime},
+            update_ip      = #{updateIp},
+            version        = version + 1
+        WHERE id = #{id}
+    </update>
+
+
+    <update id="delete">
+        UPDATE timed_task
+        SET del_flag = #{DEL_FLAG_DELETE}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteTimedTaskByIds">
+        UPDATE timed_task SET del_flag = #{DEL_FLAG_DELETE} WHERE id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
