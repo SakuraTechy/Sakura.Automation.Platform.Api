@@ -275,10 +275,10 @@
     <modules>
         <module>sakura-admin</module>
         <module>sakura-framework</module>
-        <module>sakura-system</module>
-        <module>sakura-quartz</module>
-        <module>sakura-generator</module>
         <module>sakura-common</module>
+        <module>sakura-quartz</module>
+        <module>sakura-system</module>
+        <module>sakura-generator</module>
         <module>sakura-controller</module>
     </modules>
     <packaging>pom</packaging>

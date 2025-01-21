@@ -149,7 +149,10 @@
         <include refid="nodeColumns"/>
         FROM sys_node a
         <include refid="SysNodeJoins"/>
-        WHERE a.id = #{id}
+        WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+        <if test="id != null and id != ''">
+            AND a.id = #{id}
+        </if>
     </select>
 
     <select id="getFind" resultType="sysNode">
