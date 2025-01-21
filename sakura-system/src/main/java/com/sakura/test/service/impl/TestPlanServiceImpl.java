@@ -181,10 +181,10 @@ public class TestPlanServiceImpl extends BaseServiceImpl<TestPlanMapper, TestPla
                     throw new BizException(SysErrorCode.B_TEST_PLAN_DeleteFailed, id);
                 }
                 testPlan.setId(id);
-                super.remove(testPlan);
+                return super.remove(testPlan);
             }
         }
-        return true;
+        return false;
     }
 
     /**
