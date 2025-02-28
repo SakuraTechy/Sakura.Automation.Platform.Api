@@ -178,7 +178,7 @@ public class SysAutomationController {
      */
     @PreAuthorize("@ss.hasPermi('ui:automation:list')")
     @PostMapping("/list")
-    public JsonResult<PageInfo> list(@RequestBody @Validated SysScene sysScene, HttpServletRequest request, HttpServletResponse response){
+    public JsonResult<Object> list(@RequestBody @Validated SysScene sysScene, HttpServletRequest request, HttpServletResponse response){
 //        sysScene.setPage(new PageDomain(request,response));
 //        PageDomain page = new PageDomain();
 //        page.setPageNum(sysScene.getPageNum());
@@ -193,7 +193,7 @@ public class SysAutomationController {
 //        if (StringUtils.inStringIgnoreCase(sysScene.getPrincipalName(),"全部")) {
 //            sysScene.setPrincipalName("");
 //        }
-        return JsonResult.success(sysAutomationService.findPage(sysScene));
+        return JsonResult.success(Objects.isNull(sysScene.getPageNum())?sysAutomationService.findList(sysScene):sysAutomationService.findPage(sysScene));
     }
 
     /**
@@ -445,16 +445,16 @@ public class SysAutomationController {
     @Log(title = "场景信息记录")
     @PostMapping("/copyCase")
     public JsonResult copyCase(@RequestBody @Validated SceneCaseVo sceneCaseVo) {
-        SysSceneCase Case = sysAutomationService.getCase(sceneCaseVo);
+        SysSceneCase sysSceneCase = sysAutomationService.getCase(sceneCaseVo);
         String id = sceneCaseVo.getSysSceneCase().getCopyId();
-        Case.setId(id);
-        Case.setName(sceneCaseVo.getSysSceneCase().getName());
-        Case.setRemark(sceneCaseVo.getSysSceneCase().getRemark());
-        Case.getStepList().forEach(setp->{
+        sysSceneCase.setId(id);
+        sysSceneCase.setName(sceneCaseVo.getSysSceneCase().getName());
+        sysSceneCase.setRemark(sceneCaseVo.getSysSceneCase().getRemark());
+        sysSceneCase.getStepList().forEach(setp->{
             setp.setPid(id);
             setp.setId(IdUtils.simpleUUID());
         });
-        sceneCaseVo.setSysSceneCase(Case);
+        sceneCaseVo.setSysSceneCase(sysSceneCase);
         sysAutomationService.addCase(sceneCaseVo);
         HashMap<String,String> map = new HashMap<>(16);
         map.put("id",id);
