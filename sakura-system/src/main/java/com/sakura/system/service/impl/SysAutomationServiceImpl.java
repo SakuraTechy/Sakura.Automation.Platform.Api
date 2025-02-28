@@ -95,7 +95,13 @@ public class SysAutomationServiceImpl extends BaseServiceImpl<SysAutomationMappe
 
     @Override
     public List<SysScene> findList(SysScene sysScene) {
-        return super.findList(sysScene);
+        List<SysScene> sysSceneList = super.findList(sysScene);
+        List<SysScene> sysSceneList1 = new ArrayList<>();
+        sysSceneList.forEach((SysScene) -> {
+            SysScene.setCaseMsg("");
+            sysSceneList1.add(SysScene);
+        });
+        return sysSceneList1;
     }
 
     /**
@@ -1063,7 +1069,7 @@ public class SysAutomationServiceImpl extends BaseServiceImpl<SysAutomationMappe
      */
     @Override
     public boolean addCase(SceneCaseVo sceneCaseVo) {
-        String id = sceneCaseVo.getId();
+        String id = sceneCaseVo.getCopyId();
         SysScene sysScene = mapper.get(id);
         String caseMsg = sysScene.getCaseMsg();
         if (!RegexUtli.isClassMethod(sceneCaseVo.getSysSceneCase().getId())) {

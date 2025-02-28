@@ -22,6 +22,59 @@
       <module name="ankki-generator" target="1.8" />
       <module name="ankki-quartz" target="1.8" />
       <module name="ankki-system" target="1.8" />
+      <module name="sakura-extension" target="1.8" />
+      <module name="sakura-job" target="15" />
+      <module name="sakura-job-server" target="1.8" />
+      <module name="sakura-open" target="14" />
+      <module name="sakura-plugins" target="1.8" />
+      <module name="sakura-starter" target="17" />
+      <module name="sakura-starter-api-doc" target="17" />
+      <module name="sakura-starter-auth" target="17" />
+      <module name="sakura-starter-auth-justauth" target="17" />
+      <module name="sakura-starter-auth-satoken" target="17" />
+      <module name="sakura-starter-cache" target="17" />
+      <module name="sakura-starter-cache-jetcache" target="17" />
+      <module name="sakura-starter-cache-redisson" target="17" />
+      <module name="sakura-starter-cache-springcache" target="17" />
+      <module name="sakura-starter-captcha" target="17" />
+      <module name="sakura-starter-captcha-behavior" target="17" />
+      <module name="sakura-starter-captcha-graphic" target="17" />
+      <module name="sakura-starter-core" target="17" />
+      <module name="sakura-starter-data" target="17" />
+      <module name="sakura-starter-data-core" target="17" />
+      <module name="sakura-starter-data-mf" target="17" />
+      <module name="sakura-starter-data-mp" target="17" />
+      <module name="sakura-starter-dependencies" target="1.5" />
+      <module name="sakura-starter-extension" target="17" />
+      <module name="sakura-starter-extension-crud" target="17" />
+      <module name="sakura-starter-extension-crud-core" target="17" />
+      <module name="sakura-starter-extension-crud-mf" target="17" />
+      <module name="sakura-starter-extension-crud-mp" target="17" />
+      <module name="sakura-starter-extension-datapermission" target="17" />
+      <module name="sakura-starter-extension-datapermission-core" target="17" />
+      <module name="sakura-starter-extension-datapermission-mp" target="17" />
+      <module name="sakura-starter-extension-tenant" target="17" />
+      <module name="sakura-starter-extension-tenant-core" target="17" />
+      <module name="sakura-starter-extension-tenant-mp" target="17" />
+      <module name="sakura-starter-file" target="17" />
+      <module name="sakura-starter-file-excel" target="17" />
+      <module name="sakura-starter-json" target="17" />
+      <module name="sakura-starter-json-jackson" target="17" />
+      <module name="sakura-starter-log" target="17" />
+      <module name="sakura-starter-log-core" target="17" />
+      <module name="sakura-starter-log-interceptor" target="17" />
+      <module name="sakura-starter-messaging" target="17" />
+      <module name="sakura-starter-messaging-mail" target="17" />
+      <module name="sakura-starter-messaging-websocket" target="17" />
+      <module name="sakura-starter-security" target="17" />
+      <module name="sakura-starter-security-crypto" target="17" />
+      <module name="sakura-starter-security-limiter" target="17" />
+      <module name="sakura-starter-security-mask" target="17" />
+      <module name="sakura-starter-security-password" target="17" />
+      <module name="sakura-starter-storage" target="17" />
+      <module name="sakura-starter-storage-local" target="17" />
+      <module name="sakura-starter-web" target="17" />
+      <module name="sakura-webapi" target="16" />
     </bytecodeTargetLevel>
   </component>
 </project>
