@@ -13,7 +13,7 @@ public class SceneCaseVo {
      * 场景ID
      */
     private String id;
-
+    private String copyId;
     /**
      * 用例信息
      */
