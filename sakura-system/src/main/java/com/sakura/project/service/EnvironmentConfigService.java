@@ -136,6 +136,13 @@ public interface EnvironmentConfigService extends BaseService<EnvironmentConfig>
     boolean removeServer(EnvironmentConfig environmentConfig);
 
     /**
+     * 测试服务器配置信息
+     * @param environmentConfig 环境配置
+     * @return 结果
+     */
+    boolean testServer(EnvironmentConfig environmentConfig);
+
+    /**
      * 新增数据库配置信息
      * @param environmentConfig 环境配置
      * @return 结果
@@ -155,4 +162,12 @@ public interface EnvironmentConfigService extends BaseService<EnvironmentConfig>
      * @return 结果
      */
     boolean removeDataBase(EnvironmentConfig environmentConfig);
+
+    /**
+     * 测试数据库配置信息
+     *
+     * @param environmentConfig 环境配置
+     * @return 结果
+     */
+    boolean testDataBase(EnvironmentConfig environmentConfig);
 }

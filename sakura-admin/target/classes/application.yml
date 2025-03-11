@@ -19,7 +19,7 @@ sakura:
 # Spring配置
 spring:
   application:
-    name: ${APP_NAME:unnamed}
+    name: sakura
   # 资源信息
   messages:
     # 国际化资源文件路径
@@ -266,3 +266,5 @@ logging:
   level:
     com.sakura: info
     org.springframework: info
+
+#debug: true
