@@ -7,6 +7,9 @@ import com.sakura.common.exception.BizException;
 import com.sakura.common.utils.date.DateUtils;
 import com.sakura.common.utils.SecurityUtils;
 import com.sakura.common.utils.StringUtils;
+import com.sakura.common.utils.db.DataBaseUtil;
+import com.sakura.common.utils.ssh.SSHUtil;
+import com.sakura.common.utils.ssh.FreeSshUtil;
 import com.sakura.common.utils.uuid.IdUtils;
 import com.sakura.common.utils.yaml.YamlConfig;
 import com.sakura.common.utils.yaml.YmlUtil;
@@ -1191,6 +1194,23 @@ public class EnvironmentConfigServiceImpl extends BaseServiceImpl<EnvironmentCon
     }
 
     /**
+     * 测试服务器配置信息
+     *
+     * @param environmentConfig 环境配置
+     * @return 结果
+     */
+    @Transactional(readOnly = false)
+    @Override
+    public boolean testServer(EnvironmentConfig environmentConfig) {
+        if(environmentConfig.getServers().getType().equals("Linux")){
+            return SSHUtil.testConnection(environmentConfig.getServers().getHost(), environmentConfig.getServers().getPort(), environmentConfig.getServers().getUserName(), environmentConfig.getServers().getPassWord());
+        }else if(environmentConfig.getServers().getType().equals("Windows")){
+            return FreeSshUtil.testConnection(environmentConfig.getServers().getHost(), environmentConfig.getServers().getUserName(), environmentConfig.getServers().getPassWord());
+        }
+        return false;
+    }
+
+    /**
      * 新增数据库配置信息
      *
      * @param environmentConfig 环境配置
@@ -1318,5 +1338,21 @@ public class EnvironmentConfigServiceImpl extends BaseServiceImpl<EnvironmentCon
         });
         environmentConfig.setDataBaseList(dataBaseList);
         return edit(environmentConfig);
+    }
+
+    /**
+     * 测试数据库配置信息
+     *
+     * @param environmentConfig 环境配置
+     * @return 结果
+     */
+    @Transactional(readOnly = false)
+    @Override
+    public boolean testDataBase(EnvironmentConfig environmentConfig) {
+        if(environmentConfig.getDataBases().getType().equals("MongoDB")){
+            return DataBaseUtil.testConnection(environmentConfig.getDataBases().getUrl());
+        }else{
+            return DataBaseUtil.testConnection(environmentConfig.getDataBases().getDriver(), environmentConfig.getDataBases().getUrl(), environmentConfig.getDataBases().getUserName(), environmentConfig.getDataBases().getPassWord());
+        }
     }
 }

@@ -94,7 +94,6 @@ public class SysEnvironmentController {
      */
     @PostMapping("/validate")
     public JsonResult validate(@RequestBody @Validated SysDataBaseConfig sysDataBaseConfig) {
-
         return JsonResult.status(sysEnvironmentService.verifyDataSourceConn(sysDataBaseConfig));
     }
 }
