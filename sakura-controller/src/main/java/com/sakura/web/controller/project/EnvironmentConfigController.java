@@ -251,6 +251,19 @@ public class EnvironmentConfigController extends BaseController {
     }
 
     /**
+     * 测试服务器配置信息
+     */
+    @PreAuthorize("@ss.hasPermi('project:environmentConfig:serverConfig:edit')")
+    @Log(title = "环境配置-测试服务器配置信息", businessType = BusinessType.UPDATE)
+    @PostMapping("/testServer")
+    public R testServer(@RequestBody @Validated EnvironmentConfig environmentConfig) {
+        if(environmentConfigService.testServer(environmentConfig)){
+            return R.success("服务器连接成功！");
+        }
+        return R.error("服务器连接失败，请检查环境及用户名密码是否正确且开启远程连接权限！");
+    }
+
+    /**
      * 新增数据库配置信息
      */
     @PreAuthorize("@ss.hasPermi('project:environmentConfig:dataBaseConfig:add')")
@@ -278,6 +291,19 @@ public class EnvironmentConfigController extends BaseController {
     @DeleteMapping("/removeDataBase")
     public R removeDataBase(@RequestBody @Validated EnvironmentConfig environmentConfig) {
         return R.status(environmentConfigService.removeDataBase(environmentConfig));
+    }
+
+    /**
+     * 测试数据库配置信息
+     */
+    @PreAuthorize("@ss.hasPermi('project:environmentConfig:dataBaseConfig:edit')")
+    @Log(title = "环境配置-测试服务器配置信息", businessType = BusinessType.UPDATE)
+    @PostMapping("/testDataBase")
+    public R testDataBase(@RequestBody @Validated EnvironmentConfig environmentConfig) {
+        if(environmentConfigService.testDataBase(environmentConfig)){
+            return R.success("数据库连接成功！");
+        }
+        return R.error("数据库连接失败，请检查环境及用户名密码是否正确且开启防火墙端口及远程访问！");
     }
 
     /**
